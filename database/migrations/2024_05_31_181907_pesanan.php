@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeban extends Migration
+class Pesanan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateBeban extends Migration
      */
     public function up()
     {
-        Schema::create('beban', function (Blueprint $table) {
+        //
+        Schema::create('pesanan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kode');
-            $table->string('keterangan');
-            $table->integer('biaya');
+            $table->string('nama_pelaanggan');
+            $table->string('jenis');
+            $table->string('jasa');
             $table->integer('jumlah');
             $table->integer('total');
+            $table->date('tglmasuk');
+            $table->date('tglkeluar');
             $table->timestamps();
         });
     }
@@ -31,6 +35,6 @@ class CreateBeban extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('beban');
+        //
     }
 }
