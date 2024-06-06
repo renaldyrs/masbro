@@ -3,49 +3,124 @@
 @section('content')
 @include('layouts.partial.sidebar_admin')
 
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div class="bg-white dark:bg-zinc-800 min-h-screen">
-    <header class="bg-blue-500 dark:bg-zinc-900 text-white py-4 px-6">
-        <h1 class="text-2xl font-semibold">Dashboard Admnin</h1>
-    </header>
-    <main class="p-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-zinc-100 dark:bg-zinc-700 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-semibold mb-2">Total Revenue</h2>
-                <p class="text-2xl font-bold">$10,000</p>
-            </div>
-            <div class="bg-zinc-100 dark:bg-zinc-700 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-semibold mb-2">Expenses</h2>
-                <p class="text-2xl font-bold">$5,000</p>
-            </div>
-            <div class="bg-zinc-100 dark:bg-zinc-700 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-semibold mb-2">Net Income</h2>
-                <p class="text-2xl font-bold">$5,000</p>
-            </div>
-            <div class="bg-zinc-100 dark:bg-zinc-700 p-4 rounded-lg shadow-md">
-                <h2 class="text-lg font-semibold mb-2">Profit Margin</h2>
-                <p class="text-2xl font-bold">50%</p>
-            </div>
-        </div>
-    </main>
-</div>
-  </body>
-</html>
 
-    @endsection
-	@push('scripts')
-	@include('layouts.partial.script')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
-	@endpush
+<div id="content">
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+
+
+            <div class="col-lg-12">
+
+
+                <main class="p-4">
+
+
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">Dashboard Admin</h1>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        </div>
+
+                        <!-- Content Row -->
+                        <div class="row">
+
+                            <!-- Earnings (Monthly) Card Example -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Pesanan PerHari</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">15 /Hari</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Earnings (Monthly) Card Example -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    Pesanan Perbulan</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">15 /Bulan</div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Earnings (Monthly) Card Example -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    Pendapatan Bulanan
+                                                </div>
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col-auto">
+                                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                                            Rp. 500.000
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pending Requests Card Example -->
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                    Pesanan Selesai</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+
+
+
+            </main>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+@endsection
+@push('scripts')
+    @include('layouts.partial.script')
+
+
+@endpush

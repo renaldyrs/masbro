@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMetodepembayaran extends Migration
+class AddJenisIdToPesanan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateMetodepembayaran extends Migration
      */
     public function up()
     {
-        Schema::create('metodepembayaran', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('jenispem');
-            $table->string('namapem');
-            $table->string('kodepem');
-            $table->timestamps();
+        Schema::table('pesanan', function (Blueprint $table) {
+            //
         });
     }
 
@@ -29,6 +25,9 @@ class CreateMetodepembayaran extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('metodepembayaran');
+        Schema::table('pesanan', function (Blueprint $table) {
+            //
+            $table->foreign('jenis_id')->references('id')->on('jenis');
+        });
     }
 }

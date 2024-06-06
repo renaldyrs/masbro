@@ -12,7 +12,7 @@ class AdminController extends Controller
     //
     public function haladmin()
     {
-        return view('halamanadmin');
+        return view('Admin\halamanadmin');
     }
 
     public function datapelanggan()
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
         $pelanggan = DB::table('pelanggan')->get();
 
-        return view('Admin\haldatapelanggan', ['pelanggan' => $pelanggan]);
+        return back()->with('success', 'Data Pelanggan Berhasil Disimpan');
     }
 
     public function hapuspel($id)
@@ -198,7 +198,9 @@ class AdminController extends Controller
     {
 
         DB::table('metodepembayaran')->insert([
-            'metodepembayaran' => $request->metode
+            'jenispem' => $request->jenispem,
+            'namapem' => $request->namapem,
+            'kodepem' => $request->kodepem
         ]);
 
         $metode = DB::table('metodepembayaran')->get();
@@ -209,7 +211,7 @@ class AdminController extends Controller
     public function hapusmetode($id)
     {
 
-        DB::table('metodepembayaran')->where('id', $id)->delete();
+        DB::table('metodepembayaran')->where('idpem', $id)->delete();
 
         $metode = DB::table('metodepembayaran')->get();
 

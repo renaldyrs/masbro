@@ -17,11 +17,10 @@ use App\Http\Controllers\LoginController;
 Route::get('/welcome', function () {
     return view('welcome');
 });
-
+//auth
 Route::get('/login',[LoginController::class, 'login']);
 Auth::routes();
 Route::get('/','App\HTTP\Controllers\HomeController@home');
-// Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //halaman admin
 Route::get('/halaman-admin','App\HTTP\Controllers\AdminController@haladmin');
@@ -51,6 +50,10 @@ Route::get('/data-metode/edit/{id}','App\HTTP\Controllers\AdminController@editme
 Route::post('/data-metode/update','App\HTTP\Controllers\AdminController@dmetode');
 //pesanan
 Route::get('/pesanan','App\HTTP\Controllers\PesananController@halpesanan');
+Route::post('/pesanan/tambah','App\HTTP\Controllers\PesananController@tambahpesanan');
+Route::get('/pesanan/hapus/{id}','App\HTTP\Controllers\PesananController@hapuspesanan');
+Route::get('/pesanan/edit/{id}','App\HTTP\Controllers\PesananController@editpesanan');
+Route::post('/pesanan/update','App\HTTP\Controllers\PesananController@dipesanan');
 
 
 
@@ -58,11 +61,3 @@ Route::get('/halaman-utama','App\HTTP\Controllers\utamacontroller@halutama');
 // Halaman Data
 // Data Pelanggan
 
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

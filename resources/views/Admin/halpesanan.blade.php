@@ -17,44 +17,60 @@
             <div class="col-lg-12">
 
 
-                <form action="/data-pelanggan/tambah" method="post">
+                <form action="/pesanan/tambah" method="post">
                     {{ csrf_field() }}
 
                     <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Kode Transaksi</label>
-                        <input type="text" class="form-control" name="nama" id="nama" required="required"
-                            placeholder="Nama">
-                    </div>
-
-                    <div class="col-md-4">
                         <label for="exampleFormControlInput1" class="form-label">Nama Pelanggan</label>
-                        <input type="text" class="form-control" name="alamat" id="alamat" required="required"
-                            placeholder="Alamat">
+                        <select name="" id="" class="form-select" required="required">
+                            <option >Nama Pelanggan</option>
+                            @foreach ($pelanggan as $p)
+                                <option value="{{$p->id}}">{{$p->nama}}</option>
+                            @endforeach
+
+                        </select>
+
                     </div>
 
                     <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" name="nohp" id="nohp" required="required"
-                            placeholder="No HP">
+                        <label for="exampleFormControlInput1" class="form-label">Jenis</label>
+                        <select name="" id="" class="form-select" required="required">
+                            <option >Nama Pelanggan</option>
+                            @foreach ($jenis as $j)
+                                <option value="{{$j->id}}">{{$j->jenis}}</option>
+                            @endforeach
+
+                        </select>
+                        
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="exampleFormControlInput1" class="form-label">Jasa</label>
+                        <input type="text" class="form-control" name="jasa" required="required" placeholder="jasa">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
+                        <input type="text" class="form-control" name="jumlah" required="required" placeholder="jumlah">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="exampleFormControlInput1" class="form-label">Total</label>
+                        <input type="text" class="form-control" name="total" required="required" placeholder="total">
                     </div>
 
                     <div class="col-md-2">
                         <label for="exampleFormControlInput1" class="form-label">Tanggal Masuk</label>
-                        <input type="date" class="form-control" name="nohp" id="nohp" required="required"
+                        <input type="date" class="form-control" name="" id="tglmasuk" required="required"
                             placeholder="No HP">
                     </div>
 
                     <div class="col-md-2">
                         <label for="exampleFormControlInput1" class="form-label">Tanggal Keluar</label>
-                        <input type="date" class="form-control" name="nohp" id="nohp" required="required"
+                        <input type="date" class="form-control" name="" id="tglselesai" required="required"
                             placeholder="No HP">
                     </div>
 
-                    <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" name="nohp" id="nohp" required="required"
-                            placeholder="No HP">
-                    </div>
 
 
                     <div class="col-md-4 mt-4">
@@ -66,50 +82,44 @@
                 <table class="table table-bordered table-striped mt-4">
                     <thead>
                         <tr>
-                            <th width="1%">No Transaksi</th>
-                            <th width="1%">Alamat</th>
-                            <th width="1%">No HP</th>
-                            <th width="1%">Aksi</th>
+                            <th width="1%">kode pesanan</th>
+                            <th width="1%">nama pelanggan</th>
+                            <th width="1%">jenis</th>
+                            <th width="1%">jasa</th>
+                            <th width="1%">Jumlah</th>
+                            <th width="1%">Total</th>
+                            <th width="1%">tglmasuk</th>
+                            <th width="1%">tglselesai</th>
+                            <th width="1%">aksi</th>
+
                         </tr>
 
                     </thead>
                     <tbody>
+                        @foreach ($pesanan as $p)
 
+                            <tr>
+                                <td>{{ $p->kode_pesanan }}</td>
+                                <td>{{ $p->nama_pelanggan }}</td>
+                                <td>{{ $p->jenis }}</td>
+                                <td>{{ $p->jasa }}</td>
+                                <td>{{ $p->jumlah }}</td>
+                                <td>{{ $p->total }}</td>
+                                <td>{{ $p->tglmasuk }}</td>
+                                <td>{{ $p->tglselesai }}</td>
+                                <td>
+                                    <a class="btn btn-danger" href="/pesanan/hapus/{{ $p->id_pesanan }}">HAPUS</a>
+                                </td>
+                            </tr>
+
+                        @endforeach
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
 </div>
-</div>
-</div>
-            <script type="text/javascript">
-                $(function () {
-                    $(".datepicker").datepicker({
-                        format: 'yyyy-mm-dd',
-                        autoclose: true,
-                        todayHighlight: true,
-                    });
-                });
-            </script>
-
-            <script type="text/javascript">
-                $(function () {
-                    $(".datepicker").datepicker({
-                        format: 'yyyy-mm-dd',
-                        autoclose: true,
-                        todayHighlight: true,
-                    });
-                });
-            </script>
-
-            <script>
-                $(function () {
-                    $("#date").datepicker({
-                        dateFormat: "yy-mm-dd"
-                    });
-                });
-            </script>
-
-            @endsection
-            @push('scripts')
-                @include('layouts.partial.script')
-            @endpush
+@endsection
+@push('scripts')
+    @include('layouts.partial.script')
+@endpush

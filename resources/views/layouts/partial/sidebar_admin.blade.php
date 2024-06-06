@@ -19,7 +19,7 @@
         <div class="container-fluid">
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand" href="#">Logo</a>
+                <a class="navbar-brand" href="Admin/halaman-admin">Laundry MASBRO</a>
                 <ul class="nav navbar-nav ml-auto">
 
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
@@ -36,17 +36,13 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">Pesanan</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Link</a></li>
-                                    <li><a class="dropdown-item" href="#">Another link</a></li>
-                                    <li><a class="dropdown-item" href="#">A third link</a></li>
+                                    <li><a class="dropdown-item" href="pesanan">Pesanan</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">Laporan</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">Link</a></li>
-                                    <li><a class="dropdown-item" href="#">Another link</a></li>
-                                    <li><a class="dropdown-item" href="#">A third link</a></li>
                                 </ul>
                             </li>
                         
