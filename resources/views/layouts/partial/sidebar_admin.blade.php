@@ -15,7 +15,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" >
         <div class="container-fluid">
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

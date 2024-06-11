@@ -26,9 +26,6 @@ class PesananController extends Controller
     public function tambahpesanan(Request $request)
     {
 
-        
-
-
         $pesan = DB::table('pesanan')->latest()->first();
         $kodepesan = "MAS";
         $kodetahun = date('y');

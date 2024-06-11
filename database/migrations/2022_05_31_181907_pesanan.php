@@ -15,18 +15,20 @@ class Pesanan extends Migration
     {
         //
         Schema::create('pesanan', function (Blueprint $table) {
-            $table->increments('idpesanan');
+            $table->increments('id');
             $table->integer('jenis_id')->unsigned();
             $table->integer('pelanggan_id')->unsigned();
             $table->integer('metode_id')->unsigned();
             $table->string('kode_pesanan');
             $table->string('nama_pelanggan');
             $table->string('jenis');
-            $table->string('jasa');
+            $table->string('kg');
+            $table->string('harga');
             $table->integer('jumlah');
             $table->integer('total');
-            $table->date('tglmasuk');
+            $table->date('tgltransaksi');
             $table->date('tglselesai');
+            $table->string('status');
             $table->string('statuspembayaran');
 
             $table->timestamps();

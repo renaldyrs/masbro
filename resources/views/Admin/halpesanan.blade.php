@@ -3,122 +3,225 @@
 @include('layouts.partial.sidebar_admin')
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="js/bootstrap-datepicker.id.js"></script>
-    <link rel="stylesheet" href="css/datepicker.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
 </head>
 
-<div id="content">
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
+<div class="content">
+
+    <div class="col-lg-12">
+
+        <div class="card card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-black">Form Tambah Data Metode Pemabayaran</h4>
+            </div>
+
+            <div class="card-body">
+                <form action="{{url('tambah-pesanan')}}" method="POST">
+                    @csrf
+
+                    <div class="form-body">
+
+                        <div class="row p-t-20">
+
+                            <div class="col-md-3">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Nama Pelanggan</label>
+                                    <select name="nama" class="form-control ">
+                                        <option value="">--Nama Pelanggan--</option>
+                                        @foreach ($pelanggan as $p)
+
+                                            <option value="$p->id">{{ $p->nama }}</option>
+                                        @endforeach
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Jenis Pembayaran</label>
+                                    <select name="jenisbayar" class="form-control" id="">
+                                        <option value="">--Jenis Pemabayaran--</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Transfer">Transfer</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Status Pembayaran</label>
+                                    <select name="statuspembayaran" class="form-control" id="">
+                                        <option value="">--Status Pemabayaran--</option>
+                                        <option value="Belum Bayar">Belum Bayar</option>
+                                        <option value="Sudah Bayar">Sudah Bayar</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Jenis</label>
+                                    <select name="nama" class="form-control ">
+                                        <option value="">--Jenis Jasa--</option>
+                                        @foreach ($jenis as $j)
+                                            <option value="$j->id">{{ $j->jenis }}</option>
+                                        @endforeach
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Berat Pakaian</label>
+                                    <input type="text" name="alamat" class="form-control">
+
+                                </div>
+                            </div>
 
 
-            <div class="col-lg-12">
 
 
-                <form action="/pesanan/tambah" method="post">
-                    {{ csrf_field() }}
 
-                    <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Nama Pelanggan</label>
-                        <select name="" id="" class="form-select" required="required">
-                            <option >Nama Pelanggan</option>
-                            @foreach ($pelanggan as $p)
-                                <option value="{{$p->id}}">{{$p->nama}}</option>
-                            @endforeach
+                        </div>
 
-                        </select>
+                        <div class="row">
+
+                        </div>
+
+
 
                     </div>
 
-                    <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Jenis</label>
-                        <select name="" id="" class="form-select" required="required">
-                            <option >Nama Pelanggan</option>
-                            @foreach ($jenis as $j)
-                                <option value="{{$j->id}}">{{$j->jenis}}</option>
-                            @endforeach
-
-                        </select>
-                        
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Jasa</label>
-                        <input type="text" class="form-control" name="jasa" required="required" placeholder="jasa">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Jumlah</label>
-                        <input type="text" class="form-control" name="jumlah" required="required" placeholder="jumlah">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label for="exampleFormControlInput1" class="form-label">Total</label>
-                        <input type="text" class="form-control" name="total" required="required" placeholder="total">
-                    </div>
-
-                    <div class="col-md-2">
-                        <label for="exampleFormControlInput1" class="form-label">Tanggal Masuk</label>
-                        <input type="date" class="form-control" name="" id="tglmasuk" required="required"
-                            placeholder="No HP">
-                    </div>
-
-                    <div class="col-md-2">
-                        <label for="exampleFormControlInput1" class="form-label">Tanggal Keluar</label>
-                        <input type="date" class="form-control" name="" id="tglselesai" required="required"
-                            placeholder="No HP">
-                    </div>
 
 
-
-                    <div class="col-md-4 mt-4">
-                        <button type="submit" class="btn btn-primary">Simpan data</button>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
+                            Tambah Data</button>
+                        <button type="reset" class="btn btn-danger">Cancel</button>
                     </div>
 
                 </form>
-
-                <table class="table table-bordered table-striped mt-4">
-                    <thead>
-                        <tr>
-                            <th width="1%">kode pesanan</th>
-                            <th width="1%">nama pelanggan</th>
-                            <th width="1%">jenis</th>
-                            <th width="1%">jasa</th>
-                            <th width="1%">Jumlah</th>
-                            <th width="1%">Total</th>
-                            <th width="1%">tglmasuk</th>
-                            <th width="1%">tglselesai</th>
-                            <th width="1%">aksi</th>
-
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        @foreach ($pesanan as $p)
-
-                            <tr>
-                                <td>{{ $p->kode_pesanan }}</td>
-                                <td>{{ $p->nama_pelanggan }}</td>
-                                <td>{{ $p->jenis }}</td>
-                                <td>{{ $p->jasa }}</td>
-                                <td>{{ $p->jumlah }}</td>
-                                <td>{{ $p->total }}</td>
-                                <td>{{ $p->tglmasuk }}</td>
-                                <td>{{ $p->tglselesai }}</td>
-                                <td>
-                                    <a class="btn btn-danger" href="/pesanan/hapus/{{ $p->id_pesanan }}">HAPUS</a>
-                                </td>
-                            </tr>
-
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
         </div>
+
     </div>
+
+    <div class="col-lg-12">
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    <a href="{{url('tambah-pesanan')}}" class="btn btn-primary">Tambah</a>
+                </h4>
+                <h6>Info :
+                    <code> Untuk Mengubah Status Order & Pembayaran Klik Pada Bagian 'Action' Masing-masing.</code>
+                </h6>
+                <div class="table-responsive m-t-0">
+                    <table id="myTable" class="table display table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>No Resi</th>
+                                <th>TGL Transaksi</th>
+                                <th>Customer</th>
+                                <th>Status Laundry</th>
+                                <th>Payment</th>
+                                <th>Jenis</th>
+                                <th>Total</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- {{dd($order)}} --}}
+                            <?php $no = 1; ?>
+                            @foreach ($pesanan as $p)
+                                <tr>
+                                    <td>{{$no}}</td>
+                                    <td style="font-weight:bold; font-color:black">{{$item->invoice}}</td>
+                                    <td>{{carbon\carbon::parse($item->tgl_transaksi)->format('d-m-y')}}</td>
+                                    <td>{{$item->customer}}</td>
+                                    <td>
+                                        @if ($item->status_order == 'Done')
+                                            <span class="label label-success">Selesai</span>
+                                        @elseif($item->status_order == 'Delivery')
+                                            <span class="label label-primary">Diambil</span>
+                                        @elseif($item->status_order == 'Process')
+                                            <span class="label label-info">Diproses</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($item->status_payment == 'Success')
+                                            <span class="label label-success">Lunas</span>
+                                        @elseif($item->status_payment == 'Pending')
+                                            <span class="label label-info">Pending</span>
+                                        @endif
+                                    </td>
+                                    <td>{{$item->price->jenis}}</td>
+                                    <td>
+                                        {{Rupiah::getRupiah($item->harga_akhir)}}
+                                    </td>
+                                    <td>
+                                        @if ($item->status_payment == 'Pending')
+                                            <a class="btn btn-sm btn-danger" style="color:white" data-id-update="{{$item->id}}"
+                                                id="updateStatus">Bayar</a>
+                                            <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
+                                                style="color:white">Invoice</a>
+                                        @elseif($item->status_payment == 'Success')
+                                            @if ($item->status_order == 'Process')
+                                                <a class="btn btn-sm btn-info" style="color:white" data-id-update="{{$item->id}}"
+                                                    id="updateStatus">Selesai</a>
+                                                <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
+                                                    style="color:white">Invoice</a>
+                                            @elseif($item->status_order == 'Done')
+                                                <a class="btn btn-sm btn-info" style="color:white" data-id-update="{{$item->id}}"
+                                                    id="updateStatus">Diambil</a>
+                                                <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
+                                                    style="color:white">Invoice</a>
+                                            @elseif($item->status_order == 'Delivery')
+                                                <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
+                                                    style="color:white">Invoice</a>
+                                            @endif
+                                        @endif
+                                    </td>
+                                </tr>
+                                <?php    $no++; ?>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </div>
+
+
+@endsection
+@section('script')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(document).on('change', 'product', function () {
+            console.log("uhuy");
+
+            var id = $(this).val();
+            console.log(id);
+        });
+
+    });
+
+
+</script>
 @endsection
 @push('scripts')
     @include('layouts.partial.script')

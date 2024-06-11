@@ -17,7 +17,8 @@ class CreatePelanggan extends Migration
             $table->increments('id');
             $table->string('nama');
             $table->string('alamat');
-            $table->integer('nohp');
+            $table->bigInteger('nohp');
+            $table->string('kelamin');
             $table->timestamps();
         });
     }
