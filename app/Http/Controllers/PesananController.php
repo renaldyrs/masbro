@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+
 use Redirect;
 use App\Models\Pesanan;
 use App\Models\pelanggan;
@@ -50,11 +51,14 @@ class PesananController extends Controller
         $pesanan->kode_pesanan = $kode;
         $pesanan->nama_pelanggan = $request->nama_pelanggan;
         $pesanan->jenis = $request->jenis;
-        $pesanan->jasa = $request->jasa;
+        $pesanan->kg = $request->kg;
+        $pesanan->harga = $request->harga;
         $pesanan->jumlah = $request->jumlah;
         $pesanan->total = $request->total;
-        $pesanan->tglmasuk = $tglmasuk;
+        // $pesanan->tgltransaksi = $tgltransaksi;
         $pesanan->tglselesai = $tglselesai;
+        $pesanan->status = $request->status;
+        $pesanan->statuspembayaran = $request->statuspembayaran;
         $pesanan->save();
 
         return redirect('pesanan');
@@ -69,6 +73,13 @@ class PesananController extends Controller
 
         return redirect('pesanan');
 
+    }
+
+    function pilih_jenis(){
+        $id_jenis=$_POST['id_jenis'];
+        $h= "SELECT harga as harga_a FROM jenis WHERE id='$id_jenis'";
+        $harga = $this->db->query($h)->row_array();
+        echo json_encode($harga);
     }
 
 

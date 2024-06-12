@@ -13,6 +13,7 @@ class CreateTableJenis extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('jenis');
         Schema::create('jenis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('jenis');
@@ -30,6 +31,6 @@ class CreateTableJenis extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_jenis');
+        Schema::dropIfExists('jenis');
     }
 }

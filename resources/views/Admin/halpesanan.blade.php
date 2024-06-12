@@ -24,7 +24,7 @@
 
                     <div class="form-body">
 
-                        <div class="row p-t-20">
+                        <div class="row p-t-18">
 
                             <div class="col-md-3">
                                 <div class="form-group has-success">
@@ -67,10 +67,10 @@
                             <div class="col-md-3">
                                 <div class="form-group has-success">
                                     <label class="control-label">Jenis</label>
-                                    <select name="nama" class="form-control ">
+                                    <select name="id" id="id" onChange="pilihjenis()" class="form-control ">
                                         <option value="">--Jenis Jasa--</option>
                                         @foreach ($jenis as $j)
-                                            <option value="$j->id">{{ $j->jenis }}</option>
+                                            <option value="{{$j->id}}">{{ $j->jenis }}</option>
                                         @endforeach
 
                                     </select>
@@ -78,13 +78,34 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group has-success">
-                                    <label class="control-label">Berat Pakaian</label>
-                                    <input type="text" name="alamat" class="form-control">
-
+                                    <label class="control-label">harga</label>
+                                    <input type="text" name="harga" id="harga" class="form-control">
                                 </div>
                             </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Berat Pakaian</label>
+                                    <input type="text" name="kg" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Total Bayar</label>
+                                    <input type="text" name="total" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group has-success">
+                                    <label class="control-label">Berat Pakaian</label>
+                                    <input type="date" name="kg" class="form-control">
+                                </div>
+                            </div>
+
 
 
 
@@ -207,19 +228,26 @@
 
 @endsection
 @section('script')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-
-        $(document).on('change', 'product', function () {
-            console.log("uhuy");
-
-            var id = $(this).val();
-            console.log(id);
+    
+    $document.ready(function() {
+        function pilihjenis() {
+        var id_jenis = document.getElementById('id').value;
+        $.ajax({
+            url: "PesananController/pilih_jenis",
+            data:"id_jenis="+id_jenis,
+            method: "post",
+            dataType: "json",
+            success: function(data) {
+                $("#harga").val(data.harga_a);
+            }
         });
-
-    });
-
+        }
+    $('#id').on("change",pilihjenis);
+    })
+    
+    
 
 </script>
 @endsection
