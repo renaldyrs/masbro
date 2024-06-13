@@ -11,6 +11,7 @@
 
 <div class="content">
 
+
     <div class="col-lg-12">
 
         <div class="card card-outline-info">
@@ -185,7 +186,6 @@
                                             <span class="label label-info">Pending</span>
                                         @endif
                                     </td>
-                                    <td>{{$item->price->jenis}}</td>
                                     <td>
                                         {{Rupiah::getRupiah($item->harga_akhir)}}
                                     </td>
@@ -229,27 +229,7 @@
 @endsection
 @section('script')
 <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script type="text/javascript">
-    
-    $document.ready(function() {
-        function pilihjenis() {
-        var id_jenis = document.getElementById('id').value;
-        $.ajax({
-            url: "PesananController/pilih_jenis",
-            data:"id_jenis="+id_jenis,
-            method: "post",
-            dataType: "json",
-            success: function(data) {
-                $("#harga").val(data.harga_a);
-            }
-        });
-        }
-    $('#id').on("change",pilihjenis);
-    })
-    
-    
 
-</script>
 @endsection
 @push('scripts')
     @include('layouts.partial.script')
