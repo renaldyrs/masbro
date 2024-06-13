@@ -3,161 +3,73 @@
 @include('layouts.partial.sidebar_admin')
 
 <head>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 
 <div class="content">
-
 
     <div class="col-lg-12">
 
         <div class="card card-outline-info">
             <div class="card-header">
-                <h4 class="m-b-0 text-black">Form Tambah Data Metode Pemabayaran</h4>
+                <h4 class="m-b-0 text-black">Trnsaksi Pesanan</h4>
             </div>
 
             <div class="card-body">
-                <form action="{{url('tambah-pesanan')}}" method="POST">
-                    @csrf
+                <div class="row">
+                    <div class="col-18">
 
-                    <div class="form-body">
+                        
+                        <div class="col-lg-6">
+                        <h4 class="card-title">
+                            <a href="{{url('tambah-pesanan')}}" class="btn btn-primary" data-toggle="modal" data-target="#ModalPesanan">Tambah</a>
+                        </h4>
+                        <h6>Info :
+                            <code> Untuk Mengubah Status Order & Pembayaran Klik Pada Bagian 'Action' Masing-masing.</code>
+                        </h6>
+                        </div>
 
-                        <div class="row p-t-18">
-
-                            <div class="col-md-3">
-                                <div class="form-group has-success">
-                                    <label class="control-label">Nama Pelanggan</label>
-                                    <select name="nama" class="form-control ">
-                                        <option value="">--Nama Pelanggan--</option>
-                                        @foreach ($pelanggan as $p)
-
-                                            <option value="$p->id">{{ $p->nama }}</option>
-                                        @endforeach
-
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group has-success">
-                                    <label class="control-label">Jenis Pembayaran</label>
-                                    <select name="jenisbayar" class="form-control" id="">
-                                        <option value="">--Jenis Pemabayaran--</option>
-                                        <option value="Cash">Cash</option>
-                                        <option value="Transfer">Transfer</option>
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group has-success">
-                                    <label class="control-label">Status Pembayaran</label>
-                                    <select name="statuspembayaran" class="form-control" id="">
-                                        <option value="">--Status Pemabayaran--</option>
-                                        <option value="Belum Bayar">Belum Bayar</option>
-                                        <option value="Sudah Bayar">Sudah Bayar</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
-                                <div class="form-group has-success">
-                                    <label class="control-label">Jenis</label>
-                                    <select name="id" id="id" onChange="pilihjenis()" class="form-control ">
-                                        <option value="">--Jenis Jasa--</option>
-                                        @foreach ($jenis as $j)
-                                            <option value="{{$j->id}}">{{ $j->jenis }}</option>
-                                        @endforeach
-
-                                    </select>
-
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group has-success">
-                                    <label class="control-label">harga</label>
-                                    <input type="text" name="harga" id="harga" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group has-success">
-                                    <label class="control-label">Berat Pakaian</label>
-                                    <input type="text" name="kg" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group has-success">
-                                    <label class="control-label">Total Bayar</label>
-                                    <input type="text" name="total" class="form-control">
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group has-success">
-                                    <label class="control-label">Berat Pakaian</label>
-                                    <input type="date" name="kg" class="form-control">
-                                </div>
-                            </div>
-
-
-
-
-
+                        <div class="col-lg-2">
+                            <label>Filter By Date</label>
+                            <input type="date" name="tgltransaksi" value="{{date('Y-m-d')}}" class="form-control">
 
                         </div>
 
-                        <div class="row">
+                        <div class="col-lg-2">
+                            <label>Filter By Date</label>
+                            <select name="statuspembayaran" id="" class="form-control">\
+                                <option value="">Select Status</option>
+                                <option value="Sudah Bayar">Belum Bayar</option>
+                                <option value="Belum Bayar">Sudah Bayar</option>
+
+                            </select>
 
                         </div>
 
-
-
+                        <div class="col-lg-1 mt-4">
+                          
+    
+                            <button type="submit" class="btn btn-primary form-control" class="">Filter</button>
+                        </div>
+                    
                     </div>
-
-
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
-                            Tambah Data</button>
-                        <button type="reset" class="btn btn-danger">Cancel</button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-lg-12">
-
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="{{url('tambah-pesanan')}}" class="btn btn-primary">Tambah</a>
-                </h4>
-                <h6>Info :
-                    <code> Untuk Mengubah Status Order & Pembayaran Klik Pada Bagian 'Action' Masing-masing.</code>
-                </h6>
+                </div>
+                
                 <div class="table-responsive m-t-0">
                     <table id="myTable" class="table display table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>No Resi</th>
+                                <th>Kode Pesanan</th>
                                 <th>TGL Transaksi</th>
-                                <th>Customer</th>
-                                <th>Status Laundry</th>
-                                <th>Payment</th>
+                                <th>Pelanggan</th>
+                                <th>Jenis Pembayaran</th>
+                                <th>Status Pembayaran</th>
                                 <th>Jenis</th>
+                                <th>Harga</th>
+                                <th>jumlah</th>
                                 <th>Total</th>
+                                <th>TGL Selesai</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -167,50 +79,40 @@
                             @foreach ($pesanan as $p)
                                 <tr>
                                     <td>{{$no}}</td>
-                                    <td style="font-weight:bold; font-color:black">{{$item->invoice}}</td>
-                                    <td>{{carbon\carbon::parse($item->tgl_transaksi)->format('d-m-y')}}</td>
-                                    <td>{{$item->customer}}</td>
+                                    <td style="font-weight:bold; font-color:black">
+                                        {{$p->kode_pesanan}}
+                                    </td>
+
                                     <td>
-                                        @if ($item->status_order == 'Done')
-                                            <span class="label label-success">Selesai</span>
-                                        @elseif($item->status_order == 'Delivery')
-                                            <span class="label label-primary">Diambil</span>
-                                        @elseif($item->status_order == 'Process')
-                                            <span class="label label-info">Diproses</span>
-                                        @endif
+                                        {{carbon\carbon::parse($p->tgltransaksi)->format('d-m-y')}}
+                                    </td>
+
+                                    <td>
+                                        {{$p->nama_pelanggan}}
+                                    </td>
+                                        
+                                    <td>
+                                        {{$p->status}}
                                     </td>
                                     <td>
-                                        @if ($item->status_payment == 'Success')
-                                            <span class="label label-success">Lunas</span>
-                                        @elseif($item->status_payment == 'Pending')
-                                            <span class="label label-info">Pending</span>
-                                        @endif
+                                        {{$p->statuspembayaran}}
+                                    </td>
+                                    <td>{{$p->jenis}}</td>
+                                    <td>
+                                        {{$p->harga}}
                                     </td>
                                     <td>
-                                        {{Rupiah::getRupiah($item->harga_akhir)}}
+                                        {{$p->jumlah}}
                                     </td>
                                     <td>
-                                        @if ($item->status_payment == 'Pending')
-                                            <a class="btn btn-sm btn-danger" style="color:white" data-id-update="{{$item->id}}"
-                                                id="updateStatus">Bayar</a>
-                                            <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
-                                                style="color:white">Invoice</a>
-                                        @elseif($item->status_payment == 'Success')
-                                            @if ($item->status_order == 'Process')
-                                                <a class="btn btn-sm btn-info" style="color:white" data-id-update="{{$item->id}}"
-                                                    id="updateStatus">Selesai</a>
-                                                <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
-                                                    style="color:white">Invoice</a>
-                                            @elseif($item->status_order == 'Done')
-                                                <a class="btn btn-sm btn-info" style="color:white" data-id-update="{{$item->id}}"
-                                                    id="updateStatus">Diambil</a>
-                                                <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
-                                                    style="color:white">Invoice</a>
-                                            @elseif($item->status_order == 'Delivery')
-                                                <a href="{{url('invoice-kar', $item->id)}}" class="btn btn-sm btn-warning"
-                                                    style="color:white">Invoice</a>
-                                            @endif
-                                        @endif
+                                        {{$p->total}}
+                                    </td>
+                                    <td>
+                                        {{carbon\carbon::parse($p->tglselesai)->format('d-m-y')}}
+                                    </td>
+                                    <td>
+                                        <a href="{{url('update-pesanan/'.$p->id)}}" class="btn btn-primary">Edit</a>
+                                        <a href="{{url('hapus-pesanan/'.$p->id)}}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php    $no++; ?>
@@ -225,7 +127,7 @@
 
 </div>
 
-
+@include('Admin.Modal.pesanan')
 @endsection
 @section('script')
 <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

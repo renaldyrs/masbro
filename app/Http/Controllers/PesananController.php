@@ -45,17 +45,20 @@ class PesananController extends Controller
         $kode = $kodepesan . $kodetahun . $kodemonth . $kodeday . $kodeurut;
 
         $tglselesai = $kodetahun . "-" . $kodemonth . "-" . $kodeday + 3;
-        $tglmasuk = $kodetahun . "-" . $kodemonth . "-" . $kodeday;
+        $tgltransaksi = date("Y-m-d");
+
+        $jumlah=$request->jumlah;
+        $harga= $request->harga;
+        $total=$jumlah*$harga;
 
         $pesanan = new Pesanan;
         $pesanan->kode_pesanan = $kode;
         $pesanan->nama_pelanggan = $request->nama_pelanggan;
         $pesanan->jenis = $request->jenis;
-        $pesanan->kg = $request->kg;
         $pesanan->harga = $request->harga;
         $pesanan->jumlah = $request->jumlah;
-        $pesanan->total = $request->total;
-        // $pesanan->tgltransaksi = $tgltransaksi;
+        $pesanan->total = $total;
+        $pesanan->tgltransaksi = $tgltransaksi;
         $pesanan->tglselesai = $tglselesai;
         $pesanan->status = $request->status;
         $pesanan->statuspembayaran = $request->statuspembayaran;
@@ -64,17 +67,25 @@ class PesananController extends Controller
         return redirect('pesanan');
     }
 
-    public function hapuspesanan($id_pesanan)
+    public function hapuspesanan($id)
     {
 
-        DB::table('pesanan')->where('id_pesanan', $id_pesanan)->delete();
-
-        $pelanggan = DB::table('pesanan')->get();
+        DB::table('pesanan')->where('id', $id)->delete();
 
         return redirect('pesanan');
 
     }
 
+    public function updatestatus($id, Request $request){
+
+        $status = "Sudah Bayar";
+        DB::table('pesanan')->where('id', $id)->update([
+            
+            'statuspembayaran'=> $status
+        ]);
+        return redirect('pesanan');
+
+    }
     function pilih_jenis(){
         $id_jenis=$_POST['id_jenis'];
         $h= "SELECT harga as harga_a FROM jenis WHERE id='$id_jenis'";

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,17 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 //auth
-Route::get('/login',[LoginController::class, 'login']);
+Route::get('/',[LoginController::class, 'login']);
 Auth::routes();
 Route::get('/','App\HTTP\Controllers\HomeController@home');
+
+//Login Register
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post'); 
+Route::get('registration', [AuthController::class, 'registration'])->name('register');
+Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post'); 
+Route::get('dashboard', [AuthController::class, 'dashboard']); 
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 //halaman admin
 Route::get('/halaman-admin','App\HTTP\Controllers\AdminController@haladmin');
@@ -49,11 +58,11 @@ Route::get('hapus-metode/{id}','App\HTTP\Controllers\AdminController@hapusmetode
 Route::get('edit-metode/{id}','App\HTTP\Controllers\AdminController@editmetode');
 Route::post('update-metode','App\HTTP\Controllers\AdminController@updatemetode');
 //pesanan
-Route::get('/pesanan','App\HTTP\Controllers\PesananController@halpesanan');
-Route::post('/pesanan/tambah','App\HTTP\Controllers\PesananController@tambahpesanan');
-Route::get('/pesanan/hapus/{id}','App\HTTP\Controllers\PesananController@hapuspesanan');
-Route::get('/pesanan/edit/{id}','App\HTTP\Controllers\PesananController@editpesanan');
-Route::post('/pesanan/update','App\HTTP\Controllers\PesananController@dipesanan');
+Route::get('pesanan','App\HTTP\Controllers\PesananController@halpesanan');
+Route::post('tambah-pesanan','App\HTTP\Controllers\PesananController@tambahpesanan');
+Route::get('hapus-pesanan/{id}','App\HTTP\Controllers\PesananController@hapuspesanan');
+Route::get('edit-pesanan/{id}','App\HTTP\Controllers\PesananController@editpesanan');
+Route::post('update-pesanan','App\HTTP\Controllers\PesananController@updatestatus');
 
 // halaman pemilik
 Route::get('/halaman-pemilik','App\HTTP\Controllers\PemilikController@halpemilik');

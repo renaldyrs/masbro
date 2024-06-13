@@ -22,12 +22,11 @@ class Pesanan extends Migration
             $table->string('kode_pesanan');
             $table->string('nama_pelanggan');
             $table->string('jenis');
-            $table->string('kg');
             $table->string('harga');
             $table->integer('jumlah');
             $table->integer('total');
             $table->date('tgltransaksi');
-            // $table->date('tglselesai');
+            $table->date('tglselesai');
             $table->string('status');
             $table->string('statuspembayaran');
 
