@@ -24,9 +24,7 @@
                         <h4 class="card-title">
                             <a href="{{url('tambah-pesanan')}}" class="btn btn-primary" data-toggle="modal" data-target="#ModalPesanan">Tambah</a>
                         </h4>
-                        <h6>Info :
-                            <code> Untuk Mengubah Status Order & Pembayaran Klik Pada Bagian 'Action' Masing-masing.</code>
-                        </h6>
+                        <br>
                         </div>
 
                         <div class="col-lg-2">
