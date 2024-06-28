@@ -41,18 +41,30 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request): RedirectResponse
     {
+        $inputVal = $request->all();
         $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                ->withSuccess('You have Successfully loggedin');
-        }
+        if(auth()->attempt(array('email' => $inputVal['email'], 'password' => $inputVal['password']))){
+            if (auth()->user()->role == 1) {
+                return redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
+            }else{
+                return redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
+            }
+        }else{
+            return redirect()->route('login')
+                ->with('error','Email & Password are incorrect.');
+        } 
 
-        return redirect("login")->withError('Oppes! You have entered invalid credentials');
+        // $credentials = $request->only('email', 'password');
+        // if (Auth::attempt($credentials)) {
+        //     return redirect()->intended('halaman-admin')
+        //         ->withSuccess('You have Successfully loggedin');
+        // }
+
+        // return redirect("login")->withError('Oppes! You have entered invalid credentials');
     }
 
     /**
@@ -73,7 +85,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect("dashboard")->withSuccess('Great! You have Successfully loggedin');
+        return redirect("/halaman-admin")->withSuccess('Great! You have Successfully loggedin');
     }
 
     /**

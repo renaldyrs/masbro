@@ -1,9 +1,22 @@
-@extends('layouts.admin')
+@extends('layouts.master')
+
+@push('plugin-styles')
+
+    <style src="{{asset('/assets/plugins/plugin.css')}}"></style>
+@endpush
 
 @section('content')
-@include('layouts.partial.sidebar_admin')
+@if(Session::has('alert'))
 
+    <script>
+        var msg = '{{Session::get('alert')}}';
+        var exist = '{{Session::has('alert')}}';
+        if (exist) {
+            alert(msg);
+        }
+    </script>
 
+@endif
 <div id="content">
     <div class="row">
         <div class="col-lg-12 ">
@@ -151,8 +164,13 @@
 
 
 @endsection
-@push('scripts')
-    @include('layouts.partial.script')
 
+@push('plugin-scripts')
+    <script src="{{asset('/assets/plugins/chartjs/chart.min.js')}}"></script>
+    <script src="{{asset('/assets/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
 
+@endpush
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@push('custom-scripts')
+    <script src="{{asset('/assets/js/dashboard.js')}}"></script>
 @endpush

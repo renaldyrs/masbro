@@ -2,21 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\PesananChart;
 use App\Models\Jenis;
 use App\Models\Pelanggan;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Redirect;
 use Auth;
 use Session;
+use PDF;
 
 class AdminController extends Controller
 {
     //
-    public function haladmin()
+
+    public function __construct(){
+        $this->middleware("auth");
+    }
+
+    
+    public function haladmin(PesananChart $chart)
     {
-        return view('Admin\halamanadmin');
+
+        $tgl = date("Y-m-d");
+
+
+        // $pesanan = DB::table('pesanan')
+        // ->select('id',DB::raw('count(*) as hari'))
+        // ->where('tgltransaksi', $tgl)
+        // ->count('id')
+        // ;
+
+        $pesanan = DB::table('pesanan')->where('tgltransaksi', $tgl)->get();
+
+        return view('Admin\halamanadmin',['pesanan' => $pesanan],['chart' => $chart->build()]);
     }
 
     public function datapelanggan()
@@ -129,7 +150,8 @@ class AdminController extends Controller
     public function hapusmetode($id)
     {
         DB::table('metodepembayaran')->where('id', $id)->delete();
-        return redirect('/data-metode');;
+        return redirect('/data-metode');
+        ;
     }
 
     public function editmetode($id)
@@ -153,25 +175,24 @@ class AdminController extends Controller
     {
 
         DB::table('beban')->insert([
+            'kode' => $request->kode,
             'keterangan' => $request->keterangan,
             'biaya' => $request->biaya,
             'jumlah' => $request->jumlah,
             'total' => $request->total
         ]);
 
-        $beban = DB::table('beban')->get();
-
-        return view('Admin\haldatabeban', ['beban' => $beban]);
+        return redirect('data-beban');
     }
 
     public function hapusbeban($id)
     {
 
-        DB::table('beban')->where('id', $id)->delete();
+        DB::table('beban')->where('idbeban', $id)->delete();
 
         $beban = DB::table('beban')->get();
 
-        return view('Admin\haldatabeban', ['beban' => $beban]);
+        return redirect('data-beban');
 
     }
 
@@ -188,17 +209,34 @@ class AdminController extends Controller
     public function updatebeban(Request $request)
     {
         DB::table('beban')->where('id', $request->id)->update([
+            'kode'=> $request->kode,
             'keterangan' => $request->keterangan,
             'biaya' => $request->biaya,
             'jumlah' => $request->jumlah,
             'total' => $request->total
         ]);
 
-        $beban = DB::table('beban')->get();
-        return view('Admin\haldatabeban', ['beban' => $beban]);
+        return redirect('data-beban');
 
     }
 
+
+    public function laporan(){
+        $pesanan = DB::table('pesanan')->get();
+        $pelanggan = DB::table('pelanggan')->get();
+        $jenis = DB::table('jenis')->get();
+        
+
+        return view('Admin/laporan',['pesanan'=>$pesanan,'pelanggan'=>$pelanggan,'jenis'=>$jenis]);
+        
+    }
+
+    public function cetak(){
+        $laporan = DB::table('pesanan')->get();
+
+        $pdf= PDF::loadView('Admin/laporan',['pesanan'=>$laporan]);
+        return $pdf->download('laporan.pdf');
+    }
 
 }
 

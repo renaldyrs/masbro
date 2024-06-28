@@ -17,11 +17,28 @@ class PesananController extends Controller
     {
         $pesanan = DB::table('pesanan')->get();
         $pelanggan = DB::table('pelanggan')->get();
-        $jenis = DB::table('jenis')->get();
         
-
+        
+        $jenis['data']= jenis::orderBy("jenis","asc")
+        ->select('id','jenis')
+        ->get();
         return view('Admin/halpesanan',['pesanan'=>$pesanan,'pelanggan'=>$pelanggan,'jenis'=>$jenis]);
         
+    }
+
+    public function jenisharga($id=0){
+        $empData['data'] = jenis::orderBy("jenis","asc")
+        ->select('id','jenis','harga')
+        ->where('id',$id)
+        ->get();
+
+        return response()->json($empData);
+    }
+    
+    public function getAutocomplteHarga(Request $request){
+        if($request->has('term')){
+            return Jenis::where('nama_jenis','LIKE','%'.$request->get('term').'%')->get();
+        }
     }
 
     public function tambahpesanan(Request $request)

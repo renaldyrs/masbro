@@ -1,8 +1,20 @@
-@extends('layouts.admin')
-@section('content')
-@include('layouts.partial.sidebar_admin')
+@extends('layouts.master')
 
-<div id="content">
+
+
+@section('content')
+@if(Session::has('alert'))
+
+    <script>
+        var msg = '{{Session::get('alert')}}';
+        var exist = '{{Session::has('alert')}}';
+        if (exist) {
+            alert(msg);
+        }
+    </script>
+
+@endif
+<div>
     <div class="row">
         <div class="col-lg-12 ">
 
@@ -83,51 +95,6 @@
 
             </div>
 
-            <div class="col-lg-8">
-                <div class="card card-outline-info">
-                    <div class="card-header ">
-                        <h4 class="m-b-0 text-black">Data Jenis</h4>
-                    </div>
-                    <div class="card-body">
-
-                        <div class="table">
-                            <table class="table ">
-                                <thead>
-                                    <tr>
-                                        <th width="1%">Nama Pelanggan</th>
-                                        <th width="1%">Alamat</th>
-                                        <th width="1%">No HP</th>
-                                        <th width="1%">Kelamin</th>
-                                        <th width="1%">Aksi</th>
-                                    </tr>
-
-                                </thead>
-                                <tbody>
-                                    @foreach ($pelanggan as $p)
-                                        <tr>
-                                            <td>{{$p->nama}}</td>
-                                            <td>{{$p->alamat}}</td>
-                                            <td>{{$p->nohp}}</td>
-                                            <td>{{$p->kelamin}}</td>
-                                            <td>
-                                                <a class="btn btn-danger" href="hapus-jenis/{{$p->id }}">HAPUS</a>
-
-                                                <a class="btn btn-success" href="edit-jenis/{{$p->id}}">EDIT</a>
-                                            </td>
-
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-
-
         </div>
     </div>
 
@@ -137,6 +104,3 @@
 
 
 @endsection
-@push('scripts')
-    @include('layouts.partial.script')
-@endpush

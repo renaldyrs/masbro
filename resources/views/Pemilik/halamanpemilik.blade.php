@@ -111,29 +111,7 @@
                         <canvas id="lineChart"></canvas>
                     </div>
 
-                    <script>
-                        var ctx = document.getElementById('lineChart').getContext('2d');
-                        var myChart = new Chart(ctx, {
-                            type: 'line',
-                            data: {
-                                labels: @json($data['labels']),
-                                datasets: [{
-                                    label: 'Data',
-                                    data: @json($data['data']),
-                                    borderColor: 'rgba(75, 192, 192, 1)',
-                                    borderWidth: 1,
-                                    fill: false
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-                    </script>
+                    
 
             </div>
 

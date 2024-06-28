@@ -19,7 +19,7 @@
         <div class="container-fluid">
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="navbar-brand" href="Admin/halaman-admin">Laundry MASBRO</a>
+                <a class="navbar-brand" href="halaman-admin">Laundry MASBRO</a>
                 <ul class="nav navbar-nav ml-auto">
 
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">

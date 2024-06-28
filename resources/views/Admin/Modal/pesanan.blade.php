@@ -60,8 +60,8 @@
                                     <div class="col-md-3">
                                         <div class="form-group has-success">
                                             <label class="control-label">Jenis</label>
-                                            <select name="jenis" id="id" class="form-control ">
-                                                <option value="">--Jenis Jasa--</option>
+                                            <select name="jenis" id="autojenis" class="form-control ">
+                                                <option value="0">--Jenis Jasa--</option>
                                                 @foreach ($jenis as $j)
                                                     <option value="{{$j->id}}">{{ $j->jenis }}</option>
                                                 @endforeach
@@ -85,12 +85,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <!-- <div class="col-md-2">
                                         <div class="form-group has-success">
                                             <label class="control-label">Total Bayar</label>
                                             <input type="text" name="total" class="form-control">
                                         </div>
-                                    </div>
+                                    </div> -->
 
 
                                 </div>
@@ -116,5 +116,51 @@
                 </div>
             </div>
 </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type='text/javascript'>
+    $(document).ready(function(){
+
+        // Department Change
+        $('#autojenis').change(function(){
+
+             // Department id
+             var id = $(this).val();
+
+             // Empty the dropdown
+             $('#harga').find('input').not(':first').remove();
+
+             // AJAX request 
+             $.ajax({
+                 url: 'getharga/'+ $id,
+                 type: 'get',
+                 dataType: 'json',
+                 success: function(response){
+
+                     var len = 0;
+                     if(response['data'] != null){
+                          len = response['data'].length;
+                     }
+
+                     if(len > 0){
+                          // Read data and create <option >
+                          for(var i=0; i<len; i++){
+
+                               var id = response['data'][i].id;
+                               var jenis = response['data'][i].jenis;
+
+                               var input = "<input type="'text'" name="'harga'" id="'harga'" value="harga" class="'form-control'">";
+                                            
+                                     
+
+                               $("#harga").append(input); 
+                          }
+                     }
+
+                 }
+             });
+        });
+    });
+    </script>
+
 
 <!-- MODAL UBAH STATUS -->

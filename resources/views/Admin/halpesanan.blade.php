@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 @section('content')
-@include('layouts.partial.sidebar_admin')
+
 
 <head>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -17,7 +17,7 @@
 
             <div class="card-body">
                 <div class="row">
-                    <div class="col-18">
+                    <div class="d-flex">
 
                         
                         <div class="col-lg-6">
@@ -27,13 +27,13 @@
                         <br>
                         </div>
 
-                        <div class="col-lg-2">
+                        <div class="col-lg-4 float-right">
                             <label>Filter By Date</label>
                             <input type="date" name="tgltransaksi" value="{{date('Y-m-d')}}" class="form-control">
 
                         </div>
 
-                        <div class="col-lg-2">
+                        <div class="col-lg-4">
                             <label>Filter By Date</label>
                             <select name="statuspembayaran" id="" class="form-control">\
                                 <option value="">Select Status</option>
@@ -44,7 +44,7 @@
 
                         </div>
 
-                        <div class="col-lg-1 mt-4">
+                        <div class="col-lg-3 mt-4">
                           
     
                             <button type="submit" class="btn btn-primary form-control" class="">Filter</button>
@@ -109,7 +109,7 @@
                                         {{carbon\carbon::parse($p->tglselesai)->format('d-m-y')}}
                                     </td>
                                     <td>
-                                        <a href="{{url('update-pesanan/'.$p->id)}}" class="btn btn-primary">Edit</a>
+                                        <!-- <a href="{{url('update-pesanan/'.$p->id)}}" class="btn btn-primary">Edit</a> -->
                                         <a href="{{url('hapus-pesanan/'.$p->id)}}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
@@ -129,7 +129,9 @@
 @endsection
 @section('script')
 <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+<script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css"/>
 @endsection
 @push('scripts')
     @include('layouts.partial.script')

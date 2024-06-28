@@ -13,5 +13,15 @@ class Pesanan extends Model
 protected $table = 'pesanan';
 
     protected $fillable = [
-        'id_pesanan','kode_pesanan', 'nama_pelanggan', 'jenis', 'jasa', 'jumlah', 'total', 'tglmasuk', 'tglkeluar'];
+        'id',
+        'kode_pesanan', 
+        'nama_pelanggan', 
+        'jenis', 
+        'harga', 
+        'jumlah', 
+        'total', 
+        'tgltransaksi', 
+        'tglselai'
+
+    ];
 }
