@@ -234,7 +234,7 @@ class AdminController extends Controller
     public function cetak(){
         $laporan = DB::table('pesanan')->get();
 
-        $pdf= PDF::loadView('Admin/laporan',['pesanan'=>$laporan]);
+        $pdf= PDF::loadView('Admin/invoice');
         return $pdf->download('laporan.pdf');
     }
 
