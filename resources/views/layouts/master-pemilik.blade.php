@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -65,11 +64,12 @@
                         <a class="collapse-item" href="data-jenis">Jenis</a>
                         <a class="collapse-item" href="data-metode">Metode Pembayaran</a>
                         <a class="collapse-item" href="data-beban">Beban</a>
+                        <a class="collapse-item" href="data-akun">Akun</a>
                     </div>
                 </div>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
-            
+
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -79,19 +79,32 @@
             </li>
 
             <!-- Nav Item - Tables -->
+            <hr class="sidebar-divider">
+
             <li class="nav-item">
-                <a class="nav-link" href="laporan">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Laporan</span></a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Laporan</span>
+                </a>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Data Master:</h6>
+                        <a class="collapse-item" href="jurnal-umum">Jurnal Umum</a>
+                        <a class="collapse-item" href="Buku-besar">Buku Besar</a>
+                        <a class="collapse-item" href="Neraca-salsdo">Neraca Saldo</a>
+                        <a class="collapse-item" href="Laporan">Laporan</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-           
 
-            
+
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -110,12 +123,12 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                   
+
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-                     
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -123,15 +136,15 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin, {{ Auth::user()->name }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin,
+                                    {{ Auth::user()->name }}</span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                
-                                <a class="dropdown-item" href="{{route("logout")}}" data-toggle="modal" data-target="#logoutModal">
+
+                                <a class="dropdown-item" href="logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -147,7 +160,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    
+
 
                     <!-- Content Row -->
                     @yield('content')
@@ -180,7 +193,7 @@
     </a>
 
     <!-- Logout Modal-->
-    
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -199,6 +212,7 @@
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
+    
 </body>
 
 </html>

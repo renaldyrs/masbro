@@ -5,6 +5,7 @@ use App\Http\Controllers\PesananController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\JurnalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,9 +73,19 @@ Route::post('tambah-pesanan', 'App\HTTP\Controllers\PesananController@tambahpesa
 Route::get('hapus-pesanan/{id}', 'App\HTTP\Controllers\PesananController@hapuspesanan');
 Route::get('edit-pesanan/{id}', 'App\HTTP\Controllers\PesananController@editpesanan');
 Route::post('update-pesanan', 'App\HTTP\Controllers\PesananController@updatestatus');
-Route::get('getHarga/{id}', [PesananController::class, 'jenisharga']);
+Route::get('getharga', 'App\HTTP\Controllers\PesananController@getharga');
 // halaman pemilik
-Route::get('/halaman-pemilik', 'App\HTTP\Controllers\PemilikController@halpemilik')->name('halpemilik');
+Route::get('halaman-pemilik', 'App\HTTP\Controllers\PemilikController@halpemilik')->name('halpemilik');
+
+Route::get('data-akun', 'App\HTTP\Controllers\PemilikController@dataakun')->name('dataakun');
+
+Route::post('tambah-akun', 'App\HTTP\Controllers\PemilikController@tambahakun')->name('tambahakun');
+
+//Jurnal
+Route::get('jurnal-umum', 'App\HTTP\Controllers\JurnalController@haljurnal')->name('haljurnal');
+Route::get('tambah-jurnal', 'App\HTTP\Controllers\JurnalController@tambahjurnal')->name('tambahjurnal');
+Route::post('simpan-jurnal', 'App\HTTP\Controllers\JurnalController@simpanjurnal')->name('simpanjurnal');
+Route::get('jurnal-umum/detail/{waktu}', 'App\HTTP\Controllers\JurnalController@detailjurnal')->name('detailjurnal');
 // halaman utama
 
 Route::get('/halaman-utama', 'App\HTTP\Controllers\utamacontroller@halutama');
