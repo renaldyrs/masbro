@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\BukuController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\NeracaController;
+use App\Http\Controllers\PemilikController;
 use App\Http\Controllers\PesananController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -68,25 +72,42 @@ Route::get('hapus-metode/{id}', 'App\HTTP\Controllers\AdminController@hapusmetod
 Route::get('edit-metode/{id}', 'App\HTTP\Controllers\AdminController@editmetode');
 Route::post('update-metode', 'App\HTTP\Controllers\AdminController@updatemetode');
 //pesanan
-Route::get('pesanan', 'App\HTTP\Controllers\PesananController@halpesanan');
-Route::post('tambah-pesanan', 'App\HTTP\Controllers\PesananController@tambahpesanan');
-Route::get('hapus-pesanan/{id}', 'App\HTTP\Controllers\PesananController@hapuspesanan');
-Route::get('edit-pesanan/{id}', 'App\HTTP\Controllers\PesananController@editpesanan');
-Route::post('update-pesanan', 'App\HTTP\Controllers\PesananController@updatestatus');
-Route::get('getharga', 'App\HTTP\Controllers\PesananController@getharga');
+Route::get('pesanan', [PesananController::class,'halpesanan']);
+Route::post('tambah-pesanan', [PesananController::class,'tambahpesanan']);
+Route::get('hapus-pesanan/{id}', [PesananController::class, 'hapuspesanan']);
+Route::get('edit-pesanan/{id}', [PesananController::class, 'editpesanan']);
+Route::post('update-pesanan', [PesananController::class, 'updatestatus']);
+Route::get('getharga', [PesananController::class,'getharga']);
+Route::get('getmetode/{jenis}', [PesananController::class,'getmetode']);
+route::get('getkodebank/{namabank}', [PesananController::class,'getkodebank']);
+
 // halaman pemilik
-Route::get('halaman-pemilik', 'App\HTTP\Controllers\PemilikController@halpemilik')->name('halpemilik');
-
-Route::get('data-akun', 'App\HTTP\Controllers\PemilikController@dataakun')->name('dataakun');
-
-Route::post('tambah-akun', 'App\HTTP\Controllers\PemilikController@tambahakun')->name('tambahakun');
+Route::get('halaman-pemilik', [PemilikController::class, 'halpemilik'])->name('halpemilik');
+Route::get('data-akun', [PemilikController::class, 'dataakun']);
+Route::post('tambah-akun', [PemilikController::class, 'tambahakun']);
+Route::get('edit-akun/{id}', [PemilikController::class, 'editakun']);
+Route::post('update-akun', [PemilikController::class, 'updateakun']);
+Route::get('hapus-akun/{id}', [PemilikController::class, 'hapusakun']);
 
 //Jurnal
-Route::get('jurnal-umum', 'App\HTTP\Controllers\JurnalController@haljurnal')->name('haljurnal');
-Route::get('tambah-jurnal', 'App\HTTP\Controllers\JurnalController@tambahjurnal')->name('tambahjurnal');
-Route::post('simpan-jurnal', 'App\HTTP\Controllers\JurnalController@simpanjurnal')->name('simpanjurnal');
-Route::get('jurnal-umum/detail/{waktu}', 'App\HTTP\Controllers\JurnalController@detailjurnal')->name('detailjurnal');
-// halaman utama
+Route::get('jurnal-umum', [JurnalController::class, 'haljurnal']);
+Route::get('tambah-jurnal', [JurnalController::class, 'tambahjurnal']);
+Route::post('simpan-jurnal', [JurnalController::class,'simpanjurnal']);
+Route::get('jurnal-detail/{waktu}', [JurnalController::class,'detailjurnal']);
+
+//bukuBesar
+Route::get('buku-besar', [BukuController::class, 'halbukubesar']);
+Route::get('buku-besar/{id}',[BukuController::class, 'akunbukubesar']);
+Route::get('buku-besar/{id}/{waktu}', [BukuController::class, 'detailbukubesar']);
+
+//neracasaldo
+Route::get('neraca-saldo', [NeracaController::class, 'halneracasaldo']);
+Route::get('neraca-detail/{waktu}',[NeracaController::class, 'neracadetail']);
+Route::get('neraca-saldo/cetak/{waktu}', [NeracaController::class,'cetakneraca']);
+
+
+Route::get('laporan-laba-rugi', [LaporanController::class, 'showLaporan']);
+Route::get('laporan/cetak/{waktu}', [LaporanController::class, 'cetakLaporan']);
 
 Route::get('/halaman-utama', 'App\HTTP\Controllers\utamacontroller@halutama');
 // Halaman Data

@@ -14,7 +14,8 @@ class CreateMetodepembayaran extends Migration
     public function up()
     {
         Schema::create('metodepembayaran', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->string('pembayaran');
             $table->string('namabank');
             $table->string('kodebank');
             $table->timestamps();

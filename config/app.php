@@ -163,7 +163,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Spatie\Html\HtmlServiceProvider::class,
+        Riskihajar\Terbilang\TerbilangServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -234,7 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables'  =>  Yajra\DataTables\Facades\DataTables::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Html' => Spatie\Html\Facades\Html::class,
+        'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
+        
 
     ],
 

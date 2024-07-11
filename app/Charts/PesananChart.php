@@ -43,9 +43,7 @@ class PesananChart
 
 
         return $this->chart->areaChart()
-            
-            ->setWidth(680)
-            ->setHeight(325)
+    
             ->addData('Pesanan', $datacount)
             ->setXAxis($databulan);
     }

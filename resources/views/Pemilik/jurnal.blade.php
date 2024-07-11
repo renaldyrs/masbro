@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-pemilik')
 @section('content')
 
 
@@ -48,10 +48,10 @@
                 </div>
 
                 <div class="table-responsive m-t-0">
-                    
+
                     <h4>Total Data : <strong>{{ $total_jurnal }}</strong> </h4>
-                  
-                    
+
+
                     <table class="table table-striped text-center">
                         <thead>
                             <h3 class="text-center"> <strong>DAFTAR JURNAL UMUM</strong></h3>
@@ -68,7 +68,7 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ date('F Y', strtotime('1-' . $data->waktu)) }}</td>
                                 <td>
-                                    <a href="{{ url('jurnal-umum/detail/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
+                                    <a href="{{ url('jurnal-detail/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
                                         class="btn btn-info">
                                         Detail
                                     </a>

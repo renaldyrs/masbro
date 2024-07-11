@@ -12,13 +12,13 @@
     <title>Laundry MASBRO</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" media="all">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+        rel="stylesheet" media="all">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" media="all">
 
 </head>
 
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="halaman-admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="halaman-pemilik">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -89,11 +89,11 @@
                 </a>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Data Master:</h6>
+                        <h6 class="collapse-header">Laporan:</h6>
                         <a class="collapse-item" href="jurnal-umum">Jurnal Umum</a>
-                        <a class="collapse-item" href="Buku-besar">Buku Besar</a>
-                        <a class="collapse-item" href="Neraca-salsdo">Neraca Saldo</a>
-                        <a class="collapse-item" href="Laporan">Laporan</a>
+                        <a class="collapse-item" href="buku-besar">Buku Besar</a>
+                        <a class="collapse-item" href="neraca-saldo">Neraca Saldo</a>
+                        <a class="collapse-item" href="laporan">Laporan</a>
                     </div>
                 </div>
             </li>
@@ -216,3 +216,4 @@
 </body>
 
 </html>
+@include('layouts.partial.script')

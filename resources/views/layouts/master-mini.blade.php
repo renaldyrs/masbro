@@ -66,7 +66,7 @@
     <!-- plugin js -->
     @stack('plugin-scripts')
     <!-- end plugin js -->
-
+    @include('layouts.partial.script')
     @stack('custom-scripts')
 </body>
 </html>

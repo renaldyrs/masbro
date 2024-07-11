@@ -15,7 +15,7 @@ class CreateJenis extends Migration
     {
         Schema::dropIfExists('jenis');
         Schema::create('jenis', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('jenis');
             $table->string('kg');
             $table->string('harga');

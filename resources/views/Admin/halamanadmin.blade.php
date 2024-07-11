@@ -145,11 +145,11 @@ foreach ($hari as $h) {
                 </div>
             </div>
             <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-area">
+            
+                <div class="card">
                     {!! $chart->container() !!}
                 </div>
-            </div>
+            
         </div>
     </div>
     <!-- Area Chart -->
@@ -174,19 +174,22 @@ foreach ($hari as $h) {
                 </div>
             </div>
             <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                </div>
+            
+            <div class="card">
+                    {!! $chart2->container() !!}
             </div>
+            
         </div>
     </div>
     
 </div>
 
 
+
 <script src="{{ $chart->cdn() }}"></script>
+<script src="{{ $chart2->cdn() }}"></script>
 
 {{ $chart->script() }}
+{{ $chart2->script() }}
 @endsection
 

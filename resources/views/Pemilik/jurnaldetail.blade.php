@@ -1,6 +1,8 @@
 @extends('layouts.master-pemilik')
 @section('content')
-
+<script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
+	<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('assets/js/app.js') }}"></script>
 <head>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
@@ -89,11 +91,12 @@
                                     </tr>
 
                                     <tr>
+                                    {{Config::set('terbilang.locale', 'id')}}
                                         <th colspan="3" class="text-center">TERBILANG</th>
-                                        <th class="text-center"> 'terbilang'<em> {{ ($total_debet)}} Rupiah</em>
+                                        <th class="text-center"> <em> {{ ucwords(Terbilang::make($total_debet))}} Rupiah</em>
                                         </th>
-                                        <th class="text-center"> 'terbilang' <em>{{($total_kredit) }}
-                                                Rupiah</em></th>
+                                        <th class="text-center">  <em>{{ucwords(Terbilang::make($total_kredit))}} Rupiah</em>
+                                        </th>
                                     </tr>
 
                                 </table>
@@ -111,12 +114,7 @@
 
 
 @endsection
-@section('script')
-<script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
-@endsection
+
 @push('scripts')
     @include('layouts.partial.script')
 @endpush

@@ -20,10 +20,11 @@
 
                             <div class="row p-t-18">
 
+
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Nama Pelanggan</label>
-                                        <select name="nama_pelanggan" class="form-control ">
+                                        <select name="id_pelanggan" class="form-control ">
                                             <option value="">--Nama Pelanggan--</option>
                                             @foreach ($pelanggan as $pl)
 
@@ -38,7 +39,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Jenis Pembayaran</label>
-                                        <select name="status" class="form-control" id="">
+                                        <select name="jenisbayar" class="form-control" id="metode">
                                             <option value="">--Jenis Pemabayaran--</option>
                                             <option value="Cash">Cash</option>
                                             <option value="Transfer">Transfer</option>
@@ -46,6 +47,23 @@
 
                                     </div>
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Metode Pembayaran</label>
+                                        <select name="id_metode" class="form-control" id="metodepembayaran">
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-3">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Kode Bank</label>
+                                        <input type="text" name="kodebank" id="kodebank" class="form-control">
+
+                                    </div>
+                                </div> -->
 
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
@@ -61,7 +79,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Jenis</label>
-                                        <select name="jenis" id="autojenis" class="form-control ">
+                                        <select name="id_jenis" id="autojenis" class="form-control ">
                                             <option value="0">--Jenis Jasa--</option>
                                             @foreach ($jenis as $j)
                                                 <option value="{{$j->id}}">{{ $j->jenis }}</option>
@@ -75,7 +93,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group has-success">
                                         <label class="control-label">harga</label>
-                                        <input type="text" name="harga" id="harga" class=" form-group harga">
+                                        <input type="text" name="harga" id="harga1" class="form-control">
                                     </div>
                                 </div>
 
@@ -86,25 +104,11 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-md-2">
-                                        <div class="form-group has-success">
-                                            <label class="control-label">Total Bayar</label>
-                                            <input type="text" name="total" class="form-control">
-                                        </div>
-                                    </div> -->
-
 
                             </div>
-
-                            <div class="row">
-
-                            </div>
-
 
 
                         </div>
-
-
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
@@ -117,12 +121,11 @@
 </div>
 </div>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 
 <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
@@ -135,22 +138,15 @@
 
             var id = $(this).val();
 
-            var a = $(this).parent();
-            var op = "";
-
             $.ajax({
                 type: "get",
                 url: '{!!URL::to('getharga')!!}',
                 data: { 'id': id, },
                 dataType: 'json',
                 success: function (data) {
-                    console.log("Price");
 
-                    console.log();
-
-                    a.find('#harga').val(data.harga);
-
-
+                    $("#harga1").val(data.harga);
+                    $("#total").val(data.harga * jumlah);
 
                 },
                 error: function (data) {
@@ -158,6 +154,54 @@
                 }
             });
         });
+    });
+
+    $(document).ready(function () {
+        $(document).on('change', '#metode', function () {
+            var jenis = $(this).val();
+            if (jenis) {
+                $.ajax({
+                    url: 'getmetode/' + jenis,
+                    type: "GET",
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data);
+                        $('#metodepembayaran').empty();
+                        $.each(data, function (key, value) {
+                            
+                            $('#metodepembayaran').append('<option value="' + value.id + '">' + value.namabank + '</option>');
+                        });
+
+                    }
+                });
+            } else {
+                $('#metodepembayaran').empty();
+            }
+
+        });
+
+    });
+
+
+    $(document).ready(function () {
+        $(document).on('change', '#metodepembayaran', function () {
+            var namabank = $(this).val();
+            console.log(namabank);
+
+            $.ajax({
+                url: '{!!URL::to('getkodebank')!!}',
+                type: "GET",
+                data: { 'namabank': namabank, },
+                dataType: "JSON",
+                success: function (data) {
+                    console.log(data.kodebank);
+                    $('#kodebank').val(data.kodebank);
+                }
+               
+            });
+
+        });
+
     });
 </script>
 

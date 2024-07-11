@@ -37,6 +37,7 @@ class CreateJurnalTable extends Migration
      */
     public function down()
     {
+        
         Schema::dropIfExists('jurnal');
     }
 }

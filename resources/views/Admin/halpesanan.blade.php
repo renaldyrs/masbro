@@ -1,6 +1,8 @@
-@extends('layouts.master')
-@section('content')
+@extends('layouts.master-pemilik')
 
+
+
+@section('content')
 
 <head>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -12,22 +14,23 @@
 
         <div class="card card-outline-info">
             <div class="card-header">
-                <h4 class="m-b-0 text-black">Trnsaksi Pesanan</h4>
+                <h4 class="m-b-0 text-black">Trnsaksi Pesanan </h4>
             </div>
 
             <div class="card-body">
                 <div class="row">
                     <div class="d-flex">
 
-                        
+
                         <div class="col-lg-6">
-                        <h4 class="card-title">
-                            <a href="{{url('tambah-pesanan')}}" class="btn btn-primary" data-toggle="modal" data-target="#ModalPesanan">Tambah</a>
-                        </h4>
-                        <br>
+                            <h4 class="card-title">
+                                <a href="{{url('tambah-pesanan')}}" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#ModalPesanan">Tambah</a>
+                            </h4>
+                            <br>
                         </div>
 
-                        <div class="col-lg-4 float-right">
+                        <!-- <div class="col-lg-4 float-right">
                             <label>Filter By Date</label>
                             <input type="date" name="tgltransaksi" value="{{date('Y-m-d')}}" class="form-control">
 
@@ -48,11 +51,11 @@
                           
     
                             <button type="submit" class="btn btn-primary form-control" class="">Filter</button>
-                        </div>
-                    
+                        </div> -->
+
                     </div>
                 </div>
-                
+
                 <div class="table-responsive m-t-0">
                     <table id="myTable" class="table display table-bordered table-striped">
                         <thead>
@@ -62,6 +65,7 @@
                                 <th>TGL Transaksi</th>
                                 <th>Pelanggan</th>
                                 <th>Jenis Pembayaran</th>
+                                <th>Nama Bank</th>
                                 <th>Status Pembayaran</th>
                                 <th>Jenis</th>
                                 <th>Harga</th>
@@ -86,16 +90,21 @@
                                     </td>
 
                                     <td>
-                                        {{$p->nama_pelanggan}}
+                                        {{$p->nama}}
                                     </td>
-                                        
+
                                     <td>
                                         {{$p->status}}
                                     </td>
                                     <td>
+                                        {{$p->namabank}}
+                                    </td>
+                                    <td>
                                         {{$p->statuspembayaran}}
                                     </td>
-                                    <td>{{$p->jenis}}</td>
+                                    <td>
+                                        {{$p->jenis}}
+                                    </td>
                                     <td>
                                         {{$p->harga}}
                                     </td>
@@ -110,7 +119,7 @@
                                     </td>
                                     <td>
                                         <!-- <a href="{{url('update-pesanan/'.$p->id)}}" class="btn btn-primary">Edit</a> -->
-                                        <a href="{{url('hapus-pesanan/'.$p->id)}}" class="btn btn-danger">Delete</a>
+                                        <a href="{{url('hapus-pesanan/' . $p->id)}}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php    $no++; ?>
@@ -131,7 +140,7 @@
 <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css"/>
+<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
 @endsection
 @push('scripts')
     @include('layouts.partial.script')

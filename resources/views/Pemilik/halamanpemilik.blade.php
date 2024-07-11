@@ -16,12 +16,12 @@
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <?php
-$hari = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
+                $hari = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
 
-$count = 0;
-foreach ($hari as $h) {
-    $count++;
-}
+                $count = 0;
+                foreach ($hari as $h) {
+                    $count++;
+                }
             ?>
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -41,11 +41,11 @@ foreach ($hari as $h) {
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
         <?php
-$hari = DB::table('pesanan')->whereMonth('tgltransaksi', date("m"))->get();
-$count = 0;
-foreach ($hari as $h) {
-    $count++;
-}
+            $hari = DB::table('pesanan')->whereMonth('tgltransaksi', date("m"))->get();
+            $count = 0;
+            foreach ($hari as $h) {
+                $count++;
+            }
         ?>
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
@@ -65,6 +65,14 @@ foreach ($hari as $h) {
 
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
+        <?php
+            $pendapatan = DB::table('pesanan')->where('tgltransaksi',date("Y-m-d"))->get();
+            $totalhari = 0;
+            foreach ($pendapatan as $p) {
+                $totalhari += $p->total;
+            }
+
+        ?>
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -77,7 +85,7 @@ foreach ($hari as $h) {
                             </div>
                             <div class="col">
 
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">25000 </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalhari  ?> </div>
 
 
                             </div>
@@ -93,6 +101,13 @@ foreach ($hari as $h) {
 
     <!-- Pending Requests Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
+    <?php
+            $pendapatan = DB::table('pesanan')->whereMonth('tgltransaksi',date("m"))->whereYear('tgltransaksi',date("Y"))->get();
+            $totalhari = 0;
+            foreach ($pendapatan as $p) {
+                $totalhari += $p->total;
+            }
+        ?>
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
@@ -100,10 +115,7 @@ foreach ($hari as $h) {
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                             Monthly Revenue</div>
                         <div class="col">
-
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">500000 </div>
-
-
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalhari  ?></div>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -138,10 +150,10 @@ foreach ($hari as $h) {
                 </div>
             </div>
             <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-area">
+            <div class="card">
+                
                     {!! $chart->container() !!}
-                </div>
+                
             </div>
         </div>
     </div>
@@ -167,19 +179,18 @@ foreach ($hari as $h) {
                 </div>
             </div>
             <!-- Card Body -->
-            <div class="card-body">
-                <div class="chart-area">
-                {!! $chart->container() !!}
-                    
-                </div>
+            <div class="card">
+                    {!! $chart2->container() !!}
             </div>
         </div>
     </div>
-    
+
 </div>
 
-
 <script src="{{ $chart->cdn() }}"></script>
+<script src="{{ $chart2->cdn() }}"></script>
 
 {{ $chart->script() }}
+{{ $chart2->script() }}
+
 @endsection

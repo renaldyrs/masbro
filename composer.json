@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "arielmejiadev/larapex-charts": "^6.0",
         "barryvdh/laravel-dompdf": "^2.2",
+        "crabbly/fpdf-laravel": "^1.0",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
@@ -16,7 +17,8 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.4",
         "realrashid/sweet-alert": "*",
-        
+        "riskihajar/terbilang": "^2.0",
+        "uwaiscode/laravelterbilang": "dev-master",
         "yajra/laravel-datatables-oracle": "^9.20"
     },
     "require-dev": {

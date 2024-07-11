@@ -7,6 +7,7 @@ use App\Charts\PesananChart;
 use App\Charts\PendapatanChart;
 use DB;
 
+
 class PemilikController extends Controller
 {
     //
@@ -18,7 +19,7 @@ class PemilikController extends Controller
 
     public function dataakun()
     {
-        $akun = DB::table('akun')->get();
+        $akun = DB::table('akun')->orderBy('kode_akun', 'asc')->get();
         return View('Pemilik\akun', ['akun' => $akun]);
     }
 
@@ -30,6 +31,12 @@ class PemilikController extends Controller
             
         ]);
         return redirect('data-akun');
+    }
+
+    public function hapusakun($id)
+    {
+        DB::table('akun')->where('id', $id)->delete();
+        return redirect('/data-akun');
     }
 
     public function hapuspel($id)

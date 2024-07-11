@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Charts\PesananChart;
+use App\Charts\PendapatanChart;
 use App\Models\Jenis;
 use App\Models\Pelanggan;
 
@@ -23,7 +24,7 @@ class AdminController extends Controller
     }
 
     
-    public function haladmin(PesananChart $chart)
+    public function haladmin(PesananChart $pesananchart, PendapatanChart $pedapatannchart)
     {
 
         $tgl = date("Y-m-d");
@@ -37,7 +38,7 @@ class AdminController extends Controller
 
         $pesanan = DB::table('pesanan')->where('tgltransaksi', $tgl)->get();
 
-        return view('Admin\halamanadmin',['pesanan' => $pesanan],['chart' => $chart->build()]);
+        return view('Admin\halamanadmin',['pesanan' => $pesanan,'chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
     }
 
     public function datapelanggan()

@@ -14,15 +14,20 @@ class Pesanan extends Migration
     public function up()
     {
         //
+        Schema::dropIfExists('pesanan');
         Schema::create('pesanan', function (Blueprint $table) {
             $table->increments('id');
-            // $table->integer('jenis_id')->unsigned();
-            // $table->integer('pelanggan_id')->unsigned();
-            // $table->integer('metode_id')->unsigned();
+            $table->unsignedBigInteger('id_jenis');
+            $table->foreign('id_jenis')->references('id')->on('jenis')->onDelete('cascade');
+            $table->unsignedBigInteger('id_pelanggan');
+            $table->foreign('id_pelanggan')->references('id')->on('pelanggan')->onDelete('cascade');
+            $table->unsignedBigInteger('id_metode');
+            $table->foreign('id_metode')->references('id')->on('metodepembayaran')->onDelete('cascade');
             $table->string('kode_pesanan');
-            $table->string('nama_pelanggan');
-            $table->string('jenis');
+            // $table->string('nama_pelanggan');
+            // $table->string('jenis');
             $table->string('harga');
+            // $table->string('metode');
             $table->integer('jumlah');
             $table->integer('total');
             $table->date('tgltransaksi');
@@ -35,6 +40,9 @@ class Pesanan extends Migration
             // $table->foreign('jenis_id')->references('id')->on('jenis')->onDelete('cascade');
             // $table->foreign('pelanggan_id')->references('id')->on('pelanggan')->onDelete('cascade');
             // $table->foreign('metode_id')->references('id')->on('metodepembayaran')->onDelete('cascade');
+            
+            
+
         });
     }
 
@@ -46,6 +54,11 @@ class Pesanan extends Migration
     public function down()
     {
         //
+        Schema::table('pesanan', function (Blueprint $table) {
+            $table->dropForeign('id_jenis');
+            $table->dropForeign('id_pelanggan');
+            $table->dropForeign('id_metode');
+        });
         Schema::dropIfExists('pesanan');
     }
 }

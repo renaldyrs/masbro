@@ -7,6 +7,11 @@ use App\Models\Jurnal;
 use App\Models\Akun;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\JurnalRequest;
+use Barryvdh\DomPDF\ServiceProvider;
+use Crabbly\Fpdf\Fpdf as FPDF;
+use PDF;
+use DB;
+use Terbilang;
 
 class JurnalController extends Controller
 {
@@ -21,7 +26,8 @@ class JurnalController extends Controller
 
     public function tambahjurnal()
     {
-        $daftar_akun = Akun::pluck('nama_akun', 'id');
+        $daftar_akun = DB::table('akun')->orderBy('kode_akun', 'asc')->pluck('nama_akun', 'id');
+
         return view('Pemilik\jurnaltambah', compact('daftar_akun'));
     }
 
@@ -48,35 +54,8 @@ class JurnalController extends Controller
 
         $total_jurnal = $daftar_jurnal->count();
 
-        return view('Pemilik\jurnaldetail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
+        return view('Pemilik.jurnaldetail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
     }
-
-    public function cariJurnalUmum(Request $request)
-    {
-        $bulan = $request->input('bulan');
-        $tahun = $request->input('tahun');
-
-        $waktu = $tahun.'-'.$bulan.'-01';
-        $periode = date('F Y', strtotime($waktu));
-
-        if(empty($bulan) || empty($tahun)) return redirect('jurnal-umum');
-
-        $daftar_jurnal = Jurnal::whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->get();
-
-        $total_debet = Jurnal::where('tipe', 'd')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->sum('nominal');
-
-        $total_kredit = Jurnal::where('tipe', 'k')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->sum('nominal');
-
-        $total_jurnal = $daftar_jurnal->count();
-
-        if(!($total_jurnal)) return redirect('jurnal-umum')->with('pesan', "Jurnal Umum dengan Periode $bulan-$tahun tidak ditemukan");
-
-        return view('jurnal-umum-detail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
-    }
-
-    
-
-    
 
     public function editJurnalUmum($id)
     {
@@ -99,4 +78,28 @@ class JurnalController extends Controller
         Session::flash('pesan', 'Transaksi Berhasil Dihapus');
         return redirect('jurnal-umum');
     }
+
+    public function carijurnal(Request $request)
+    {
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+        $waktu = $tahun.'-'.$bulan.'-01';
+        $periode = date('F Y', strtotime($waktu));
+
+        if(empty($bulan) || empty($tahun)) return redirect('jurnal-umum');
+
+        $daftar_jurnal = Jurnal::whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->get();
+
+        $total_debet = Jurnal::where('tipe', 'd')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->sum('nominal');
+
+        $total_kredit = Jurnal::where('tipe', 'k')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->sum('nominal');
+
+        $total_jurnal = $daftar_jurnal->count();
+
+        if(!($total_jurnal)) return redirect('jurnal-umum')->with('pesan', "Jurnal Umum dengan Periode $bulan-$tahun tidak ditemukan");
+
+        return view('jurnal-umum-detail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
+    }
+   
 }
