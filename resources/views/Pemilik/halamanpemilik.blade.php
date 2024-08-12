@@ -1,4 +1,4 @@
-@extends('layouts.master-pemilik')
+@extends('layouts.master')
 
 @section('content')
 @if(Session::has('alert'))

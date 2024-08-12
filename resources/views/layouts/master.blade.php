@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,9 +43,16 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="halaman-admin">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                @if (Auth::user()->role == '0')
+                    <a class="nav-link" href="halaman-pemilik">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                @elseif (Auth::user()->role == '1')
+                    <a class="nav-link" href="halaman-admin">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                @endif
+
             </li>
 
             <!-- Divider -->
@@ -64,12 +70,17 @@
                         <a class="collapse-item" href="data-pelanggan">Pelanggan</a>
                         <a class="collapse-item" href="data-jenis">Jenis</a>
                         <a class="collapse-item" href="data-metode">Metode Pembayaran</a>
-                        <a class="collapse-item" href="data-beban">Beban</a>
+                        @if (Auth::user()->role == '1')
+                            <a class="collapse-item" href="data-beban">Beban</a>
+                        @endif
+
+
+
                     </div>
                 </div>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
-            
+
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -79,86 +90,83 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="laporan">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Laporan</span></a>
-            </li>
+            @if (Auth::user()->role == '0')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Laporan</span>
+                    </a>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Laporan:</h6>
+                            <a class="collapse-item" href="jurnal-umum">Jurnal Umum</a>
+                            <a class="collapse-item" href="buku-besar">Buku Besar</a>
+                            <a class="collapse-item" href="neraca-saldo">Neraca Saldo</a>
+                            <a class="collapse-item" href="laporan">Laporan</a>
+                        </div>
+                    </div>
+                </li>
+            @endif
 
-            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Toggler (Sidebar) -->
-           
-
-            
-
         </ul>
-        <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
             <div id="content">
-
-                <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                   
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                     
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin, {{ Auth::user()->name }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                
-                                <a class="dropdown-item" href="logout">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                    <div class="container-fluid">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        @php
+                            $pesanan = DB::table('pesanan')->where('statuspembayaran', 'Belum Bayar')->get();
+                            $notif = count($pesanan);
+                        @endphp
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link" href="pesanan">
+                                    <i class="fas fa-shopping-cart">
+                                        <span class="badge badge-warning badge-counter">{{ $notif }}</span>
+                                    </i>
                                 </a>
-                            </div>
-                        </li>
+                            </li>
 
-                    </ul>
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link" href="halaman-kirim">
+                                    <i class="fas fa-shipping-fast">
+                                        <span class="badge badge-warning badge-counter">{{ $notif }}</span>
+                                    </i>
+                                </a>
+                            </li>
 
+                            <li class="nav-item dropdown no-arrow">
+
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome,
+                                        {{ Auth::user()->name }}</span>
+                                    <img class="img-profile rounded-circle" src="assets/images/faces/face8.jpg">
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
+
+                                    <a class="dropdown-item" href="logout">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    
-
-                    <!-- Content Row -->
                     @yield('content')
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
 
-            <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -166,21 +174,13 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
+        
     </div>
-    <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -200,5 +200,16 @@
     <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
+<style>
+    .badge:after {
+        content: attr(value);
+        font-size: 12px;
+        color: #fff;
+        border-radius: 50%;
+        left: -8px;
+        top: -10px;
+        opacity: 0.9;
+    }
+</style>
 
 </html>

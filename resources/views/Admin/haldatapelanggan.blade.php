@@ -164,3 +164,6 @@
 @push('custom-scripts')
     <script src="{{asset('/assets/js/dashboard.js')}}"></script>
 @endpush
+@push('scripts')
+    @include('layouts.partial.script')
+@endpush

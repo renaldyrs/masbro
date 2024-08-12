@@ -48,14 +48,17 @@ class AuthController extends Controller
         ]);
 
         if(auth()->attempt(array('email' => $inputVal['email'], 'password' => $inputVal['password']))){
+            
+            $request->session()->regenerate();
+
             if (auth()->user()->role == 1) {
-                return redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
+                return redirect()->intended('halaman-admin')->with('alert', "Selamat Datang Admin"); //redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
             }else{
-                return redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
+                return redirect()->intended('halaman-pemilik')->with('alert', "Selamat Datang Pemilik"); //redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
             }
         }else{
             return redirect()->route('login')
-                ->with('error','Email & Password are incorrect.');
+                ->with('alert','Email & Password are incorrect.');
         } 
 
         // $credentials = $request->only('email', 'password');

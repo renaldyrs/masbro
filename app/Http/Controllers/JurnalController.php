@@ -72,11 +72,11 @@ class JurnalController extends Controller
         return redirect('jurnal-umum');
     }
 
-    public function destroyJurnalUmum($id)
+    public function hapusjurnal($id)
     {
         Jurnal::destroy($id);
         Session::flash('pesan', 'Transaksi Berhasil Dihapus');
-        return redirect('jurnal-umum');
+        return back();
     }
 
     public function carijurnal(Request $request)
@@ -101,5 +101,4 @@ class JurnalController extends Controller
 
         return view('jurnal-umum-detail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
     }
-   
 }

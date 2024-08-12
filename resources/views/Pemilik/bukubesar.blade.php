@@ -1,4 +1,4 @@
-@extends('Layouts.master-pemilik')
+@extends('Layouts.master')
 
 @section('content')
 
@@ -14,6 +14,8 @@
                     </div>
                 </div>
                 <div class="card-body">
+
+
 
                     <div class="panel-body">
                         <h4>Daftar Akun : <strong></strong> </h4>

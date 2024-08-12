@@ -164,6 +164,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Riskihajar\Terbilang\TerbilangServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
         
 
         /*

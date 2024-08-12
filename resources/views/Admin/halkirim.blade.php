@@ -13,26 +13,13 @@
 
         <div class="card card-outline-info">
             <div class="card-header">
-                <h4 class="m-b-0 text-black">Transaksi Pesanan </h4>
+                <h4 class="m-b-0 text-black">Pengiriman</h4>
             </div>
 
             <div class="card-body">
-                <div class="row">
-                    <div class="d-flex">
-
-                        <div class="col-lg-6">
-                            <h4 class="card-title">
-                                <a href="{{url('tambah-pesanan')}}" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#ModalPesanan">Tambah</a>
-                            </h4>
-                            <br>
-                        </div>
-
-                    </div>
-                </div>
-
+            
                 <div class="table-responsive m-t-0">
-                    <table id="myTable" class="table display table-bordered table-striped">
+                    <table id="myTable" class="table display table-bordered ">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -41,7 +28,7 @@
                                 <th>TGL Transaksi</th>
                                 <th>Pelanggan</th>
                                 <th>Jenis Pembayaran</th>
-                                <th>Nama Bank</th>
+                             <th>Nama Bank</th>
                                 <th>Status Pembayaran</th>
                                 <th>Jenis</th>
                                 <th>Harga</th>
@@ -51,7 +38,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="text-center">
                             {{-- {{dd($order)}} --}}
                             <?php $no = 1; ?>
                             @foreach ($pesanan as $p)
@@ -112,9 +99,9 @@
     </div>
 
 </div>
-</div>
 
-@include('Admin.Modal.pesanan')
+
+
 @endsection
 @push('plugin-scripts')
     <script src="{{asset('/assets/plugins/chartjs/chart.min.js')}}"></script>

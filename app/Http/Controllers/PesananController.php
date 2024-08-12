@@ -12,6 +12,7 @@ use App\Models\Pesanan;
 use App\Models\pelanggan;
 use App\Models\Jenis;
 use App\Models\Metode;
+use App\Models\Jurnal;
 
 class PesananController extends Controller
 {
@@ -48,7 +49,7 @@ class PesananController extends Controller
         return response()->json($data1);
     }
     public function getkodebank(Request $request){
-        $data= DB::table('metodepembayaran')->where('namabank', $request->namabank)->first();
+        $data= DB::table('metodepembayaran')->where('id', $request->id)->first();
        
        
         return response()->json($data);
@@ -74,7 +75,9 @@ class PesananController extends Controller
 
         $kode = $kodepesan . $kodetahun . $kodemonth . $kodeday . $kodeurut;
 
-        $tglselesai = $kodetahun . "-" . $kodemonth . "-" . $kodeday + 3;
+        $tgl= DB::table('jenis')->where('id', $request->id_jenis)->first();
+        $tglhari = $tgl->hari;
+        $tglselesai = $kodetahun . "-" . $kodemonth . "-" . $kodeday + $tglhari;
         $tgltransaksi = date("Y-m-d");
 
         $jumlah=$request->jumlah;
@@ -95,25 +98,36 @@ class PesananController extends Controller
         $pesanan->statuspembayaran = $request->statuspembayaran;
         $pesanan->save();
 
+        $jurnal = new Jurnal;
+        $jurnal->id_akun = 3;
+        $jurnal->nominal = $total;
+        $jurnal->waktu_transaksi = $tgltransaksi;
+        $jurnal->tipe = 'k';
+        $jurnal->save();
+
+        $jurnal = new Jurnal;
+        $jurnal->id_akun = 1;
+        $jurnal->nominal = $total;
+        $jurnal->waktu_transaksi = $tgltransaksi;
+        $jurnal->tipe = 'd';
+        $jurnal->save();
+
+
         return redirect('pesanan');
     }
 
-    public function hapuspesanan($id)
+    public function hapuspesanan($kode_pesanan)
     {
-
-        DB::table('pesanan')->where('id', $id)->delete();
-
-        return redirect('pesanan');
+        
+        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->delete();
+        return redirect()->back()->with('pesan', 'Pesanan Berhasil Dihapus');
 
     }
 
-    public function updatestatus($id, Request $request){
+    public function updatestatus($kode_pesanan, Request $request){
 
         $status = "Sudah Bayar";
-        DB::table('pesanan')->where('id', $id)->update([
-            
-            'statuspembayaran'=> $status
-        ]);
+        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuspembayaran'=> $status]);
         return redirect('pesanan');
 
     }

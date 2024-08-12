@@ -16,13 +16,13 @@
                 <th class="text-center">{{ $item['nama_akun'] }}</th>
                 <th>
                     Rp. {{ number_format($item['debet'], 0, ',', '.') }},-
-                </t>
+                </th>
                 <th>
                     Rp. {{ number_format($item['kredit'], 0, ',', '.') }},-
-                </t>
+                </th>
             </tr>
 
-            
+        
 
         @endforeach
         <tr>

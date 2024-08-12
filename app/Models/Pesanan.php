@@ -14,14 +14,16 @@ protected $table = 'pesanan';
 
     protected $fillable = [
         'id',
-        'kode_pesanan', 
-        'nama_pelanggan', 
-        'jenis', 
-        'harga', 
-        'jumlah', 
-        'total', 
-        'tgltransaksi', 
-        'tglselai'
+        'id_jenis',
+        'id_pelanggan',
+        'id_metode',
+        'harga',
+        'jumlah',
+        'total',
+        'tgltransaksi',
+        'tglselesai',
+        'status',
+        'statuspembayaran',
 
     ];
 }

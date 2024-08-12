@@ -1,4 +1,4 @@
-@extends('layouts.master-pemilik')
+@extends('layouts.master')
 
 @section('content')
 
@@ -53,7 +53,7 @@
 </div>
 
 @endsection
-
+@include('layouts.partial.script')
 <script>
         function history_back() {
             window.history.back();

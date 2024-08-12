@@ -6,6 +6,7 @@ use App\Charts\PesananChart;
 use App\Charts\PendapatanChart;
 use App\Models\Jenis;
 use App\Models\Pelanggan;
+use App\Models\Jurnal;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +57,8 @@ class AdminController extends Controller
     public function databeban()
     {
         $beban = DB::table('beban')->get();
-        return View('Admin\haldatabeban', ['beban' => $beban]);
+        $akun = DB::table('akun')->whereBetween('kode_akun', ['400', '499'])->get();
+        return View('Admin\haldatabeban', ['beban' => $beban, 'akun' => $akun]);
     }
 
     public function datametode()
@@ -105,7 +107,9 @@ class AdminController extends Controller
     //----------------------------------------------------------------------------JENIS----------------------------------------------
     public function tambahjenis(Request $request)
     {
+        $id=DB::table('jenis')->max('id')+1;
         $addjenis = new Jenis();
+        $addjenis->id = $id;
         $addjenis->jenis = $request->jenis;
         $addjenis->kg = $request->kg;
         $addjenis->hari = $request->hari;
@@ -152,7 +156,7 @@ class AdminController extends Controller
     {
         DB::table('metodepembayaran')->where('id', $id)->delete();
         return redirect('/data-metode');
-        ;
+        
     }
 
     public function editmetode($id)
@@ -182,6 +186,14 @@ class AdminController extends Controller
             'jumlah' => $request->jumlah,
             'total' => $request->total
         ]);
+
+        $jurnal = new Jurnal();
+
+        $jurnal->id_akun = $request->id_akun;
+        $jurnal->keterangan = $request->keterangan;
+        $jurnal->debit = $request->biaya;
+        $jurnal->kredit = 0;
+        $jurnal->save();
 
         return redirect('data-beban');
     }
@@ -221,6 +233,11 @@ class AdminController extends Controller
 
     }
 
+    public function getakunbeban(Request $request){
+
+        $akun = DB::table('akun')->where('id', $request->id)->first();
+        return response()->json($akun);
+    }
 
     public function laporan(){
         $pesanan = DB::table('pesanan')->get();

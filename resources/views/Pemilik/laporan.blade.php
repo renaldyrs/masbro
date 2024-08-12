@@ -1,4 +1,4 @@
-@extends('layouts.master-pemilik')
+@extends('layouts.master')
 
 @section('content')
 
@@ -20,6 +20,7 @@
                         <table class="table table-striped text-center">
                         <caption class="text-center"> <strong>DAFTAR LAPORAN</strong></caption>
                           <tr>
+                            
                             <th class="text-center">No</th>
                             <th class="text-center">Waktu</th>
                             <th class="text-center">Action</th>

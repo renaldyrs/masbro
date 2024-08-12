@@ -9,7 +9,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h3 class="modal-title" id="myModalLabel">Pesanan</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close" onclick="javascript:window.location.reload()" data-dismiss="modal" aria-label="Close" >
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -40,7 +40,7 @@
                                     <div class="form-group has-success">
                                         <label class="control-label">Jenis Pembayaran</label>
                                         <select name="jenisbayar" class="form-control" id="metode">
-                                            <option value="">--Jenis Pemabayaran--</option>
+                                            
                                             <option value="Cash">Cash</option>
                                             <option value="Transfer">Transfer</option>
                                         </select>
@@ -52,18 +52,19 @@
                                     <div class="form-group has-success">
                                         <label class="control-label">Metode Pembayaran</label>
                                         <select name="id_metode" class="form-control" id="metodepembayaran">
+                                            <option value="0">Cash</option>
                                         </select>
 
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-md-3">
+                                <div class="col-md-3">
                                     <div class="form-group has-success">
                                         <label class="control-label">Kode Bank</label>
-                                        <input type="text" name="kodebank" id="kodebank" class="form-control">
+                                        <input type="text" name="kodebank" id="kodebank" class="form-control" readonly>
 
                                     </div>
-                                </div> -->
+                                </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group has-success">
@@ -93,7 +94,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group has-success">
                                         <label class="control-label">harga</label>
-                                        <input type="text" name="harga" id="harga1" class="form-control">
+                                        <input type="text" name="harga" id="harga1" class="form-control" readonly>
                                     </div>
                                 </div>
 
@@ -116,10 +117,11 @@
                             <button type="reset" class="btn btn-danger">Cancel</button>
                         </div>
 
-</form>
-</div>
-</div>
-</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 </form>
 
 
@@ -159,6 +161,8 @@
     $(document).ready(function () {
         $(document).on('change', '#metode', function () {
             var jenis = $(this).val();
+            console.log(jenis);
+
             if (jenis) {
                 $.ajax({
                     url: 'getmetode/' + jenis,
@@ -168,14 +172,15 @@
                         console.log(data);
                         $('#metodepembayaran').empty();
                         $.each(data, function (key, value) {
-                            
+
                             $('#metodepembayaran').append('<option value="' + value.id + '">' + value.namabank + '</option>');
                         });
 
                     }
                 });
             } else {
-                $('#metodepembayaran').empty();
+
+                $('#metodepembayaran').append('<option value="0"></option>');
             }
 
         });
@@ -185,19 +190,19 @@
 
     $(document).ready(function () {
         $(document).on('change', '#metodepembayaran', function () {
-            var namabank = $(this).val();
-            console.log(namabank);
+            var id = $(this).val();
+            console.log(id);
 
             $.ajax({
                 url: '{!!URL::to('getkodebank')!!}',
                 type: "GET",
-                data: { 'namabank': namabank, },
+                data: { 'id': id, },
                 dataType: "JSON",
                 success: function (data) {
                     console.log(data.kodebank);
                     $('#kodebank').val(data.kodebank);
                 }
-               
+
             });
 
         });

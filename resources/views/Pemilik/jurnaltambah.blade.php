@@ -1,4 +1,4 @@
-@extends('layouts.master-pemilik')
+@extends('layouts.master')
 @section('content')
 
 
@@ -12,7 +12,6 @@
 
         <div class="card card-outline-info">
             <div class="card-header">
-
 
                 <h4 class="m-b-0 ">
                     Input Data

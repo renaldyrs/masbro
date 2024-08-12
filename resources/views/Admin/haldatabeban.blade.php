@@ -19,9 +19,6 @@
 @endif
 <div id="content">
     <div class="d-flex">
-
-
-
         <div class="col-lg-4">
             <div class="card card-outline-info">
                 <div class="card-header">
@@ -34,11 +31,28 @@
                         <div class="form-body">
 
                             <div class="row p-t-20">
-                            <div class="col-lg-12 col-xl-12">
+
+                                <div class="col-lg-12 col-xl-12">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Nama Akun</label>
+                                        <select name="idakun" id="kode" class="form-control ">
+                                            <option value="">-Akun-</option>
+                                            @foreach ($akun as $a)
+
+                                                <option value="{{$a->id}}">{{ $a->kode_akun }} - {{ $a->nama_akun }}
+                                                </option>
+                                            @endforeach
+
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-xl-12">
                                     <div class="form-group has-success">
                                         <label class="control-label">Kode</label>
-                                        <input type="text" name="kode" value="" class="form-control "
-                                            placeholder="Kode" autocomplete="off">
+                                        <input type="text" name="kode" id="kodeakun" value="" class="form-control " placeholder="Kode"
+                                            autocomplete="off" readonly>
 
                                     </div>
                                 </div>
@@ -46,11 +60,13 @@
                                 <div class="col-lg-12 col-xl-12">
                                     <div class="form-group has-success">
                                         <label class="control-label">Keterangan</label>
-                                        <input type="text" name="keterangan" value="" class="form-control "
-                                            placeholder="Tambahkan Keterangan" autocomplete="off">
+                                        <input type="text" name="keterangan" id="keterangan" value="" class="form-control "
+                                            placeholder="Tambahkan Keterangan" autocomplete="off" readonly>
 
                                     </div>
                                 </div>
+
+
 
                                 <div class="col-lg-12 col-xl-12">
                                     <div class="form-group has-success">
@@ -72,7 +88,7 @@
                                     <div class="form-group has-success">
                                         <label class="control-label">Total</label>
                                         <input type="text" class="form-control form-control-danger" name="total"
-                                            value="" placeholder="Total" autocomplete="off">
+                                            id="total" value="" placeholder="Total" autocomplete="off">
                                     </div>
                                 </div>
 
@@ -149,6 +165,15 @@
     <script src="{{asset('/assets/js/dashboard.js')}}"></script>
 @endpush
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+
+
+<script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" />
+
 <script>
     function sum() {
         var txtFirstNumberValue = document.getElementById('biaya').value;
@@ -158,4 +183,30 @@
             document.getElementById('total').value = result;
         }
     }
+
+    $(document).ready(function () {
+        $(document).on('change', '#kode', function () {
+
+            var id = $(this).val();
+            console.log(id);
+
+            $.ajax({
+                type: "get",
+                url: '{!!URL::to('getakunbeban')!!}',
+                data: { 'id': id, },
+                dataType: 'json',
+                success: function (akun) {
+
+                    console.log(akun);
+
+                    $("#kodeakun").val(akun.kode_akun);
+                    $("#keterangan").val(akun.nama_akun);
+
+                },
+                error: function (data) {
+
+                }
+            });
+        });
+    });
 </script>
