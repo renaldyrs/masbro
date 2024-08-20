@@ -32,18 +32,17 @@
                 </div>
 
                 <div class="table-responsive m-t-0">
-                    <table id="myTable" class="table display table-bordered table-striped">
+                    <table id="myTable" class="table display table-bordered ">
                         <thead>
                             <tr>
                                 <th>#</th>
-
                                 <th>Kode Pesanan</th>
                                 <th>TGL Transaksi</th>
                                 <th>Pelanggan</th>
                                 <th>Jenis Pembayaran</th>
                                 <th>Nama Bank</th>
                                 <th>Status Pembayaran</th>
-                                <th>Jenis</th>
+                                <th>Jenis Layanan</th>
                                 <th>Harga</th>
                                 <th>jumlah</th>
                                 <th>Total</th>
@@ -71,7 +70,7 @@
                                     </td>
 
                                     <td>
-                                        {{$p->status}}
+                                        {{$p->jenispembayaran}}
                                     </td>
                                     <td>
                                         {{$p->namabank}}

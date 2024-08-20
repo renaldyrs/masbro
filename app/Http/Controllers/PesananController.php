@@ -22,6 +22,7 @@ class PesananController extends Controller
         ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
         ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
         ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+        ->orderBy('kode_pesanan', 'asc')
         ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*']);
 
         $pelanggan = DB::table('pelanggan')->get();
@@ -50,8 +51,6 @@ class PesananController extends Controller
     }
     public function getkodebank(Request $request){
         $data= DB::table('metodepembayaran')->where('id', $request->id)->first();
-       
-       
         return response()->json($data);
     }
 
@@ -96,6 +95,7 @@ class PesananController extends Controller
         $pesanan->tglselesai = $tglselesai;
         $pesanan->status = $request->jenisbayar;
         $pesanan->statuspembayaran = $request->statuspembayaran;
+        $pesanan->statuspesanan = $request->statuspesanan;
         $pesanan->save();
 
         $jurnal = new Jurnal;

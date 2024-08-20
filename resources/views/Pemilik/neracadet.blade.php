@@ -45,17 +45,11 @@
               <th class="text-center"> <em> {{ ucwords(Terbilang::make($total_saldo_debet)) }} Rupiah</em> </th>
               <th class="text-center"> <em> {{ ucwords(Terbilang::make($total_saldo_kredit)) }} Rupiah</em></th>
             </tr>
-
           </table>
-
         </div>
       </div>
-
     </div>
-
-
   </div>
-
 </div>
 
 @endsection

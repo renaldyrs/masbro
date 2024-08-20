@@ -79,17 +79,19 @@
                     </div>
                 </div>
             </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-
-
-            <!-- Nav Item - Charts -->
+            
             <li class="nav-item">
                 <a class="nav-link" href="pesanan">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-shopping-cart"></i>
                     <span>Pesanan</span></a>
             </li>
 
-            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="pesanan">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Pengiriman</span></a>
+            </li>
+
             @if (Auth::user()->role == '0')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
@@ -175,7 +177,7 @@
                 </div>
             </footer>
         </div>
-        
+
     </div>
 
     <a class="scroll-to-top rounded" href="#page-top">
