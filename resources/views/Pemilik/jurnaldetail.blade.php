@@ -17,7 +17,8 @@
 
                 <div class="d-flex justify-content-between">
                     <h4 class="m-b-0 "> Data Jurnal Umum</h4>
-                    <button onclick="history_back()" class="btn-secondary btn-sm ">Kembali</button>
+        
+                    <a href="{{ url("jurnal-umum") }}" class="btn-secondary btn-sm ">Kembali</a>
                 </div>
 
 
@@ -31,7 +32,7 @@
                             <div class="panel-heading d-flex justify-content-between">
 
                                 Detail Jurnal Umum
-                                <a href="{{ url('jurnal-umum/create') }}" class="btn btn-primary ">Tambah</a>
+                                <a href="{{ url("tambah-jurnal") }}" class="btn btn-primary ">Tambah</a>
                             </div>
                             <div class="panel-body">
                                 <h4 class="pull-left">Total Data : <strong>{{ $total_jurnal }}</strong> </h4>
@@ -69,8 +70,8 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('jurnal-umum/' . $data->id . '/edit') }}"
-                                                        class="btn btn-info">EDIT</a>
+                                                    <!-- <a href="{{ url('jurnal-umum/' . $data->id . '/edit') }}"
+                                                        class="btn btn-info">EDIT</a> -->
                                                     <a href="hapus/{{ $data->id }}" class="btn btn-danger">HAPUS</a>
 
                                                 </td>

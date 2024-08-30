@@ -127,9 +127,9 @@
 											<td>{{$p->nohp}}</td>
 											<td>{{$p->kelamin}}</td>
                                             <td>
-                                                <a class="btn btn-danger" href="hapus-pelanggan/{{$p->id }}">HAPUS</a>
+                                                <a class="btn btn-danger" href="hapus-pelanggan/{{$p->id }}"><i class="fa fa-trash"></i></a>
 
-                                                <a class="btn btn-success" href="edit-pelanggan/{{$p->id}}">EDIT</a>
+                                                <a class="btn btn-success" href="edit-pelanggan/{{$p->id}}"><i class="fa fa-pen"></i></a>
                                             </td>
 
                                         </tr>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -18,19 +19,42 @@ class KirimController extends Controller
 {
     //
     public function halkirim(){
-        $pesanan = DB::table('pesanan')
+        $pengiriman = DB::table('pengiriman')
+        ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
         ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-        ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-        ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-        ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*']);
-
-        $pelanggan = DB::table('pelanggan')->get();
-
-        $user = DB::table('users')->get();
         
-        $jenis = DB::table('jenis')->get();
+        ->get(['pelanggan.*', 'pesanan.*', 'pengiriman.*']);
         
-        return view('Admin/halkirim',['pesanan'=>$pesanan,'pelanggan'=>$pelanggan,'jenis'=>$jenis,'users'=>$user,]);
+        return view('Admin/halkirim',['pengiriman'=>$pengiriman,]);
+    }
+
+    public function kirim(Request $request){
+    
+        $tglpengiriman = date("Y-m-d");
+        $jampengiriman = date("H:i:s");
+        $statuspengiriman = "Proses Kirim";
+
+        $pengiriman = DB::table('pengiriman');
+        $pengiriman->insert([
+            'id_pelanggan' => $request->idpelanggan,
+            'id_pesanan' => $request->idpesanan,
+            'statuspengiriman' =>$statuspengiriman,
+            'tglpengiriman' => $tglpengiriman,
+            'jampengiriman' => $jampengiriman
+        ]);
+        return redirect('halaman-kirim');
+    }
+
+    public function selesaikirim($kode_pesanan, Request $request){
+
+        
+        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuslaundry'=> 'Sudah Kirim']);
+
+        $jampengiriman = now()->format('H:i:s');
+        $status = "Selesai Kirim";
+        DB::table('pengiriman')->where('id', '23')
+        ->update(['statuspengiriman'=> $status, 'jampengiriman' => $request->$jampengiriman]);
+        return redirect('halaman-kirim');
     }
 
 }

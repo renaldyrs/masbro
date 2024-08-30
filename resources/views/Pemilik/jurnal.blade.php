@@ -22,7 +22,7 @@
 
             <div class="card-body">
 
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <div class="col-lg-12">
                         {!! Form::open(['url' => 'jurnal-umum/cari', 'method' => 'get', 'class' => 'form-inline text-center']) !!}
 
@@ -45,7 +45,7 @@
                         {!! Form::close() !!}
                         <br>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="table-responsive m-t-0">
 

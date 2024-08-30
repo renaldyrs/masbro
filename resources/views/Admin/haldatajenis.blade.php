@@ -135,9 +135,9 @@
                                             <td>{{$j->harga}}</td>
                                             <td>{{$j->hari}}</td>
                                             <td>
-                                                <a class="btn btn-danger" href="hapus-jenis/{{$j->id }}">HAPUS</a>
+                                                <a class="btn btn-danger" href="hapus-jenis/{{$j->id }}"><i class="fa fa-trash"></i></a>
 
-                                                <a class="btn btn-success" href="edit-jenis/{{$j->id}}">EDIT</a>
+                                                <a class="btn btn-success" href="edit-jenis/{{$j->id}}"><i class="fa fa-pen"></i></a>
                                             </td>
 
                                         </tr>

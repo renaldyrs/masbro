@@ -136,9 +136,9 @@
                                     <td>{{$b->jumlah}}</td>
                                     <td>{{$b->total}}</td>
                                     <td>
-                                        <a class="btn btn-danger" href="/data-beban/hapus/{{$b->idbeban}}">HAPUS</a>
+                                        <a class="btn btn-danger" href="/data-beban/hapus/{{$b->idbeban}}"><i class="fa fa-trash"></i></a>
 
-                                        <a class="btn btn-success" href="/data-beban/edit/{{$b->idbeban}}">EDIT</a>
+                                        <a class="btn btn-success" href="/data-beban/edit/{{$b->idbeban}}"><i class="fa fa-pen-to-square"></i></a>
                                     </td>
 
                                 </tr>

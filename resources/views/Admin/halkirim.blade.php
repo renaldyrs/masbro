@@ -25,67 +25,42 @@
                                 <th>#</th>
 
                                 <th>Kode Pesanan</th>
-                                <th>TGL Transaksi</th>
                                 <th>Pelanggan</th>
-                                <th>Jenis Pembayaran</th>
-                             <th>Nama Bank</th>
-                                <th>Status Pembayaran</th>
-                                <th>Jenis</th>
-                                <th>Harga</th>
-                                <th>jumlah</th>
-                                <th>Total</th>
-                                <th>TGL Selesai</th>
+                                <th>No. Telp</th>
+                                <th>Alamat</th>
+                                <th>Status Laundry</th>
+                                <th>Status Pengiriman</th>
+                                <th>TGL Pengiriman</th>
+                                <th>Jam </th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
+                        <tbody class="text">
                             {{-- {{dd($order)}} --}}
                             <?php $no = 1; ?>
-                            @foreach ($pesanan as $p)
+                            @foreach ($pengiriman as $p)
+                            <input type="hidden" name="idp" value="{{$p->id}}">
+
                                 <tr>
                                     <td>{{$no}}</td>
 
-                                    <td style="font-weight:bold; font-color:black">
-                                        {{$p->kode_pesanan}}
-                                    </td>
-
+                                    <td>{{$p->kode_pesanan}}</td>
+                                    <td>{{$p->nama}}</td>
+                                    <td>{{$p->nohp}}</td>
+                                    <td>{{$p->alamat}}</td>
+                                    <td>{{$p->statuslaundry}}</td>
+                                    <td>{{$p->statuspengiriman}}</td>
                                     <td>
-                                        {{carbon\carbon::parse($p->tgltransaksi)->format('d-m-y')}}
+                                      {{$p->tglpengiriman}}
                                     </td>
-
+                                    <td>{{$p->jampengiriman}}</td>
                                     <td>
-                                        {{$p->nama}}
-                                    </td>
-
-                                    <td>
-                                        {{$p->status}}
-                                    </td>
-                                    <td>
-                                        {{$p->namabank}}
-                                    </td>
-                                    <td>
-                                        {{$p->statuspembayaran}}
-                                    </td>
-                                    <td>
-                                        {{$p->jenis}}
-                                    </td>
-                                    <td>
-                                        {{$p->harga}}
-                                    </td>
-                                    <td>
-                                        {{$p->jumlah}}
-                                    </td>
-                                    <td>
-                                        {{$p->total}}
-                                    </td>
-                                    <td>
-                                        {{carbon\carbon::parse($p->tglselesai)->format('d-m-y')}}
-                                    </td>
-                                    <td>
-                                        <a href="{{url('update-pesanan/' . $p->kode_pesanan)}}" class="btn btn-primary"
-                                            onclick="return confirm('yakin?');">Update Status</a>
-                                        <a href="hapus-pesanan/{{$p->kode_pesanan}}" class="btn btn-danger"
-                                            onclick="return confirm('yakin?');">Hapus</a>
+                                        @if ($p->statuspengiriman == 'Proses Kirim')
+                                        <a href="{{url('selesaikirim/' . $p->kode_pesanan)}}" class="btn btn-primary"
+                                            onclick="return confirm('Apakah sudah selesai mengantar laundry ?');"><i class="fa fa-shipping-fast"></i></a>
+                                        @endif
+                                        
+                                        
                                     </td>
                                 </tr>
                                 <?php    $no++; ?>

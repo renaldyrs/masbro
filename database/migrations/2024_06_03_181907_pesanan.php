@@ -31,6 +31,7 @@ class Pesanan extends Migration
             $table->string('jenisbayar');
             $table->string('statuspembayaran');
             $table->string('statuspesanan');
+            $table->string('pengiriman');
             $table->timestamps();
         });
     }

@@ -91,9 +91,16 @@ Route::post('tambah-pesanan', [PesananController::class,'tambahpesanan']);
 Route::get('hapus-pesanan/{kode_pesanan}', [PesananController::class, 'hapuspesanan']);
 Route::get('edit-pesanan/{id}', [PesananController::class, 'editpesanan']);
 Route::get('update-pesanan/{kode_pesanan}', [PesananController::class, 'updatestatus']);
+Route::get('updatekirim/{kode_pesanan}', [PesananController::class, 'updatekirim']);
+Route::get('selesailaundry/{kode_pesanan}', [PesananController::class, 'selesailaundry']);
 Route::get('getharga', [PesananController::class,'getharga']);
 Route::get('getmetode/{jenis}', [PesananController::class,'getmetode']);
-route::get('getkodebank', [PesananController::class,'getkodebank']);
+Route::get('getkodebank', [PesananController::class,'getkodebank']);
+Route::get('ambillaundry/{kode_pesanan}', [PesananController::class, 'ambillaundry']);
+
+//kirim
+Route::post('kirim', [KirimController::class, 'kirim']);
+Route::get('selesaikirim/{id}', [KirimController::class, 'selesaikirim']);
 
 // halaman akun
 

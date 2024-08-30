@@ -59,35 +59,44 @@
             <hr class="sidebar-divider">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Data Master</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Data Master:</h6>
                         <a class="collapse-item" href="data-pelanggan">Pelanggan</a>
                         <a class="collapse-item" href="data-jenis">Jenis</a>
                         <a class="collapse-item" href="data-metode">Metode Pembayaran</a>
-                        @if (Auth::user()->role == '1')
+                        @if (Auth::user()->role == '0')
+                            <a class="collapse-item" href="data-akun">Akun</a>
                             <a class="collapse-item" href="data-beban">Beban</a>
+
                         @endif
-
-
-
                     </div>
                 </div>
             </li>
-            
+
             <li class="nav-item">
-                <a class="nav-link" href="pesanan">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePesanan"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-shopping-cart"></i>
-                    <span>Pesanan</span></a>
+                    <span>Pesanan</span>
+                </a>
+                <div id="collapsePesanan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Pesanan :</h6>
+                        <a class="collapse-item" href="pesanan">Pesanan</a>
+                        <a class="collapse-item" href="data-akun">Pesanan Diproses</a>
+                        <a class="collapse-item" href="data-beban">Pesanan Selesai</a>
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="pesanan">
+                <a class="nav-link" href="halaman-kirim">
                     <i class="fas fa-shipping-fast"></i>
                     <span>Pengiriman</span></a>
             </li>
@@ -123,30 +132,74 @@
                             <i class="fa fa-bars"></i>
                         </button>
                         @php
+                            $pesan = DB::table('pesanan')->where('statuspembayaran', 'Belum Bayar')->get();
+                            $notifpesanan = count($pesan);
+
+                            $proses = DB::table('pesanan')->where('statuslaundry', 'Proses Laundry')->get();
+                            $notifproses = count($proses);
+
+                            $kirim = DB::table('pengiriman')->where('statuspengiriman', 'Proses Kirim')->get();
+                            $notifkirim = count($kirim);
+
                             $pesanan = DB::table('pesanan')->where('statuspembayaran', 'Belum Bayar')->get();
-                            $notif = count($pesanan);
+
+
                         @endphp
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link" href="pesanan">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" data-target="#collapseMenu"
+                                    aria-expanded="false">
                                     <i class="fas fa-shopping-cart">
-                                        <span class="badge badge-warning badge-counter">{{ $notif }}</span>
+                                        <span class="badge badge-warning badge-counter">{{ $notifpesanan }}</span>
+                                    </i>
+                                </a>
+
+                                <div class="dropdown-menu text-center">
+                                    Belum dibayar
+                                    @foreach ($pesanan as $p)
+                                        <hr>
+                                        {{ $p->kode_pesanan}}
+
+                                    @endforeach
+                                </div>
+
+                            </li>
+
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link" href="halaman-kirim">
+                                    <i class="fa fa-clock">
+                                        <span class="badge badge-warning badge-counter">{{ $notifproses }}</span>
                                     </i>
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link" href="halaman-kirim">
-                                    <i class="fas fa-shipping-fast">
-                                        <span class="badge badge-warning badge-counter">{{ $notif }}</span>
-                                    </i>
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" data-target="#collapseKirim"
+                                    aria-expanded="false">
+                                        <i class="fas fa-shipping-fast">
+                                            <span class="badge badge-warning badge-counter">{{ $notifkirim }}</span>
+                                        </i>
                                 </a>
+
+                                <div class="dropdown-menu text-center">
+                                    
+                                    @foreach ($kirim as $k)
+                                    Proses Kirim
+                                        <hr>
+                                        
+
+                                    @endforeach
+                                </div>
+
                             </li>
 
                             <li class="nav-item dropdown no-arrow">
 
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    data-toggle="dropdown" aria-haspopup="true" data-target="#collapseMenu"
+                                    aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome,
                                         {{ Auth::user()->name }}</span>
                                     <img class="img-profile rounded-circle" src="assets/images/faces/face8.jpg">
@@ -161,6 +214,7 @@
                                     </a>
                                 </div>
                             </li>
+
                         </ul>
                     </div>
                 </nav>

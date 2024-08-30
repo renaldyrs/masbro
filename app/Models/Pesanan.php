@@ -17,13 +17,16 @@ protected $table = 'pesanan';
         'id_jenis',
         'id_pelanggan',
         'id_metode',
+        'kode_pesanan',
         'harga',
         'jumlah',
         'total',
         'tgltransaksi',
         'tglselesai',
-        'status',
+        'jenisbayar',
         'statuspembayaran',
+        'statuslaundry',
+        'pengiriman',
 
     ];
 }

@@ -37,15 +37,18 @@
                             <tr>
                                 <th>#</th>
                                 <th>Kode Pesanan</th>
-                                <th>TGL Transaksi</th>
+                                
                                 <th>Pelanggan</th>
                                 <th>Jenis Pembayaran</th>
                                 <th>Nama Bank</th>
                                 <th>Status Pembayaran</th>
                                 <th>Jenis Layanan</th>
                                 <th>Harga</th>
-                                <th>jumlah</th>
+                                <th>KG</th>
                                 <th>Total</th>
+                                <th>Status Laundry</th>
+                                <th>Pengiriman</th>
+                                <th>TGL Transaksi</th>
                                 <th>TGL Selesai</th>
                                 <th>Action</th>
                             </tr>
@@ -54,7 +57,11 @@
                             {{-- {{dd($order)}} --}}
                             <?php $no = 1; ?>
                             @foreach ($pesanan as $p)
+    
                                 <tr>
+                                <input type="hidden" name="idpesanan" value="{{$p->idpesanan}}">
+                                <input type="hidden" name="idpelanggan" value="{{$p->id_pelanggan}}">
+                            
                                     <td>{{$no}}</td>
 
                                     <td style="font-weight:bold; font-color:black">
@@ -62,15 +69,11 @@
                                     </td>
 
                                     <td>
-                                        {{carbon\carbon::parse($p->tgltransaksi)->format('d-m-y')}}
-                                    </td>
-
-                                    <td>
                                         {{$p->nama}}
                                     </td>
 
                                     <td>
-                                        {{$p->jenispembayaran}}
+                                        {{$p->jenisbayar}}
                                     </td>
                                     <td>
                                         {{$p->namabank}}
@@ -90,16 +93,45 @@
                                     <td>
                                         {{$p->total}}
                                     </td>
+
+                                    <td>
+                                        {{$p->statuslaundry}}
+                                    </td>
+                                    <td>
+                                        {{$p->pengiriman}}
+                                    </td>
+                                    <td>
+                                        {{carbon\carbon::parse($p->tgltransaksi)->format('d-m-y')}}
+                                    </td>
                                     <td>
                                         {{carbon\carbon::parse($p->tglselesai)->format('d-m-y')}}
                                     </td>
-                                    <td>
-                                        <a href="{{url('update-pesanan/' . $p->kode_pesanan)}}" class="btn btn-primary"
-                                            onclick="return confirm('yakin?');">Update Status</a>
-                                        <a href="hapus-pesanan/{{$p->kode_pesanan}}" class="btn btn-danger"
-                                            onclick="return confirm('yakin?');">Hapus</a>
+                                    <td class="text-center" >
+                                    
+                                        @if ($p->statuspembayaran == 'Belum Bayar')
+                                            <a href="{{url('update-pesanan/' . $p->kode_pesanan)}}"
+                                                onclick="return confirm('Apakah anda yakin sudah dibayar ?');" class="btn btn-success"><i class="fa fa-dollar-sign margin-bottom: 10px;"  ></i></a>
+                                        @endif
+
+                                        @if ($p->pengiriman == 'Ambil' && $p->statuslaundry == 'Selesai Laundry')
+                                        <a href="{{url('ambillaundry/' . $p->kode_pesanan)}}" class="btn btn-success"><i class="fa fa-handshake"></i></a>
+                                        
+                                        @endif
+                                 
+                                        @if ($p->statuslaundry == 'Proses Laundry')
+                                        <a href="selesailaundry/{{$p->kode_pesanan}}" class="btn btn-danger"
+                                            onclick="return confirm('Anda yakin proses laundry telah selesai ?');"><i class="fa fa-check"></i></a>
+                                        @endif
+
+                                        @if ($p->pengiriman == 'Kirim' && $p->statuslaundry == 'Selesai Laundry')
+                                        
+                                        <a  href="updatekirim/{{$p->idpesanan}}" class="btn btn-primary"><i class="fa fa-shipping-fast"></i></a>
+                                        
+                                        @endif
+
                                     </td>
                                 </tr>
+                                
                                 <?php    $no++; ?>
                             @endforeach
                         </tbody>

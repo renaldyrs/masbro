@@ -10,7 +10,7 @@ class Akun extends Model
     protected $table = 'akun';
 
     // kolom tabel untuk Mass Assingment
-    protected $fillable = ['nama_akun', 'kode_akun'];
+    protected $fillable = ['id','nama_akun', 'kode_akun'];
 
     // relasi 1-N dengan Jurnal
     public function jurnal(){

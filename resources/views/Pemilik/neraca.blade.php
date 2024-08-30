@@ -13,7 +13,7 @@
 
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['url' => 'neraca-saldo/cari', 'method' => 'get', 'class' => 'form-inline text-center']) !!}
+                    <!-- {!! Form::open(['url' => 'neraca-saldo/cari', 'method' => 'get', 'class' => 'form-inline text-center']) !!}
                     <div class="form-group">
                         <label for="name">Bulan</label>
                         {!! Form::selectMonth('bulan', null, ['class' => 'form-control', 'placeholder' => '-- Bulan --']) !!}
@@ -25,7 +25,7 @@
                             <button type="submit" class="btn btn-default btn-md">Cari</button>
                         </div>
                     </div>
-                    {!! Form::close() !!}
+                    {!! Form::close() !!} -->
 
                     <div class="tabel-responsive">
                         <h4>Total Data : <strong>{{ $total_neraca }}</strong> </h4>

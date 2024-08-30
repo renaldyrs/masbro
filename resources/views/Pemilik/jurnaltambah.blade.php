@@ -15,8 +15,7 @@
 
                 <h4 class="m-b-0 ">
                     Input Data
-                    <a href="{{url('tambah-pesanan')}}" class="btn btn-primary float-right" data-toggle="modal"
-                        data-target="#ModalPesanan">Tambah</a>
+                    <a href="{{url('jurnal-umum')}}" class="btn btn-primary float-right">Kembali</a>
                 </h4>
             </div>
 

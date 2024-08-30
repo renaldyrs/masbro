@@ -98,9 +98,9 @@
 											<td>{{$m->kodebank}}</td>
 
 											<td>
-												<a class="btn btn-danger" href="hapus-metode/{{$m->id }}">HAPUS</a>
+												<a class="btn btn-danger" href="hapus-metode/{{$m->id }}"><i class="fa fa-trash"></i></a>
 
-												<a class="btn btn-success" href="edit-metode/{{$m->id}}">EDIT</a>
+												<a class="btn btn-success" href="edit-metode/{{$m->id}}"><i class="fa fa-pen"></i></a>
 											</td>
 
 										</tr>
