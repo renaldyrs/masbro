@@ -61,6 +61,7 @@
                                 <tr>
                                 <input type="hidden" name="idpesanan" value="{{$p->idpesanan}}">
                                 <input type="hidden" name="idpelanggan" value="{{$p->id_pelanggan}}">
+                                <input type="hidden" name="total" value="{{$p->total}}">
                             
                                     <td>{{$no}}</td>
 

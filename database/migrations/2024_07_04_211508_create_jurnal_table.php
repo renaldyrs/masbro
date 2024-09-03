@@ -15,11 +15,14 @@ class CreateJurnalTable extends Migration
     {
         Schema::create('jurnal', function ( $table) {
             $table->id();
+            $table->unsignedBigInteger('id_akun');
+            $table->unsignedBigInteger('id_pesanan');
             $table->string('keterangan', 255);
             $table->date('waktu_transaksi');
             $table->integer('nominal')->unsigned();
             $table->enum('tipe', ['d', 'k']);
-            $table->unsignedBigInteger('id_akun');
+            
+
         });
 
         Schema::table('jurnal', function( $table){
@@ -27,6 +30,13 @@ class CreateJurnalTable extends Migration
             ->references('id')
             ->on('akun')
             ->onDelete('cascade');
+
+            $table->foreign('id_pesanan')
+            ->references('id')
+            ->on('pesanan')
+            ->onDelete('cascade');
+
+            
         });
     }
 

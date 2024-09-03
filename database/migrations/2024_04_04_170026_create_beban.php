@@ -20,7 +20,7 @@ class CreateBeban extends Migration
             $table->integer('biaya');
             $table->integer('jumlah');
             $table->integer('total');
-            $table->timestamps();
+            
         });
     }
 

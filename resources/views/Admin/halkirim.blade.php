@@ -39,10 +39,11 @@
                             {{-- {{dd($order)}} --}}
                             <?php $no = 1; ?>
                             @foreach ($pengiriman as $p)
-                            <input type="hidden" name="idp" value="{{$p->id}}">
+                            
 
                                 <tr>
                                     <td>{{$no}}</td>
+                                    <input type="hidden" name="idp" value="{{$p->id}}">
 
                                     <td>{{$p->kode_pesanan}}</td>
                                     <td>{{$p->nama}}</td>

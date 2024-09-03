@@ -97,7 +97,7 @@ class PesananController extends Controller
         $pesanan->jumlah = $request->jumlah;
         $pesanan->total = $total;
         $pesanan->tgltransaksi = $tgltransaksi;
-        $pesanan->tglselesai = $tglselesai;
+        $pesanan->tglselesai = $kodetahun;
         $pesanan->jenisbayar = $request->jenisbayar;
         $pesanan->statuspembayaran = $request->statuspembayaran;
         $pesanan->statuslaundry = $statuslaundry;
@@ -125,7 +125,6 @@ class PesananController extends Controller
             $pesanan = DB::table('pesanan')->latest()->first();
             $idpesanan = $pesanan->id++;
 
-
             $tglpengiriman = null;
             $statuspengiriman = "-";
 
@@ -137,7 +136,6 @@ class PesananController extends Controller
                 'tglpengiriman' => $tglpengiriman
             ]);
         }
-
 
         return redirect('pesanan');
     }
@@ -186,7 +184,7 @@ class PesananController extends Controller
         DB::table('pengiriman')->where('id_pesanan', $id)
         ->update([
             'statuspengiriman' => $status,
-        'tglpengiriman' => $tglpengiriman
+        'tglpengiriman' => $tglpengiriman,
         ]);
         DB::table('pesanan')->where('id', $id)->update(['statuslaundry' => 'Proses Kirim']);
         return redirect('pesanan');

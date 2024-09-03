@@ -31,7 +31,6 @@ class KirimController extends Controller
     public function kirim(Request $request){
     
         $tglpengiriman = date("Y-m-d");
-        $jampengiriman = date("H:i:s");
         $statuspengiriman = "Proses Kirim";
 
         $pengiriman = DB::table('pengiriman');
@@ -40,7 +39,7 @@ class KirimController extends Controller
             'id_pesanan' => $request->idpesanan,
             'statuspengiriman' =>$statuspengiriman,
             'tglpengiriman' => $tglpengiriman,
-            'jampengiriman' => $jampengiriman
+            
         ]);
         return redirect('halaman-kirim');
     }
@@ -50,9 +49,11 @@ class KirimController extends Controller
         
         DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuslaundry'=> 'Sudah Kirim']);
 
-        $jampengiriman = now()->format('H:i:s');
+        $jampengiriman = date('H:i:s');
         $status = "Selesai Kirim";
-        DB::table('pengiriman')->where('id', '23')
+        DB::table('pengiriman')
+        ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
+        ->where('kode_pesanan', $kode_pesanan)
         ->update(['statuspengiriman'=> $status, 'jampengiriman' => $request->$jampengiriman]);
         return redirect('halaman-kirim');
     }

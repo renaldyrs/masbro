@@ -19,7 +19,7 @@ class CreatePelanggan extends Migration
             $table->string('alamat');
             $table->bigInteger('nohp');
             $table->string('kelamin');
-            $table->timestamps();
+            
         });
     }
 

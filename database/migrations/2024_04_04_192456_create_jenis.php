@@ -20,7 +20,7 @@ class CreateJenis extends Migration
             $table->string('kg');
             $table->string('harga');
             $table->string('hari');
-            $table->timestamps();
+            
         });
     }
 

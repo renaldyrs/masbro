@@ -16,15 +16,13 @@ class CreatePengiriman extends Migration
         Schema::dropIfExists('pengiriman');
         Schema::create('pengiriman', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->unsignedBigInteger('id_pelanggan');
             $table->foreign('id_pelanggan')->references('id')->on('pelanggan');
             $table->unsignedBigInteger('id_pesanan');
             $table->foreign('id_pesanan')->references('id')->on('pesanan');
-
             $table->string('statuspengiriman');
             $table->date('tglpengiriman');
-            $table->timestamps();
+            
         });
     }
 
