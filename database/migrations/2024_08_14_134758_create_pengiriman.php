@@ -22,6 +22,7 @@ class CreatePengiriman extends Migration
             $table->foreign('id_pesanan')->references('id')->on('pesanan');
             $table->string('statuspengiriman');
             $table->date('tglpengiriman');
+            $table->date('jampengiriman');
             
         });
     }
