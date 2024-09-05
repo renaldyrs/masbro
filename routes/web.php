@@ -87,6 +87,7 @@ Route::post('update-metode', 'App\HTTP\Controllers\AdminController@updatemetode'
 
 //pesanan
 Route::get('pesanan', [PesananController::class,'halpesanan']);
+Route::get('pesanan-selesai', [PesananController::class,'halpesananselesai']);
 Route::post('tambah-pesanan', [PesananController::class,'tambahpesanan']);
 Route::get('hapus-pesanan/{kode_pesanan}', [PesananController::class, 'hapuspesanan']);
 Route::get('edit-pesanan/{id}', [PesananController::class, 'editpesanan']);

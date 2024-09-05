@@ -25,7 +25,7 @@ class KirimController extends Controller
         
         ->get(['pelanggan.*', 'pesanan.*', 'pengiriman.*']);
         
-        return view('Admin/halkirim',['pengiriman'=>$pengiriman,]);
+        return view('Admin.halkirim',['pengiriman'=>$pengiriman,]);
     }
 
     public function kirim(Request $request){

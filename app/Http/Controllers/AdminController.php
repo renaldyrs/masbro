@@ -39,32 +39,32 @@ class AdminController extends Controller
 
         $pesanan = DB::table('pesanan')->where('tgltransaksi', $tgl)->get();
 
-        return view('Admin\halamanadmin',['pesanan' => $pesanan,'chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
+        return view('Admin.halamanadmin',['pesanan' => $pesanan,'chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
     }
 
     public function datapelanggan()
     {
         $pelanggan = DB::table('pelanggan')->get();
-        return view('Admin\haldatapelanggan', ['pelanggan' => $pelanggan]);
+        return view('Admin.haldatapelanggan', ['pelanggan' => $pelanggan]);
     }
 
     public function datajenis()
     {
         $jenis = DB::table('jenis')->get();
-        return View('Admin\haldatajenis', ['jenis' => $jenis]);
+        return View('Admin.haldatajenis', ['jenis' => $jenis]);
     }
 
     public function databeban()
     {
         $beban = DB::table('beban')->get();
         $akun = DB::table('akun')->whereBetween('kode_akun', ['400', '499'])->get();
-        return View('Admin\haldatabeban', ['beban' => $beban, 'akun' => $akun]);
+        return View('Admin.haldatabeban', ['beban' => $beban, 'akun' => $akun]);
     }
 
     public function datametode()
     {
         $metode = DB::table('metodepembayaran')->get();
-        return View('Admin\haldatametode', ['metodepembayaran' => $metode]);
+        return View('Admin.haldatametode', ['metodepembayaran' => $metode]);
     }
 
     //------------------------------------------------PELANGGAN-----------------------------------------
@@ -76,20 +76,21 @@ class AdminController extends Controller
             'nohp' => $request->nohp,
             'kelamin' => $request->kelamin
         ]);
-        return redirect('/data-pelanggan');
+        return redirect('.data-pelanggan');
     }
 
     public function hapuspel($id)
     {
         DB::table('pelanggan')->where('id', $id)->delete();
-        return redirect('/data-pelanggan');
+        return redirect('.data-pelanggan');
     }
 
 
     public function editpel($id)
     {
-        $pelanggan = DB::table('pelanggan')->where('id', $id)->get();
-        return view('Admin\haleditpelanggan', ['pelanggan' => $pelanggan]);
+        $pelanggan = DB::table('pelanggan')
+        ->where('id', $id)->get();
+        return view('Admin.haleditpelanggan', ['pelanggan' => $pelanggan]);
     }
 
     public function updatepel(Request $request)
@@ -100,7 +101,7 @@ class AdminController extends Controller
             'nohp' => $request->nohp,
             'kelamin' => $request->kelamin
         ]);
-        return redirect('/data-pelanggan');
+        return redirect('.data-pelanggan');
     }
 
 
@@ -115,19 +116,19 @@ class AdminController extends Controller
         $addjenis->hari = $request->hari;
         $addjenis->harga = $request->harga;
         $addjenis->save();
-        return redirect('/data-jenis');
+        return redirect('.data-jenis');
     }
 
     public function hapusjenis($id)
     {
         DB::table('jenis')->where('id', $id)->delete();
-        return redirect('/data-jenis');
+        return redirect('.data-jenis');
     }
 
     public function editjenis($id)
     {
         $jenis = DB::table('jenis')->where('id', $id)->get();
-        return view('Admin\haleditjenis', ['jenis' => $jenis]);
+        return view('Admin.haleditjenis', ['jenis' => $jenis]);
     }
 
     public function updatejenis(Request $request)
@@ -138,7 +139,7 @@ class AdminController extends Controller
             'hari' => $request->hari,
             'harga' => $request->harga
         ]);
-        return redirect('/data-jenis');
+        return redirect('.data-jenis');
     }
 
     //---------------------------------------------------------------metode-------------------------------------------
@@ -149,20 +150,20 @@ class AdminController extends Controller
             'kodebank' => $request->kodebank
         ]);
 
-        return redirect('/data-metode');
+        return redirect('.data-metode');
     }
 
     public function hapusmetode($id)
     {
         DB::table('metodepembayaran')->where('id', $id)->delete();
-        return redirect('/data-metode');
+        return redirect('.data-metode');
         
     }
 
     public function editmetode($id)
     {
         $metode = DB::table('metodepembayaran')->where('id', $id)->get();
-        return view('Admin\haleditmetode', ['metodepembayaran' => $metode]);
+        return view('Admin.haleditmetode', ['metodepembayaran' => $metode]);
     }
 
     public function updatemetode(Request $request)
@@ -171,7 +172,7 @@ class AdminController extends Controller
             'namabank' => $request->namabank,
             'kodebank' => $request->kodebank
         ]);
-        return redirect('/data-metode');
+        return redirect('.data-metode');
     }
 
     //------------------------------------------------------------------------------Beban--------------------------------------------------
@@ -215,7 +216,7 @@ class AdminController extends Controller
 
         $beban = DB::table('beban')->where('id', $id)->get();
 
-        return view('Admin\haleditbeban', ['beban' => $beban]);
+        return view('Admin.haleditbeban', ['beban' => $beban]);
 
     }
 
@@ -245,14 +246,14 @@ class AdminController extends Controller
         $jenis = DB::table('jenis')->get();
         
 
-        return view('Admin/laporan',['pesanan'=>$pesanan,'pelanggan'=>$pelanggan,'jenis'=>$jenis]);
+        return view('Admin.laporan',['pesanan'=>$pesanan,'pelanggan'=>$pelanggan,'jenis'=>$jenis]);
         
     }
 
     public function cetak(){
         $laporan = DB::table('pesanan')->get();
 
-        $pdf= PDF::loadView('Admin/invoice');
+        $pdf= PDF::loadView('Admin.invoice');
         return $pdf->download('laporan.pdf');
     }
 

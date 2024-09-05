@@ -45,11 +45,11 @@
             <li class="nav-item active">
                 @if (Auth::user()->role == '0')
                     <a class="nav-link" href="halaman-pemilik">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <i class="fas fa-landmark"></i>
                         <span>Dashboard</span></a>
                 @elseif (Auth::user()->role == '1')
                     <a class="nav-link" href="halaman-admin">
-                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <i class="fas fa-landmark"></i>
                         <span>Dashboard</span></a>
                 @endif
 
@@ -61,7 +61,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="	fas fa-database"></i>
                     <span>Data Master</span>
                 </a>
                 <div id="collapseMaster" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -89,8 +89,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Pesanan :</h6>
                         <a class="collapse-item" href="pesanan">Pesanan</a>
-                        <a class="collapse-item" href="data-akun">Pesanan Diproses</a>
-                        <a class="collapse-item" href="data-beban">Pesanan Selesai</a>
+                        
+                        <a class="collapse-item" href="pesanan-selesai">Pesanan Selesai</a>
                     </div>
                 </div>
             </li>

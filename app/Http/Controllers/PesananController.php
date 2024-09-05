@@ -18,21 +18,100 @@ class PesananController extends Controller
 {
     public function halpesanan(Request $request)
     {
+        $pelanggan = DB::table('pelanggan')->get();
+        $user = DB::table('users')->get();
+        $jenis = DB::table('jenis')->get();
+
         $pesanan = DB::table('pesanan')
             ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+            ->where('statuslaundry', '!=', 'Sudah Diambil')
+            ->Where('statuslaundry', '!=', 'Sudah Dikirim')
+            ->orderBy('kode_pesanan', 'asc')
+            ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+
+        if ($request->pembayaran != null) {
+            $pesanan = DB::table('pesanan')
+                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->where('jenisbayar', 'like', '%' . $request->pembayaran . '%')
+                ->where('statuslaundry', '!=', 'Sudah Diambil')
+                ->Where('statuslaundry', '!=', 'Sudah Dikirim')
+                ->orderBy('kode_pesanan', 'asc')
+                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+        }
+
+        if ($request->laundry != null) {
+            $pesanan = DB::table('pesanan')
+                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->where('statuslaundry', 'like', '%' . $request->laundry . '%')
+                ->where('statuslaundry', '!=', 'Sudah Diambil')
+                ->Where('statuslaundry', '!=', 'Sudah Dikirim')
+                ->orderBy('kode_pesanan', 'asc')
+                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+        }
+        if ($request->pengiriman != null) {
+            $pesanan = DB::table('pesanan')
+                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->where('statuspengiriman', 'like', '%' . $request->pengeriman . '%')
+                ->where('statuslaundry', '!=', 'Sudah Diambil')
+                ->Where('statuslaundry', '!=', 'Sudah Dikirim')
+                ->orderBy('kode_pesanan', 'asc')
+                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+        }
+        if ($request->tgl != null) {
+            $pesanan = DB::table('pesanan')
+                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->where('tgltransaksi', 'like', '%' . $request->tgl . '%')
+                ->where('statuslaundry', '!=', 'Sudah Diambil')
+                ->Where('statuslaundry', '!=', 'Sudah Dikirim')
+                ->orderBy('kode_pesanan', 'asc')
+                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+        }
+
+
+
+        return view('Admin.halpesanan', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
+
+    }
+
+    public function halpesananselesai(Request $request)
+    {
+        $pelanggan = DB::table('pelanggan')->get();
+        $user = DB::table('users')->get();
+        $jenis = DB::table('jenis')->get();
+
+        $pesanan = DB::table('pesanan')
+            ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+            ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+            ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+            ->where('statuslaundry', 'Sudah Diambil')
+            ->orwhere('statuslaundry', 'Sudah Dikirim')
 
             ->orderBy('kode_pesanan', 'asc')
             ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
 
-        $pelanggan = DB::table('pelanggan')->get();
+        if ($request->pembayaran != null) {
+            $pesanan = DB::table('pesanan')
+                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->where('jenisbayar', 'like', '%' . $request->pembayaran . '%')
+                ->where('statuslaundry', 'Sudah Diambil')
+                ->orwhere('statuslaundry', 'Sudah Dikirim')
+                ->orderBy('kode_pesanan', 'asc')
+                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+        }
 
-        $user = DB::table('users')->get();
-
-        $jenis = DB::table('jenis')->get();
-
-        return view('Admin/halpesanan', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
+        return view('Admin.halselesai', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
 
     }
 
@@ -76,6 +155,7 @@ class PesananController extends Controller
             $kodeurut = str_pad((int) $kodeurut + 1, 4, "0", STR_PAD_LEFT);
         }
 
+
         $kode = $kodepesan . $kodetahun . $kodemonth . $kodeday . $kodeurut;
 
         $tgl = DB::table('jenis')->where('id', $request->id_jenis)->first();
@@ -105,8 +185,11 @@ class PesananController extends Controller
         $pesanan->save();
 
         if ($request->statuspembayaran == "Sudah Bayar") {
+            $idpesanan = $pesanan->id++;
+
             $jurnal = new Jurnal;
             $jurnal->id_akun = 3;
+            $jurnal->id_pesanan = $idpesanan;
             $jurnal->nominal = $total;
             $jurnal->waktu_transaksi = $tgltransaksi;
             $jurnal->tipe = 'k';
@@ -114,11 +197,30 @@ class PesananController extends Controller
 
             $jurnal = new Jurnal;
             $jurnal->id_akun = 1;
+            $jurnal->id_pesanan = $idpesanan;
             $jurnal->nominal = $total;
             $jurnal->waktu_transaksi = $tgltransaksi;
             $jurnal->tipe = 'd';
             $jurnal->save();
 
+        } elseif ($request->statuspembayaran == "Belum Bayar") {
+            $idpesanan = $pesanan->id++;
+
+            $jurnal = new Jurnal;
+            $jurnal->id_akun = 3;
+            $jurnal->id_pesanan = $idpesanan;
+            $jurnal->nominal = 0;
+            $jurnal->waktu_transaksi = $tgltransaksi;
+            $jurnal->tipe = 'k';
+            $jurnal->save();
+
+            $jurnal = new Jurnal;
+            $jurnal->id_akun = 1;
+            $jurnal->id_pesanan = $idpesanan;
+            $jurnal->nominal = 0;
+            $jurnal->waktu_transaksi = $tgltransaksi;
+            $jurnal->tipe = 'd';
+            $jurnal->save();
         }
 
         if ($request->pengiriman == "Kirim") {
@@ -133,7 +235,7 @@ class PesananController extends Controller
                 'id_pelanggan' => $request->id_pelanggan,
                 'id_pesanan' => $idpesanan,
                 'statuspengiriman' => $statuspengiriman,
-                'tglpengiriman' => $tglpengiriman
+                'tglpengiriman' => $tglpengiriman,
             ]);
         }
 
@@ -151,28 +253,20 @@ class PesananController extends Controller
     public function updatestatus($kode_pesanan, Request $request)
     {
         $tgltransaksi = date("Y-m-d");
+        $pesanan = DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->first();
+        $nominal = $pesanan->total;
 
-        $jumlah = $request->jumlah;
-
-        $harga = $request->harga;
-
-        $total = $jumlah * $harga;
-        $jurnal = new Jurnal;
-        $jurnal->id_akun = 3;
-        $jurnal->nominal = $total;
-        $jurnal->waktu_transaksi = $tgltransaksi;
-        $jurnal->tipe = 'k';
-        $jurnal->save();
-
-        $jurnal = new Jurnal;
-        $jurnal->id_akun = 1;
-        $jurnal->nominal = $total;
-        $jurnal->waktu_transaksi = $tgltransaksi;
-        $jurnal->tipe = 'd';
-        $jurnal->save();
+        DB::table('jurnal')
+            ->join('pesanan', 'jurnal.id_pesanan', '=', 'pesanan.id')
+            ->where('pesanan.kode_pesanan', $kode_pesanan)
+            ->update([
+                'nominal' => $nominal,
+            ]);
 
         $status = "Sudah Bayar";
-        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuspembayaran' => $status]);
+        DB::table('pesanan')
+            ->where('kode_pesanan', $kode_pesanan)
+            ->update(['statuspembayaran' => $status]);
         return redirect('pesanan');
 
     }
@@ -182,10 +276,10 @@ class PesananController extends Controller
         $tglpengiriman = date("Y-m-d");
         $status = "Proses Kirim";
         DB::table('pengiriman')->where('id_pesanan', $id)
-        ->update([
-            'statuspengiriman' => $status,
-        'tglpengiriman' => $tglpengiriman,
-        ]);
+            ->update([
+                'statuspengiriman' => $status,
+                'tglpengiriman' => $tglpengiriman,
+            ]);
         DB::table('pesanan')->where('id', $id)->update(['statuslaundry' => 'Proses Kirim']);
         return redirect('pesanan');
     }
