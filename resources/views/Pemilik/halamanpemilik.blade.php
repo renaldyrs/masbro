@@ -13,50 +13,80 @@
 
 @endif
 <div class="row">
-    <div class="col-xl-3 col-md-6 mb-4">
+
+    <div class="col-xl-3 col-md-4 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <?php
-                $hari = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
+$hari = DB::table('pesanan')
+    ->where('statuslaundry', 'Proses Laundry')->get();
 
-                $count = 0;
-                foreach ($hari as $h) {
-                    $count++;
-                }
+$count = 0;
+foreach ($hari as $h) {
+    $count++;
+}
             ?>
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Daily Orders (<?php echo date('l')?>)</div>
+                            Proses Laundry </div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count?></div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        <i class="fas fa-sync fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="col-xl-3 col-md-4 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <?php
+$hari = DB::table('pesanan')
+    ->where('statuslaundry', 'Sudah Dikirim')->get();
+
+$count = 0;
+foreach ($hari as $h) {
+    $count++;
+}
+            ?>
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Laundry Sudah Dikirim </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count?></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-shipping-fast fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-4 mb-4">
         <?php
-            $hari = DB::table('pesanan')->whereMonth('tgltransaksi', date("m"))->get();
-            $count = 0;
-            foreach ($hari as $h) {
-                $count++;
-            }
+$hari = DB::table('pesanan')->whereMonth('tgltransaksi', date("m"))->get();
+$count = 0;
+foreach ($hari as $h) {
+    $count++;
+}
         ?>
         <div class="card border-left-success shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                            Monthly Orders</div>
+                            Laundry Per-Bulan (<?php echo date('F')?>)</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count?></div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -64,20 +94,20 @@
     </div>
 
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
+    <div class="col-xl-3 col-md-4 mb-4">
         <?php
-            $pendapatan = DB::table('pesanan')->where('tgltransaksi',date("Y-m-d"))->get();
-            $totalhari = 0;
-            foreach ($pendapatan as $p) {
-                $totalhari += $p->total;
-            }
+$pendapatan = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
+$totalhari = 0;
+foreach ($pendapatan as $p) {
+    $totalhari += $p->total;
+}
 
         ?>
         <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Daily Revenue
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pendapatan Per-Hari
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
@@ -92,7 +122,59 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-4 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <?php
+$hari = DB::table('pesanan')
+    ->where('statuslaundry', 'Sudah Diambil')->get();
+
+$count = 0;
+foreach ($hari as $h) {
+    $count++;
+}
+            ?>
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Laundry Sudah diambil</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count?></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-handshake fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-xl-3 col-md-4 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <?php
+$hari = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
+
+$count = 0;
+foreach ($hari as $h) {
+    $count++;
+}
+            ?>
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Laundry Per-Hari (<?php echo date('l')?>)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count?></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -100,26 +182,26 @@
     </div>
 
     <!-- Pending Requests Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-    <?php
-            $pendapatan = DB::table('pesanan')->whereMonth('tgltransaksi',date("m"))->whereYear('tgltransaksi',date("Y"))->get();
-            $totalhari = 0;
-            foreach ($pendapatan as $p) {
-                $totalhari += $p->total;
-            }
+    <div class="col-xl-3 col-md-4 mb-4">
+        <?php
+$pendapatan = DB::table('pesanan')->whereMonth('tgltransaksi', date("m"))->whereYear('tgltransaksi', date("Y"))->get();
+$totalhari = 0;
+foreach ($pendapatan as $p) {
+    $totalhari += $p->total;
+}
         ?>
         <div class="card border-left-warning shadow h-100 py-2">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            Monthly Revenue</div>
+                            Pendapatan Per-Bulan (<?php echo date('F')?>)</div>
                         <div class="col">
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalhari  ?></div>
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -151,9 +233,9 @@
             </div>
             <!-- Card Body -->
             <div class="card">
-                
-                    {!! $chart->container() !!}
-                
+
+                {!! $chart->container() !!}
+
             </div>
         </div>
     </div>
@@ -180,7 +262,7 @@
             </div>
             <!-- Card Body -->
             <div class="card">
-                    {!! $chart2->container() !!}
+                {!! $chart2->container() !!}
             </div>
         </div>
     </div>

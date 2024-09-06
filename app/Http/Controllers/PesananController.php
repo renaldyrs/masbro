@@ -110,6 +110,18 @@ class PesananController extends Controller
                 ->orderBy('kode_pesanan', 'asc')
                 ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
         }
+        if ($request->tgl != null) {
+            $pesanan = DB::table('pesanan')
+                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->where([['tgltransaksi', $request->tgl],['statuslaundry', 'Sudah Diambil']])
+                
+                ->orwhere([['tgltransaksi', $request->tgl],['statuslaundry', 'Sudah Dikirim']])
+          
+                ->orderBy('kode_pesanan', 'asc')
+                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+        }
 
         return view('Admin.halselesai', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
 

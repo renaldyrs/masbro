@@ -47,7 +47,7 @@ class KirimController extends Controller
     public function selesaikirim($kode_pesanan, Request $request){
 
         
-        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuslaundry'=> 'Sudah Kirim']);
+        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuslaundry'=> 'Sudah Dikirim']);
 
         $jampengiriman = date('H:i:s');
         $status = "Selesai Kirim";

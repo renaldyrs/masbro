@@ -47,8 +47,8 @@
                             <label for="">Pengiriman</label>
                             <select name="pengiriman" class="form-control ">
                                 <option value=""></option>
-                                <option value="">Proses Kirim</option>
-                                <option value="">Sudah Kirim</option>
+                                <option value="">Sudah Dikirim</option>
+                                <option value="">Sudah Diambil</option>
 
                             </select>
                         </div>
@@ -58,10 +58,10 @@
                             </select>
                         </div>
                         <div class="col-md-1" style="text-align: center">
-                            <a href="#" class="fas fa-search" style="margin-top: 30px"></a>
-
+                            
+                        <button type="submit" class="btn btn-primary fas fa-search" style="margin-top: 30px"></button>
                         </div>
-
+  
                     </div>
 
                     <hr>

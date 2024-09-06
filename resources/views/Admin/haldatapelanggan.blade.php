@@ -119,7 +119,7 @@
                             <tbody>
                                 @foreach ($pelanggan as $p)
                                     <tr>
-                                        <input type"hidden" name="id" value="{{$p->id}}">
+                                        
                                         <td>{{$p->nama}}</td>
                                         <td>{{$p->alamat}}</td>
                                         <td>{{$p->nohp}}</td>

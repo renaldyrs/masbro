@@ -10,7 +10,7 @@
 <div class="content">
 
     <div class="col-lg-12">
-
+                    
         <div class="card card-outline-info">
             <div class="card-header">
                 <div class="row">
