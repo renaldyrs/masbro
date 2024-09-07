@@ -319,8 +319,10 @@ class PesananController extends Controller
     function pilih_jenis()
     {
         $id_jenis = $_POST['id_jenis'];
-        $h = "SELECT harga as harga_a FROM jenis WHERE id='$id_jenis'";
-        $harga = $this->db->query($h)->row_array();
+        
+        $harga = DB::table("jenis")
+        ->select("harga")
+        ->where("id", $id_jenis);
         echo json_encode($harga);
     }
 
