@@ -146,28 +146,17 @@
 
                         @endphp
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" data-target="#collapseMenu"
-                                    aria-expanded="false">
+                            <li class="nav-item">
+                                <a class="nav-link" href="pesanan">
                                     <i class="fas fa-shopping-cart">
                                         <span class="badge badge-warning badge-counter">{{ $notifpesanan }}</span>
                                     </i>
                                 </a>
 
-                                <div class="dropdown-menu text-center">
-                                    Belum dibayar
-                                    @foreach ($pesanan as $p)
-                                        <hr>
-                                        {{ $p->kode_pesanan}}
-
-                                    @endforeach
-                                </div>
-
                             </li>
 
                             <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link" href="halaman-kirim">
+                                <a class="nav-link" href="">
                                     <i class="fa fa-clock">
                                         <span class="badge badge-warning badge-counter">{{ $notifproses }}</span>
                                     </i>
@@ -175,23 +164,13 @@
                             </li>
 
                             <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                <a class="nav-link dropdown-toggle" href="halaman-kirim" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" data-target="#collapseKirim"
                                     aria-expanded="false">
                                         <i class="fas fa-shipping-fast">
                                             <span class="badge badge-warning badge-counter">{{ $notifkirim }}</span>
                                         </i>
                                 </a>
-
-                                <div class="dropdown-menu text-center">
-                                    
-                                    @foreach ($kirim as $k)
-                                    Proses Kirim
-                                        <hr>
-                                        
-
-                                    @endforeach
-                                </div>
 
                             </li>
 

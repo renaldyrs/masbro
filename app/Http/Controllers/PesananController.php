@@ -26,6 +26,7 @@ class PesananController extends Controller
             ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+            
             ->where('statuslaundry', '!=', 'Sudah Diambil')
             ->Where('statuslaundry', '!=', 'Sudah Dikirim')
             ->orderBy('kode_pesanan', 'asc')
@@ -36,6 +37,7 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
                 ->where('jenisbayar', 'like', '%' . $request->pembayaran . '%')
                 ->where('statuslaundry', '!=', 'Sudah Diambil')
                 ->Where('statuslaundry', '!=', 'Sudah Dikirim')
@@ -48,6 +50,7 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
                 ->where('statuslaundry', 'like', '%' . $request->laundry . '%')
                 ->where('statuslaundry', '!=', 'Sudah Diambil')
                 ->Where('statuslaundry', '!=', 'Sudah Dikirim')
@@ -59,6 +62,7 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
                 ->where('statuspengiriman', 'like', '%' . $request->pengeriman . '%')
                 ->where('statuslaundry', '!=', 'Sudah Diambil')
                 ->Where('statuslaundry', '!=', 'Sudah Dikirim')
@@ -70,6 +74,7 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
                 ->where('tgltransaksi', 'like', '%' . $request->tgl . '%')
                 ->where('statuslaundry', '!=', 'Sudah Diambil')
                 ->Where('statuslaundry', '!=', 'Sudah Dikirim')
@@ -104,9 +109,10 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->where('jenisbayar', 'like', '%' . $request->pembayaran . '%')
-                ->where('statuslaundry', 'Sudah Diambil')
-                ->orwhere('statuslaundry', 'Sudah Dikirim')
+                ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
+                ->where([['jenisbayar', 'like', '%' . $request->pembayaran . '%'],['statuslaundry', 'Sudah Diambil']])
+               
+    
                 ->orderBy('kode_pesanan', 'asc')
                 ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
         }
@@ -115,6 +121,7 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
                 ->where([['tgltransaksi', $request->tgl],['statuslaundry', 'Sudah Diambil']])
                 
                 ->orwhere([['tgltransaksi', $request->tgl],['statuslaundry', 'Sudah Dikirim']])
@@ -172,7 +179,7 @@ class PesananController extends Controller
 
         $tgl = DB::table('jenis')->where('id', $request->id_jenis)->first();
         $tglhari = $tgl->hari;
-        $tglselesai = $kodetahun . "-" . $kodemonth . "-" . $kodeday + $tglhari;
+        $tglselesai = $kodetahun . "-" . $kodemonth . "-" . ($kodeday + $tglhari);
         $tgltransaksi = date("Y-m-d");
 
         $jumlah = $request->jumlah;
@@ -189,7 +196,7 @@ class PesananController extends Controller
         $pesanan->jumlah = $request->jumlah;
         $pesanan->total = $total;
         $pesanan->tgltransaksi = $tgltransaksi;
-        $pesanan->tglselesai = $kodetahun;
+        $pesanan->tglselesai = $tglselesai;
         $pesanan->jenisbayar = $request->jenisbayar;
         $pesanan->statuspembayaran = $request->statuspembayaran;
         $pesanan->statuslaundry = $statuslaundry;
