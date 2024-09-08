@@ -61,8 +61,8 @@
                             <label for="">Pengiriman</label>
                             <select name="pengiriman" class="form-control ">
                                 <option value=""></option>
-                                <option value="Proses Kirim">Proses Kirim</option>
-                                <option value="Sudah Kirim">Sudah Kirim</option>
+                                <option value="Ambil">Ambil</option>
+                                <option value="Kirim">Kirim</option>
 
                             </select>
                         </div>

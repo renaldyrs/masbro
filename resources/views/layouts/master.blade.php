@@ -155,7 +155,7 @@
 
                             </li>
 
-                            <li class="nav-item dropdown no-arrow">
+                            <li class="nav-item ">
                                 <a class="nav-link" href="">
                                     <i class="fa fa-clock">
                                         <span class="badge badge-warning badge-counter">{{ $notifproses }}</span>
@@ -163,10 +163,8 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="halaman-kirim" id="userDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" data-target="#collapseKirim"
-                                    aria-expanded="false">
+                            <li class="nav-item ">
+                                <a class="nav-link" href="halaman-kirim"">
                                         <i class="fas fa-shipping-fast">
                                             <span class="badge badge-warning badge-counter">{{ $notifkirim }}</span>
                                         </i>
