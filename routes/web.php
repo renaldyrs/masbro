@@ -102,6 +102,7 @@ Route::get('ambillaundry/{kode_pesanan}', [PesananController::class, 'ambillaund
 //kirim
 Route::post('kirim', [KirimController::class, 'kirim']);
 Route::get('selesaikirim/{id}', [KirimController::class, 'selesaikirim']);
+Route::get('sudahdiambil/{id}', [KirimController::class, 'sudahdiambil']);
 
 // halaman akun
 

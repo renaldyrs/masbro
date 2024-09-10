@@ -34,18 +34,13 @@
 
                         </div>
 
-                        <div class="col-md-2" style="text-align: center">
-                            <label for="">Pembayaran</label>
-                            <select name="pembayaran" class="form-control ">
-                                <option value=""></option>
-                                <option value="">Cash</option>
-                                <option value="">Transfer</option>
-                            </select>
+                        <div class="col-md-1" style="text-align: center">
+                            
                         </div>
 
                         <div class="col-md-2" style="text-align: center">
-                            <label for="">Pengiriman</label>
-                            <select name="pengiriman" class="form-control ">
+                            <label for="">Status Laundry</label>
+                            <select name="status" class="form-control ">
                                 <option value=""></option>
                                 <option value="">Sudah Dikirim</option>
                                 <option value="">Sudah Diambil</option>

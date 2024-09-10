@@ -76,13 +76,13 @@ class AdminController extends Controller
             'nohp' => $request->nohp,
             'kelamin' => $request->kelamin
         ]);
-        return redirect('.data-pelanggan');
+        return redirect('data-pelanggan');
     }
 
     public function hapuspel($id)
     {
         DB::table('pelanggan')->where('id', $id)->delete();
-        return redirect('.data-pelanggan');
+        return redirect()->back();
     }
 
 
@@ -101,7 +101,7 @@ class AdminController extends Controller
             'nohp' => $request->nohp,
             'kelamin' => $request->kelamin
         ]);
-        return redirect('.data-pelanggan');
+        return redirect()->back();
     }
 
 

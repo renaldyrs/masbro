@@ -12,6 +12,7 @@
 
                 <div class="modal-body">
 
+
                     <div class="form-body">
                         @foreach ($pelanggan as $p)
 
@@ -71,4 +72,4 @@
                 </div>
             </div>
         </div>
-    </div>
+</div>

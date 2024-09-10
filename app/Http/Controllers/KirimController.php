@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTimeZone;
 use Illuminate\Database\DBAL\TimestampType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,7 @@ use App\Models\pelanggan;
 use App\Models\Jenis;
 use App\Models\Metode;
 use App\Models\Jurnal;
+use Carbon\Carbon;
 
 class KirimController extends Controller
 {
@@ -22,7 +24,7 @@ class KirimController extends Controller
         $pengiriman = DB::table('pengiriman')
         ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
         ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-        
+        ->orderBy('pesanan.kode_pesanan')
         ->get(['pelanggan.*', 'pesanan.*', 'pengiriman.*']);
         
         return view('Admin.halkirim',['pengiriman'=>$pengiriman,]);
@@ -46,15 +48,35 @@ class KirimController extends Controller
 
     public function selesaikirim($kode_pesanan, Request $request){
 
-        
-        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuslaundry'=> 'Sudah Dikirim']);
+        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)
+        ->update(['statuslaundry'=> 'Sudah Dikirim']);
 
-        $jampengiriman = date('H:i:s');
+        $tglpengiriman = date("Y-m-d");
+        $jampengiriman = Carbon::now()->format('H:i:s');
         $status = "Selesai Kirim";
         DB::table('pengiriman')
         ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
         ->where('kode_pesanan', $kode_pesanan)
-        ->update(['statuspengiriman'=> $status, 'jampengiriman' => $request->$jampengiriman]);
+        ->update(['statuspengiriman'=> $status, 
+        'tglpengiriman' => $tglpengiriman,
+        'jampengiriman' => $jampengiriman]);
+        return redirect('halaman-kirim');
+    }
+
+    public function sudahdiambil($kode_pesanan, Request $request){
+
+        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)
+        ->update(['statuslaundry'=> 'Sudah Diambil']);
+
+        $tglpengiriman = date("Y-m-d");
+        $jampengiriman = Carbon::now()->format('H:i:s');
+        $status = "Sudah Diambil";
+        DB::table('pengiriman')
+        ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
+        ->where('kode_pesanan', $kode_pesanan)
+        ->update(['statuspengiriman'=> $status,
+        'tglpengiriman' => $tglpengiriman, 
+        'jampengiriman' => $jampengiriman]);
         return redirect('halaman-kirim');
     }
 

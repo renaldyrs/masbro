@@ -26,7 +26,7 @@ class PesananController extends Controller
             ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-            
+            ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
             ->where('statuslaundry', '!=', 'Sudah Diambil')
             ->Where('statuslaundry', '!=', 'Sudah Dikirim')
             ->orderBy('kode_pesanan', 'asc')
@@ -38,7 +38,7 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                
+                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
                 ->where([
                 ['jenisbayar', $request->pembayaran],
                 ['statuslaundry', '!=', 'Sudah Diambil'],
@@ -68,11 +68,11 @@ class PesananController extends Controller
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
+                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
                 ->where([
-                ['pengiriman', 'like', '%' . $request->pengeriman . '%'],
-                // ['statuslaundry', '!=', 'Sudah Diambil'],
-                // ['statuslaundry', '!=', 'Sudah Dikirim']
+                ['pengiriman', 'like', '%' . $request->pengiriman . '%'],
+                ['statuslaundry', '!=', 'Sudah Diambil'],
+                ['statuslaundry', '!=', 'Sudah Dikirim']
                 ])
                 ->orderBy('kode_pesanan', 'asc')
                 ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
@@ -119,8 +119,6 @@ class PesananController extends Controller
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
                 ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
                 ->where([['jenisbayar', 'like', '%' . $request->pembayaran . '%'],['statuslaundry', 'Sudah Diambil']])
-               
-    
                 ->orderBy('kode_pesanan', 'asc')
                 ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
         }
@@ -131,9 +129,7 @@ class PesananController extends Controller
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
                 ->join('pengiriman','pengiriman.id_pesanan','=','pesanan.id')
                 ->where([['tgltransaksi', $request->tgl],['statuslaundry', 'Sudah Diambil']])
-                
                 ->orwhere([['tgltransaksi', $request->tgl],['statuslaundry', 'Sudah Dikirim']])
-          
                 ->orderBy('kode_pesanan', 'asc')
                 ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
         }
@@ -177,9 +173,15 @@ class PesananController extends Controller
             // kode awal
             $kodeurut = "0001";
         } else {
-            $kodeurut = substr($pesan->kode_pesanan, 12, 4);
+            $kodeurut = substr($pesan->kode_pesanan, 10, 4);
 
-            $kodeurut = str_pad((int) $kodeurut + 1, 4, "0", STR_PAD_LEFT);
+            $kodeurut = str_pad((int) $kodeurut+1, 4, "0", STR_PAD_LEFT);
+        }
+
+        if($pesan == null){
+            $id = 1;
+        }else{
+            $id = $pesan->id + 1;
         }
 
 
@@ -196,6 +198,7 @@ class PesananController extends Controller
         $statuslaundry = "Proses Laundry";
 
         $pesanan = new Pesanan;
+        $pesanan->id = $id;
         $pesanan->kode_pesanan = $kode;
         $pesanan->id_pelanggan = $request->id_pelanggan;
         $pesanan->id_jenis = $request->id_jenis;
@@ -251,6 +254,11 @@ class PesananController extends Controller
         }
 
         if ($request->pengiriman == "Kirim") {
+            if($pesan == null){
+                $id = 1;
+            }else{
+                $id = $pesan->id + 1;
+            }
             $pesanan = DB::table('pesanan')->latest()->first();
             $idpesanan = $pesanan->id++;
 
@@ -259,6 +267,27 @@ class PesananController extends Controller
 
             $pengiriman = DB::table('pengiriman');
             $pengiriman->insert([
+                'id'=> $id,
+                'id_pelanggan' => $request->id_pelanggan,
+                'id_pesanan' => $idpesanan,
+                'statuspengiriman' => $statuspengiriman,
+                'tglpengiriman' => $tglpengiriman,
+            ]);
+        } elseif ($request->pengiriman == "Ambil") {
+            if($pesan == null){
+                $id = 1;
+            }else{
+                $id = $pesan->id + 1;
+            }
+            $pesanan = DB::table('pesanan')->latest()->first();
+            $idpesanan = $pesanan->id++;
+
+            $tglpengiriman = null;
+            $statuspengiriman = "-";
+
+            $pengiriman = DB::table('pengiriman');
+            $pengiriman->insert([
+                'id'=> $id,
                 'id_pelanggan' => $request->id_pelanggan,
                 'id_pesanan' => $idpesanan,
                 'statuspengiriman' => $statuspengiriman,
@@ -307,9 +336,31 @@ class PesananController extends Controller
                 'statuspengiriman' => $status,
                 'tglpengiriman' => $tglpengiriman,
             ]);
-        DB::table('pesanan')->where('id', $id)->update(['statuslaundry' => 'Proses Kirim']);
+
+        DB::table('pesanan')
+        ->where('id', $id)
+        ->update(['statuslaundry' => 'Proses Kirim']);
         return redirect('pesanan');
     }
+
+    public function ambillaundry($kode_pesanan, Request $request)
+    {
+        $tglambil = date("Y-m-d");
+        $status = "Siap Diambil";
+        DB::table('pengiriman')
+        ->join('pesanan', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+        ->where('pesanan.kode_pesanan', $kode_pesanan)
+        ->update([
+            'statuspengiriman' => $status,
+            'tglpengiriman' => $tglambil,
+        ]);
+
+        DB::table('pesanan')
+        ->where('kode_pesanan', $kode_pesanan)
+        ->update(['statuslaundry' => $status]);
+        return redirect('pesanan');
+    }
+
     public function selesailaundry($kode_pesanan, Request $request)
     {
 
@@ -318,12 +369,7 @@ class PesananController extends Controller
         return redirect('pesanan');
     }
 
-    public function ambillaundry($kode_pesanan)
-    {
-        $status = "Sudah Diambil";
-        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuslaundry' => $status]);
-        return redirect('pesanan');
-    }
+    
     function pilih_jenis()
     {
         $id_jenis = $_POST['id_jenis'];

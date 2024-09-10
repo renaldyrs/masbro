@@ -180,7 +180,7 @@
 
                                     @if ($p->pengiriman == 'Kirim' && $p->statuslaundry == 'Selesai Laundry')
 
-                                        <a href="updatekirim/{{$p->idpesanan}}" class="btn btn-primary"><i
+                                        <a href="updatekirim/{{$p->idpesanan}}" class="btn btn-success"><i
                                                 class="	fas fa-box"></i></a>
 
                                     @endif
