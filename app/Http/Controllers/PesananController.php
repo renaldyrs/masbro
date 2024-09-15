@@ -294,7 +294,7 @@ class PesananController extends Controller
                 'tglpengiriman' => $tglpengiriman,
             ]);
         }
-
+        
         return redirect('pesanan');
     }
 
@@ -329,12 +329,11 @@ class PesananController extends Controller
     public function updatekirim($id, Request $request)
     {
 
-        $tglpengiriman = date("Y-m-d");
+        
         $status = "Proses Kirim";
         DB::table('pengiriman')->where('id_pesanan', $id)
             ->update([
-                'statuspengiriman' => $status,
-                'tglpengiriman' => $tglpengiriman,
+                'statuspengiriman' => $status
             ]);
 
         DB::table('pesanan')
@@ -363,9 +362,33 @@ class PesananController extends Controller
 
     public function selesailaundry($kode_pesanan, Request $request)
     {
+        $selesai= DB::table('pesanan')
+        ->where([['kode_pesanan', $kode_pesanan]])
+        ->first();
 
-        $status = "Selesai Laundry";
-        DB::table('pesanan')->where('kode_pesanan', $kode_pesanan)->update(['statuslaundry' => $status]);
+        if($selesai->pengiriman == "Kirim"){
+            $status = "Selesai Laundry";
+            DB::table('pesanan')
+            ->where([['kode_pesanan', $kode_pesanan],['pengiriman', 'Kirim']])
+            ->update(['statuslaundry' => $status]);
+       
+            $statuskirim="Siap Dikirim";
+            DB::table('pengiriman')
+            ->where('id', $selesai->id)
+            ->update(['statuspengiriman' => $statuskirim]);
+
+        }elseif($selesai->pengiriman == "Ambil"){
+            $status = "Selesai Laundry";
+            DB::table('pesanan')
+            ->where([['kode_pesanan', $kode_pesanan],['pengiriman', 'Ambil']])
+            ->update(['statuslaundry' => $status]);
+       
+            $statuskirim="Siap Diambil";
+            DB::table('pengiriman')
+            ->where('id', $selesai->id)
+            ->update(['statuspengiriman' => $statuskirim]);
+        }
+       
         return redirect('pesanan');
     }
 

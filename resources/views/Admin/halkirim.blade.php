@@ -51,12 +51,20 @@
                                     <td>{{$p->alamat}}</td>
                                     <td>{{$p->statuslaundry}}</td>
                                     <td>{{$p->statuspengiriman}}</td>
+                                    
                                     <td>
                                         {{$p->tglpengiriman}}
                                     </td>
-                                    <td>{{$p->jampengiriman}}</td>
+
+                                    @if ($p->jampengiriman != null)
+                                    <td>{{date('H:i:s', strtotime($p->jampengiriman))}}</td>
+                                    @else
+                                    <td></td>
+                                    @endif
+                                    
+                                    
                                     <td>
-                                        @if ($p->statuspengiriman == 'Proses Kirim')
+                                        @if ($p->statuspengiriman == 'Siap Dikirim')
                                             <a href="{{url('selesaikirim/' . $p->kode_pesanan)}}" class="btn btn-primary"
                                                 onclick="return confirm('Apakah sudah selesai mengantar laundry ?');"><i
                                                     class="fa fa-shipping-fast"></i></a>

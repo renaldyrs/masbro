@@ -52,7 +52,7 @@ class KirimController extends Controller
         ->update(['statuslaundry'=> 'Sudah Dikirim']);
 
         $tglpengiriman = date("Y-m-d");
-        $jampengiriman = Carbon::now()->format('H:i:s');
+        $jampengiriman = Carbon::now();
         $status = "Selesai Kirim";
         DB::table('pengiriman')
         ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
@@ -69,7 +69,7 @@ class KirimController extends Controller
         ->update(['statuslaundry'=> 'Sudah Diambil']);
 
         $tglpengiriman = date("Y-m-d");
-        $jampengiriman = Carbon::now()->format('H:i:s');
+        $jampengiriman = Carbon::now();
         $status = "Sudah Diambil";
         DB::table('pengiriman')
         ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')

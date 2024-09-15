@@ -54,7 +54,8 @@ class AuthController extends Controller
             if (auth()->user()->role == 1) {
                 return redirect()->intended('halaman-admin')->with('alert', "Selamat Datang Admin"); //redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
             }else{
-                return redirect()->intended('halaman-pemilik')->with('alert', "Selamat Datang Pemilik"); //redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
+                return redirect()->intended('halaman-pemilik')
+                ->with('alert', "Selamat Datang Pemilik"); //redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
             }
         }else{
             return redirect()->route('login')

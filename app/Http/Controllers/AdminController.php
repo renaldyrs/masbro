@@ -70,10 +70,11 @@ class AdminController extends Controller
     //------------------------------------------------PELANGGAN-----------------------------------------
     public function tambahpelanggan(Request $request)
     {
+        $nohp =$request->nohp;
         DB::table('pelanggan')->insert([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
-            'nohp' => $request->nohp,
+            'nohp' => $nohp,
             'kelamin' => $request->kelamin
         ]);
         return redirect('data-pelanggan');
