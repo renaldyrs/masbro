@@ -39,10 +39,10 @@
             </a>
 
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <hr class="sidebar-divider mb-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item active mb-0">
                 @if (Auth::user()->role == '0')
                     <a class="nav-link" href="halaman-pemilik">
                         <i class="fas fa-landmark"></i>
@@ -55,10 +55,7 @@
 
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <li class="nav-item">
+            <li class="nav-item mb-0">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="	fas fa-database"></i>
@@ -89,7 +86,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Pesanan :</h6>
                         <a class="collapse-item" href="pesanan">Pesanan</a>
-                        
+
                         <a class="collapse-item" href="pesanan-selesai">Pesanan Selesai</a>
                     </div>
                 </div>
@@ -122,15 +119,24 @@
 
             <hr class="sidebar-divider d-none d-md-block">
 
+
         </ul>
 
         <div id="content-wrapper" class="d-flex flex-column">
+
             <div id="content">
+
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
                     <div class="container-fluid">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" id="sidebarToggleTop">
+                                    <i class="fa fa-laugh" style="size"></i>
+                                </a>
+                            </li>
+                        </ul>
+
                         @php
                             $pesan = DB::table('pesanan')->where('statuspembayaran', 'Belum Bayar')->get();
                             $notifpesanan = count($pesan);
@@ -143,13 +149,13 @@
 
                             $pesanan = DB::table('pesanan')->where('statuspembayaran', 'Belum Bayar')->get();
 
-
                         @endphp
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a class="nav-link" href="pesanan">
                                     <i class="fas fa-shopping-cart">
-                                        <span class="badge badge-warning badge-counter">{{ $notifpesanan }}</span>
+                                        <span class="badge badge-danger badge-counter"
+                                            style="baground-color:red">{{ $notifpesanan }}</span>
                                     </i>
                                 </a>
 
@@ -158,16 +164,16 @@
                             <li class="nav-item ">
                                 <a class="nav-link" href="">
                                     <i class="fa fa-clock">
-                                        <span class="badge badge-warning badge-counter">{{ $notifproses }}</span>
+                                        <span class="badge badge-danger badge-counter">{{ $notifproses }}</span>
                                     </i>
                                 </a>
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" href="halaman-kirim"">
-                                        <i class="fas fa-shipping-fast">
-                                            <span class="badge badge-warning badge-counter">{{ $notifkirim }}</span>
-                                        </i>
+                                <a class="nav-link" href="halaman-kirim">
+                                    <i class="fas fa-shipping-fast">
+                                        <span class="badge badge-danger badge-counter">{{ $notifkirim }}</span>
+                                    </i>
                                 </a>
 
                             </li>
@@ -243,6 +249,27 @@
         top: -10px;
         opacity: 0.9;
     }
+
+    .card{
+        margin-top: -1rem;
+    }
+
+    .card-header{
+        height: 2.7rem;
+       
+    }
+
+    .card-body{
+        margin-top: -0.6rem;
+        margin-bottom: -1.5rem;
+    }
+
+    .card-footer{
+        text-align: center;
+        border-top: none;
+        margin-bottom: -0.5rem;
+    }
+
 </style>
 
 </html>

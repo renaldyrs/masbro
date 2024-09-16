@@ -18,6 +18,7 @@
 
 @endif
 
+
 <div id="content">
     <div class="d-flex">
 
@@ -25,10 +26,11 @@
 
             <div class="card card-outline-info">
                 <div class="card-header">
-                    <h4 class="m-b-0 text-black">Form Tambah Data Pelanggan</h4>
+                    <h5 class="m-b-0 text-black">Form Tambah Data Pelanggan</h5>
                 </div>
 
                 <div class="card-body">
+
                     <form action="{{url('tambah-pelanggan')}}" method="POST">
                         @csrf
                         <div class="form-body">
@@ -99,14 +101,18 @@
         <div class="col-8 p-2">
             <div class="card card-outline-info">
                 <div class="card-header ">
-                    <h4 class="m-b-0 text-black">Data Pelanggan</h4>
+                    <h5 class="m-b-0 text-black">Data Pelanggan</h5>
                 </div>
                 <div class="card-body">
+                    <div>
+                        Total Data Pelanggan : {{ $pelanggan->total() }}
+                    </div>
 
                     <div class="table">
                         <table class="table ">
                             <thead>
                                 <tr>
+                                    <th width="1%">#</th>
                                     <th width="1%">Nama Pelanggan</th>
                                     <th width="1%">Alamat</th>
                                     <th width="1%">No HP</th>
@@ -118,17 +124,17 @@
                             <tbody>
                                 @foreach ($pelanggan as $p)
                                 <tr>
-
+                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$p->nama}}</td>
                                     <td>{{$p->alamat}}</td>
                                     <td>{{$p->nohp}}</td>
                                     <td>{{$p->kelamin}}</td>
                                     <td>
                                         <a class="btn btn-danger" href="hapus-pelanggan/{{$p->id }}"><i
-                                                class="fa fa-trash"></i></a>
+                                                class="fas fa-trash"></i></a>
 
                                         <a class="btn btn-success" type="button" data-toggle="modal"
-                                            data-target="#ModalEdit<?= $p->id?>"><i class="fa fa-pen"></i></a>
+                                            data-target="#ModalEdit<?= $p->id?>"><i class="fas fa-pen"></i></a>
                                     </td>
 
                                 </tr>
@@ -216,24 +222,33 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
 
                 </div>
+
             </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center">
+                    {{$pelanggan->links()}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-  
-        @include('Admin.Modal.pelanggan')
-        @endsection
 
-        @push('plugin-scripts')
-            <script src="{{asset('/assets/plugins/chartjs/chart.min.js')}}"></script>
-            <script src="{{asset('/assets/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
+@endsection
 
-        @endpush
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        @push('custom-scripts')
-            <script src="{{asset('/assets/js/dashboard.js')}}"></script>
-        @endpush
-        @push('scripts')
-            @include('layouts.partial.script')
-        @endpush
+@push('plugin-scripts')
+    <script src="{{asset('/assets/plugins/chartjs/chart.min.js')}}"></script>
+    <script src="{{asset('/assets/plugins/jquery-sparkline/jquery.sparkline.min.js')}}"></script>
+
+@endpush
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@push('custom-scripts')
+    <script src="{{asset('/assets/js/dashboard.js')}}"></script>
+@endpush
+@push('scripts')
+    @include('layouts.partial.script')
+@endpush

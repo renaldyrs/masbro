@@ -45,6 +45,7 @@ class PesananChart
         return $this->chart->areaChart()
     
             ->addData('Pesanan', $datacount)
+          
             ->setXAxis($databulan);
     }
 }

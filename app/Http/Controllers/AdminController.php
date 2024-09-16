@@ -7,6 +7,8 @@ use App\Charts\PendapatanChart;
 use App\Models\Jenis;
 use App\Models\Pelanggan;
 use App\Models\Jurnal;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +17,7 @@ use Redirect;
 use Auth;
 use Session;
 use PDF;
+
 
 class AdminController extends Controller
 {
@@ -44,7 +47,7 @@ class AdminController extends Controller
 
     public function datapelanggan()
     {
-        $pelanggan = DB::table('pelanggan')->get();
+        $pelanggan = DB::table('pelanggan')->Paginate(10);
         return view('Admin.haldatapelanggan', ['pelanggan' => $pelanggan]);
     }
 

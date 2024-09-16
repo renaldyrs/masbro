@@ -10,16 +10,16 @@
 <div class="content">
 
     <div class="col-lg-12">
-                    
+
         <div class="card card-outline-info">
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-3">
-                        <h4 class="m-b-0 text-black">Transaksi Pesanan Laundry </h4>
+                        <h5 class="m-b-0 text-black">Transaksi Pesanan Laundry </h5>
                     </div>
                     <div class="col-md-9" style="text-align: right">
-                        <a href="{{url('tambah-pesanan')}}" class="btn btn-primary" data-toggle="modal"
-                            data-target="#ModalPesanan" style="margin-bottom: 10px">Tambah</a>
+                        <a href="{{url('tambah-pesanan')}}" class="fa fa-shopping-basket" data-toggle="modal"
+                            data-target="#ModalPesanan" style="width: 5%"></a>
                     </div>
 
                 </div>
@@ -28,28 +28,25 @@
 
             <div class="card-body">
                 <form action="" method="get">
-                    <div>
-                        <h5>Filter Transaksi Laundry :</h5>
-                    </div>
-                    <hr>
-                    <div class="row" style="margin-bottom: 15px">
 
-                    <div class="col-md-2" style="text-align: center">
-
-                    </div>
+                    <div class="row" style="margin-top: 0.7rem; margin-bottom: 15px">
 
                         <div class="col-md-2" style="text-align: center">
-                            <label for="">Pembayaran</label>
+
+                        </div>
+
+                        <div class="col-md-2" style="text-align: center">
+
                             <select name="pembayaran" class="form-control ">
-                                <option value=""></option>
+                                <option value="">Pembayaran</option>
                                 <option value="Cash">Cash</option>
                                 <option value="Transfer">Transfer</option>
                             </select>
                         </div>
                         <div class="col-md-2" style="text-align: center">
-                            <label for="">Laundry</label>
+
                             <select name="laundry" class="form-control ">
-                                <option value=""></option>
+                                <option value="">Laundry</option>
                                 <option value="">Proses Laundry</option>
                                 <option value="Proses Laundry">Selesai Laundry</option>
                                 <option value="Proses Kirim">Proses Kirim</option>
@@ -58,33 +55,29 @@
                             </select>
                         </div>
                         <div class="col-md-2" style="text-align: center">
-                            <label for="">Pengiriman</label>
+
                             <select name="pengiriman" class="form-control ">
-                                <option value=""></option>
+                                <option value="">Pengiriman</option>
                                 <option value="Ambil">Ambil</option>
                                 <option value="Kirim">Kirim</option>
 
                             </select>
                         </div>
                         <div class="col-sm-2" style="text-align: center">
-                            <label for="">Tanggal</label>
                             <input type="date" class="form-control" name="tgl" id="">
-                            </select>
-                        </div>
-
-                        <div class="col-md-1" style="text-align: center">
-                            
-                            <button type="submit" class="btn btn-primary fas fa-search" style="margin-top: 30px"></button>
 
                         </div>
+                        <div class="col-sm-2">
+                            <a type="submit" class="fas fa-search " style="margin-top: 0.7rem; width: 5%"></a>
+                        </div>
+
+
                 </form>
 
             </div>
 
-            <hr>
-
-            <div class="table-responsive m-t-0">
-                <table id="myTable" class="table display table-bordered ">
+            <div class="table-responsive-sm " style="margin-left: 15px; margin-right: 15px">
+                <table id="myTable" class="table  ">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -95,7 +88,7 @@
                             <th>Nama Bank</th>
                             <th>Status Pembayaran</th>
                             <th>Jenis Layanan</th>
-                            <th>Harga</th>
+
                             <th>KG</th>
                             <th>Total</th>
                             <th>Status Laundry</th>
@@ -107,7 +100,9 @@
                     </thead>
                     <tbody>
                         {{-- {{dd($order)}} --}}
-                        <?php $no = 1; ?>
+                        <?php 
+                        $no = 1;
+                        ?>
                         @foreach ($pesanan as $p)
 
                             <tr>
@@ -134,9 +129,7 @@
                                 <td>
                                     {{$p->jenis}}
                                 </td>
-                                <td>
-                                    {{$p->harga}}
-                                </td>
+
                                 <td>
                                     {{$p->jumlah}}
                                 </td>
@@ -161,27 +154,25 @@
 
                                     @if ($p->statuspembayaran == 'Belum Bayar')
                                         <a href="{{url('update-pesanan/' . $p->kode_pesanan)}}"
-                                            onclick="return confirm('Apakah anda yakin sudah dibayar ?');"
-                                            class="btn btn-success"><i
-                                                class="fas fa-money-bill-wave margin-bottom: 10px;"></i></a>
+                                            onclick="return confirm('Apakah anda yakin sudah dibayar ?');">
+                                            <i class="fas fa-money-bill-wave margin-bottom: 10px;"></i></a>
                                     @endif
 
                                     @if ($p->pengiriman == 'Ambil' && $p->statuslaundry == 'Selesai Laundry')
-                                        <a href="{{url('ambillaundry/' . $p->kode_pesanan)}}" class="btn btn-success"><i
+                                        <a href="{{url('ambillaundry/' . $p->kode_pesanan)}}"><i
                                                 class="fa fa-handshake"></i></a>
 
                                     @endif
 
                                     @if ($p->statuslaundry == 'Proses Laundry')
-                                        <a href="selesailaundry/{{$p->kode_pesanan}}" class="btn btn-danger"
+                                        <a href="selesailaundry/{{$p->kode_pesanan}}"
                                             onclick="return confirm('Anda yakin proses laundry telah selesai ?');"><i
                                                 class="fa fa-check"></i></a>
                                     @endif
 
                                     @if ($p->pengiriman == 'Kirim' && $p->statuslaundry == 'Selesai Laundry')
 
-                                        <a href="updatekirim/{{$p->idpesanan}}" class="btn btn-success"><i
-                                                class="	fas fa-box"></i></a>
+                                        <a href="updatekirim/{{$p->idpesanan}}"><i class="	fas fa-box"></i></a>
 
                                     @endif
 
@@ -194,8 +185,15 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
+        
     </div>
+    <div class="card-footer">
+            <div class="d-flex justify-content-center">
+                {{$pesanan->links()}}
+            </div>
+        </div>
 
 </div>
 

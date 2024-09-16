@@ -18,11 +18,16 @@ class PesananController extends Controller
 {
     public function halpesanan(Request $request)
     {
+
+        
+
+
         $pelanggan = DB::table('pelanggan')->get();
         $user = DB::table('users')->get();
         $jenis = DB::table('jenis')->get();
 
         $pesanan = DB::table('pesanan')
+        ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
             ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
@@ -30,11 +35,15 @@ class PesananController extends Controller
             ->where('statuslaundry', '!=', 'Sudah Diambil')
             ->Where('statuslaundry', '!=', 'Sudah Dikirim')
             ->orderBy('kode_pesanan', 'asc')
-            ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+            
+            
+            ->paginate(10);
+           
         
         //filter bayar
         if ($request->pembayaran != null) {
             $pesanan = DB::table('pesanan')
+            ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
@@ -45,12 +54,16 @@ class PesananController extends Controller
                 ['statuslaundry', '!=', 'Sudah Dikirim']
                 ])
                 ->orderBy('kode_pesanan', 'asc')
-                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+                
+                
+                ->paginate(10);
+             
         }
         
         //filter status
         if ($request->laundry != null) {
             $pesanan = DB::table('pesanan')
+            ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
@@ -59,12 +72,16 @@ class PesananController extends Controller
                 ->where('statuslaundry', '!=', 'Sudah Diambil')
                 ->Where('statuslaundry', '!=', 'Sudah Dikirim')
                 ->orderBy('kode_pesanan', 'asc')
-                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+                
+                
+                ->paginate(10);
+               
         }
 
         //filter pengiriman
         if ($request->pengiriman != null) {
             $pesanan = DB::table('pesanan')
+            ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
@@ -75,10 +92,14 @@ class PesananController extends Controller
                 ['statuslaundry', '!=', 'Sudah Dikirim']
                 ])
                 ->orderBy('kode_pesanan', 'asc')
-                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+                
+                
+                ->paginate(10);
+                
         }
         if ($request->tgl != null) {
             $pesanan = DB::table('pesanan')
+            ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
                 ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
@@ -87,11 +108,10 @@ class PesananController extends Controller
                 ->where('statuslaundry', '!=', 'Sudah Diambil')
                 ->Where('statuslaundry', '!=', 'Sudah Dikirim')
                 ->orderBy('kode_pesanan', 'asc')
-                ->get(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan']);
+            
+                ->paginate(10);
+
         }
-
-
-
         return view('Admin.halpesanan', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
 
     }
