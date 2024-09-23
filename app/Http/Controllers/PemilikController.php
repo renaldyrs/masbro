@@ -19,7 +19,9 @@ class PemilikController extends Controller
 
     public function dataakun()
     {
-        $akun = DB::table('akun')->orderBy('kode_akun', 'asc')->get();
+        $akun = DB::table('akun')
+        ->orderBy('kode_akun', 'asc')
+        ->Paginate(10);
         return View('Pemilik.akun', ['akun' => $akun]);
     }
 

@@ -31,8 +31,8 @@
 
                     <div class="row" style="margin-top: 0.7rem; margin-bottom: 15px">
 
-                        <div class="col-md-2" style="text-align: center">
-
+                        <div class="col-md-2">
+                            Total Pesanan : {{ $pesanan->total() }}
                         </div>
 
                         <div class="col-md-2" style="text-align: center">
@@ -47,11 +47,11 @@
 
                             <select name="laundry" class="form-control ">
                                 <option value="">Laundry</option>
-                                <option value="">Proses Laundry</option>
-                                <option value="Proses Laundry">Selesai Laundry</option>
-                                <option value="Proses Kirim">Proses Kirim</option>
-                                <option value="Sudah Dikirim">Sudah Dikirim</option>
-                                <option value="Sudah Diambil">Sudah Diambil</option>
+                                <option value="Proses Laundry">Proses Laundry</option>
+                                <option value="Selesai Laundry">Selesai Laundry</option>
+                                <option value="Siap Ambil">Siap Ambil</option>
+                                <option value="Siap Dikirim">Siap Dikirim</option>
+
                             </select>
                         </div>
                         <div class="col-md-2" style="text-align: center">
@@ -68,7 +68,8 @@
 
                         </div>
                         <div class="col-sm-2">
-                            <a type="submit" class="fas fa-search " style="margin-top: 0.7rem; width: 5%"></a>
+                            <button type="submit" class=" btn btn-link"
+                                style="margin-top:0.4rem; width: 5%; color:black"><i class="fa fa-search"></i></button>
                         </div>
 
 
@@ -77,7 +78,7 @@
             </div>
 
             <div class="table-responsive-sm " style="margin-left: 15px; margin-right: 15px">
-                <table id="myTable" class="table  ">
+                <table id="myTable" class="table">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -158,24 +159,11 @@
                                             <i class="fas fa-money-bill-wave margin-bottom: 10px;"></i></a>
                                     @endif
 
-                                    @if ($p->pengiriman == 'Ambil' && $p->statuslaundry == 'Selesai Laundry')
-                                        <a href="{{url('ambillaundry/' . $p->kode_pesanan)}}"><i
-                                                class="fa fa-handshake"></i></a>
-
-                                    @endif
-
                                     @if ($p->statuslaundry == 'Proses Laundry')
                                         <a href="selesailaundry/{{$p->kode_pesanan}}"
                                             onclick="return confirm('Anda yakin proses laundry telah selesai ?');"><i
                                                 class="fa fa-check"></i></a>
                                     @endif
-
-                                    @if ($p->pengiriman == 'Kirim' && $p->statuslaundry == 'Selesai Laundry')
-
-                                        <a href="updatekirim/{{$p->idpesanan}}"><i class="	fas fa-box"></i></a>
-
-                                    @endif
-
                                 </td>
                             </tr>
 
@@ -187,13 +175,13 @@
             </div>
 
         </div>
-        
+
     </div>
     <div class="card-footer">
-            <div class="d-flex justify-content-center">
-                {{$pesanan->links()}}
-            </div>
+        <div class="d-flex justify-content-center">
+            {{$pesanan->links()}}
         </div>
+    </div>
 
 </div>
 

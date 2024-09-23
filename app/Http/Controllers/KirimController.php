@@ -25,7 +25,8 @@ class KirimController extends Controller
         ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
         ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
         ->orderBy('pesanan.kode_pesanan')
-        ->get(['pelanggan.*', 'pesanan.*', 'pengiriman.*']);
+        ->select(['pelanggan.*', 'pesanan.*', 'pengiriman.*'])
+        ->paginate(10);
         
         return view('Admin.halkirim',['pengiriman'=>$pengiriman,]);
     }

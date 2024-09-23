@@ -12,40 +12,21 @@
 
         <div class="card card-outline-info">
             <div class="card-header">
+                <div>
+                    <h5 class="m-b-0 " > Data Jurnal Umum</h5>
+                </div>
 
 
-                <h4 class="m-b-0 ">
-                    Data Jurnal Umum
-                    <a href="{{ url("tambah-jurnal") }}" class="btn btn-primary float-right">Tambah</a>
-                </h4>
+                <div style="margin-top: -2.6rem;">
+                    <a href="{{ url("tambah-jurnal") }}" class="btn btn-primary float-right">
+                        <i class="fas fa-plus"></i></a>
+                </div>
+
             </div>
+            
 
             <div class="card-body">
-
-                <!-- <div class="text-center">
-                    <div class="col-lg-12">
-                        {!! Form::open(['url' => 'jurnal-umum/cari', 'method' => 'get', 'class' => 'form-inline text-center']) !!}
-
-                        <div class="col-lg-4">
-                            <label>Bulan</label>
-                            {!! Form::selectMonth('bulan', null, ['class' => 'form-control', 'placeholder' => '-- Bulan --']) !!}
-
-                        </div>
-
-                        <div class="col-lg-2">
-                            <label>Tahun</label>
-                            {!! Form::selectRange('tahun', 2018, 2050, null, ['class' => 'form-control', 'placeholder' => '-- Tahun --']) !!}
-
-                        </div>
-
-                        <div class="col-lg-">
-
-                            <button type="submit" class="btn btn-primary form-control" class="">Filter</button>
-                        </div>
-                        {!! Form::close() !!}
-                        <br>
-                    </div>
-                </div> -->
+   
 
                 <div class="table-responsive m-t-0">
 

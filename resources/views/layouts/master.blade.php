@@ -111,13 +111,18 @@
                             <a class="collapse-item" href="jurnal-umum">Jurnal Umum</a>
                             <a class="collapse-item" href="buku-besar">Buku Besar</a>
                             <a class="collapse-item" href="neraca-saldo">Neraca Saldo</a>
-                            <a class="collapse-item" href="laporan">Laporan</a>
+                            <a class="collapse-item" href="laporan-laba-rugi">Laporan</a>
                         </div>
                     </div>
                 </li>
             @endif
 
             <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
 
         </ul>
@@ -129,53 +134,214 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <div class="container-fluid">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" id="sidebarToggleTop">
-                                    <i class="fa fa-laugh" style="size"></i>
-                                </a>
-                            </li>
-                        </ul>
+
 
                         @php
-                            $pesan = DB::table('pesanan')->where('statuspembayaran', 'Belum Bayar')->get();
+                            $pesan = DB::table('pesanan')
+                                ->select('pesanan.*', 'pelanggan.*', 'pengiriman.*', 'pelanggan.nama as namapelanggan')
+                                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+                                ->where([['statuslaundry', '!=', 'Sudah Diambil'], ['statuslaundry', '!=', 'Sudah Dikirim']])
+                                ->get();
                             $notifpesanan = count($pesan);
 
-                            $proses = DB::table('pesanan')->where('statuslaundry', 'Proses Laundry')->get();
+                            $proses = DB::table('pesanan')
+                                ->select('pesanan.*', 'pelanggan.*', 'pengiriman.*', 'pelanggan.nama as namapelanggan')
+                                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+                                ->where('statuslaundry', 'Proses Laundry')
+                                ->get();
                             $notifproses = count($proses);
 
-                            $kirim = DB::table('pengiriman')->where('statuspengiriman', 'Proses Kirim')->get();
+                            $kirim = DB::table('pesanan')
+                                ->select('pesanan.*', 'pelanggan.*', 'pengiriman.*', 'pelanggan.nama as namapelanggan')
+                                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+                                ->where('statuspengiriman', 'Siap Dikirim')
+                                ->orWhere('statuspengiriman', 'Siap Diambil')
+                                ->get();
                             $notifkirim = count($kirim);
 
-                            $pesanan = DB::table('pesanan')->where('statuspembayaran', 'Belum Bayar')->get();
+                            $pesanan = DB::table('pesanan')
+                                ->select('pesanan.*', 'pelanggan.*', 'pengiriman.*', 'pelanggan.nama as namapelanggan')
+                                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+                                ->where('statuspembayaran', 'Belum Bayar')
+                                ->orderBy('pesanan.kode_pesanan', 'ASC')
+                                ->get();
+
+                            $notifbelum = count($pesanan);   
 
                         @endphp
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="pesanan">
-                                    <i class="fas fa-shopping-cart">
-                                        <span class="badge badge-danger badge-counter"
-                                            style="baground-color:red">{{ $notifpesanan }}</span>
-                                    </i>
+                            <!-- Alert Belum Bayar -->
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-money-bill-wave fa-fw"></i>
+
+                                    <span class="badge badge-danger badge-counter">{{ $notifbelum }}</span>
                                 </a>
 
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Belum Bayar
+                                    </h6>
+
+                                    @foreach ($pesanan as $p)
+                                        <a class="dropdown-item d-flex align-items-center"
+                                            href="{{url('update-pesanan/' . $p->kode_pesanan)}}"
+                                            onclick="return confirm('Apakah anda yakin sudah dibayar ?');">
+
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas fa-money-bill-wave text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div class="mr-3">
+
+                                                <div class=" font-weight-bold">{{$p->kode_pesanan}}</div>
+                                                <div class=" font-weight-bold">{{$p->namapelanggan}}</div>
+                                                <div class=" font-weight-bold">Total yang harus dibayar: {{$p->total}}</div>
+
+                                            </div>
+
+                                        </a>
+                                    @endforeach
+
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                        Alerts</a>
+                                </div>
                             </li>
 
-                            <li class="nav-item ">
-                                <a class="nav-link" href="">
-                                    <i class="fa fa-clock">
-                                        <span class="badge badge-danger badge-counter">{{ $notifproses }}</span>
-                                    </i>
+                            <!-- Alert Proses Laundry -->
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-clock fa-fw"></i>
+
+                                    <span class="badge badge-danger badge-counter">{{ $notifproses }}</span>
                                 </a>
+
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Proses Laundry
+                                    </h6>
+
+                                    @foreach ($proses as $p)
+                                        <a class="dropdown-item d-flex align-items-center" href=""
+                                            onclick="return confirm('Apakah anda yakin sudah dibayar ?');">
+
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fa fa-clock text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div class="mr-3">
+
+                                                <div class=" font-weight-bold">{{$p->kode_pesanan}}</div>
+                                                <div class=" font-weight-bold">{{$p->namapelanggan}}</div>
+                                                <div class=" font-weight-bold">Status laundry : {{$p->statuslaundry}}</div>
+
+                                            </div>
+
+                                        </a>
+                                    @endforeach
+
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                        Alerts</a>
+                                </div>
                             </li>
 
-                            <li class="nav-item ">
-                                <a class="nav-link" href="halaman-kirim">
-                                    <i class="fas fa-shipping-fast">
-                                        <span class="badge badge-danger badge-counter">{{ $notifkirim }}</span>
-                                    </i>
+                            <!-- Alert Pesanan Laundry -->
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-shopping-cart fa-fw"></i>
+
+                                    <span class="badge badge-danger badge-counter">{{ $notifpesanan }}</span>
                                 </a>
 
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Pesanan Laundry
+                                    </h6>
+
+                                    @foreach ($pesan as $p)
+                                        <a class="dropdown-item d-flex align-items-center" href=""
+                                            onclick="return confirm('Apakah anda yakin sudah dibayar ?');">
+
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fa fa-shopping-cart text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div class="mr-3">
+
+                                                <div class=" font-weight-bold">{{$p->kode_pesanan}}</div>
+                                                <div class=" font-weight-bold">{{$p->namapelanggan}}</div>
+                                                <div class=" font-weight-bold">Status laundry : {{$p->statuslaundry}}</div>
+
+
+                                            </div>
+
+                                        </a>
+                                    @endforeach
+
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                        Alerts</a>
+                                </div>
+                            </li>
+
+                            <!-- Alert Sudah Siap Ambil Dan Kirim -->
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-shipping-fast fa-fw"></i>
+
+                                    <span class="badge badge-danger badge-counter">{{ $notifkirim }}</span>
+                                </a>
+
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Perlu Dikirim dan diambil
+                                    </h6>
+
+                                    @foreach ($kirim as $k)
+                                        <a class="dropdown-item d-flex align-items-center" href=""
+                                            onclick="return confirm('Apakah anda yakin sudah dibayar ?');">
+
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fa fa-shipping-fast text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div class="mr-3">
+
+                                                <div class=" font-weight-bold">{{$k->kode_pesanan}}</div>
+                                                <div class=" font-weight-bold">{{$k->namapelanggan}}</div>
+                                                <div class=" font-weight-bold">Status laundry : {{$k->statuslaundry}}</div>
+
+                                            </div>
+
+                                        </a>
+                                    @endforeach
+
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                        Alerts</a>
+                                </div>
                             </li>
 
                             <li class="nav-item dropdown no-arrow">
@@ -250,26 +416,21 @@
         opacity: 0.9;
     }
 
-    .card{
-        margin-top: -1rem;
-    }
-
-    .card-header{
+    .card-header {
         height: 2.7rem;
-       
+
     }
 
-    .card-body{
+    .card-body {
         margin-top: -0.6rem;
         margin-bottom: -1.5rem;
     }
 
-    .card-footer{
+    .card-footer {
         text-align: center;
         border-top: none;
         margin-bottom: -0.5rem;
     }
-
 </style>
 
 </html>

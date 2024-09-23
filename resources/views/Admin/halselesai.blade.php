@@ -15,7 +15,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-3">
-                        <h4 class="m-b-0 text-black">Pesanan Laundry Selesai </h4>
+                        <h5 class="m-b-0 text-black">Pesanan Laundry Selesai </h5>
                     </div>
                     <div class="col-md-9" style="text-align: right">
 
@@ -26,43 +26,42 @@
             </div>
 
             <div class="card-body">
-                <h5>Filter Laundry Selesai</h5>
-                <hr>
-                <form action="" method="get">
-                    <div class="row align-items-center " style="align-items: center;margin-bottom: 15px">
-                        <div class="col-md-3" style="text-align: center">
 
+                <form action="" method="get">
+                    <div class="row" style="margin-top: 0.7rem; margin-bottom: 15px">
+
+                        <div class="col-md-2">
+                            Total Pesanan Selesai : {{ $pesanan->total() }}
                         </div>
 
-                        <div class="col-md-1" style="text-align: center">
-                            
+
+                        <div class="col-md-2" style="text-align: center">
+
                         </div>
 
                         <div class="col-md-2" style="text-align: center">
-                            <label for="">Status Laundry</label>
+
                             <select name="status" class="form-control ">
-                                <option value=""></option>
-                                <option value="">Sudah Dikirim</option>
-                                <option value="">Sudah Diambil</option>
+                                <option value="">Status Laundry</option>
+                                <option value="Sudah Dikirim">Sudah Dikirim</option>
+                                <option value="Sudah Diambil">Sudah Diambil</option>
 
                             </select>
                         </div>
-                        <div class="col-sd-2" style="text-align: center">
-                            <label for="">Tanggal</label>
+
+                        <div class="col-sm-2" style="text-align: center">
+
                             <input type="date" name="tgl" class="form-control">
                             </select>
                         </div>
-                        <div class="col-md-1" style="text-align: center">
-                            
-                        <button type="submit" class="btn btn-primary fas fa-search" style="margin-top: 30px"></button>
+                        <div class="col-sm-2">
+                        <button type="submit" class=" btn btn-link" style="margin-top:0.4rem; width: 5%; color:black"><i class="fa fa-search"></i></button>
                         </div>
-  
+
                     </div>
 
-                    <hr>
-
-                    <div class="table-responsive m-t-0">
-                        <table id="myTable" class="table display table-bordered ">
+                    <div class="table-responsive-sm " style="margin-left: 15px; margin-right: 15px">
+                        <table id="myTable" class="table">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -73,7 +72,7 @@
                                     <th>Nama Bank</th>
                                     <th>Status Pembayaran</th>
                                     <th>Jenis Layanan</th>
-                                    <th>Harga</th>
+
                                     <th>KG</th>
                                     <th>Total</th>
                                     <th>Status Laundry</th>
@@ -112,9 +111,7 @@
                                         <td>
                                             {{$p->jenis}}
                                         </td>
-                                        <td>
-                                            {{$p->harga}}
-                                        </td>
+
                                         <td>
                                             {{$p->jumlah}}
                                         </td>
@@ -146,9 +143,13 @@
                     </div>
             </div>
         </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-center">
+                {{$pesanan->links()}}
+            </div>
+        </div>
         </form>
     </div>
-
 </div>
 </div>
 

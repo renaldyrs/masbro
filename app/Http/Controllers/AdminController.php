@@ -53,20 +53,20 @@ class AdminController extends Controller
 
     public function datajenis()
     {
-        $jenis = DB::table('jenis')->get();
+        $jenis = DB::table('jenis')->paginate(10);
         return View('Admin.haldatajenis', ['jenis' => $jenis]);
     }
 
     public function databeban()
     {
-        $beban = DB::table('beban')->get();
+        $beban = DB::table('beban')->paginate(10);
         $akun = DB::table('akun')->whereBetween('kode_akun', ['400', '499'])->get();
         return View('Admin.haldatabeban', ['beban' => $beban, 'akun' => $akun]);
     }
 
     public function datametode()
     {
-        $metode = DB::table('metodepembayaran')->get();
+        $metode = DB::table('metodepembayaran')->paginate(10);
         return View('Admin.haldatametode', ['metodepembayaran' => $metode]);
     }
 

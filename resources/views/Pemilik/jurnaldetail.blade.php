@@ -17,8 +17,12 @@
 
                 <div class="d-flex justify-content-between">
                     <h4 class="m-b-0 "> Data Jurnal Umum</h4>
-        
-                    <a href="{{ url("jurnal-umum") }}" class="btn-secondary btn-sm ">Kembali</a>
+                    <div style="margin-top: -0.3rem">
+                        <button onclick="history_back()" class="btn-secondary"
+                            style="border-radius: 0.5rem">Kembali</button>
+                    </div>
+
+                    
                 </div>
 
 
@@ -71,7 +75,7 @@
                                                 </td>
                                                 <td>
                                                     <!-- <a href="{{ url('jurnal-umum/' . $data->id . '/edit') }}"
-                                                        class="btn btn-info">EDIT</a> -->
+                                                            class="btn btn-info">EDIT</a> -->
                                                     <a href="hapus/{{ $data->id }}" class="btn btn-danger">HAPUS</a>
 
                                                 </td>

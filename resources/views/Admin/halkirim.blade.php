@@ -18,8 +18,13 @@
 
             <div class="card-body">
 
-                <div class="table-responsive m-t-0">
-                    <table id="myTable" class="table display table-bordered ">
+                <div class="col-md-2">
+                    Total Pesanan : {{ $pengiriman->total() }}
+                </div>
+
+                <div  class="table-responsive-sm " style="margin-left: 15px; margin-right: 15px">
+                  <br>  
+                <table id="myTable" class="table">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -29,6 +34,7 @@
                                 <th>No. Telp</th>
                                 <th>Alamat</th>
                                 <th>Status Laundry</th>
+                                <th>Status Pembayaran</th>
                                 <th>Status Pengiriman</th>
                                 <th>TGL Pengiriman</th>
                                 <th>Jam </th>
@@ -50,19 +56,20 @@
                                     <td>{{$p->nohp}}</td>
                                     <td>{{$p->alamat}}</td>
                                     <td>{{$p->statuslaundry}}</td>
+                                    <td>{{$p->statuspembayaran}}</td>
                                     <td>{{$p->statuspengiriman}}</td>
-                                    
+
                                     <td>
                                         {{$p->tglpengiriman}}
                                     </td>
 
                                     @if ($p->jampengiriman != null)
-                                    <td>{{date('H:i:s', strtotime($p->jampengiriman))}}</td>
+                                        <td>{{date('H:i:s', strtotime($p->jampengiriman))}}</td>
                                     @else
-                                    <td></td>
+                                        <td></td>
                                     @endif
-                                    
-                                    
+
+
                                     <td>
                                         @if ($p->statuspengiriman == 'Siap Dikirim')
                                             <a href="{{url('selesaikirim/' . $p->kode_pesanan)}}" class="btn btn-primary"
@@ -85,7 +92,11 @@
                 </div>
             </div>
         </div>
-
+        <div class="card-footer">
+            <div class="d-flex justify-content-center">
+                {{$pengiriman->links()}}
+            </div>
+        </div>
     </div>
 
 </div>

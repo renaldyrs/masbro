@@ -9,7 +9,10 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h5>Buku Besar {{ $akun->nama_akun }}</h5>
-                        <button onclick="history_back()" class="btn-secondary btn-sm">Kembali</button>
+                        <div style="margin-top: -0.3rem">
+                            <button onclick="history_back()" class="btn-secondary"
+                                style="border-radius: 0.5rem">Kembali</button>
+                        </div>
                     </div>
 
                 </div>
@@ -55,7 +58,7 @@
 @endsection
 @include('layouts.partial.script')
 <script>
-        function history_back() {
-            window.history.back();
-        } 
-    </script>
+    function history_back() {
+        window.history.back();
+    } 
+</script>

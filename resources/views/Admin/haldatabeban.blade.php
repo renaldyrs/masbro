@@ -22,7 +22,7 @@
         <div class="col-lg-4">
             <div class="card card-outline-info">
                 <div class="card-header">
-                    <h4 class="m-b-0 text-black">Form Tambah Data Beban</h4>
+                    <h5 class="m-b-0 text-black">Form Tambah Data Beban</h5>
                 </div>
                 <div class="card-body">
                     <form class="row g-4 needs-validation" action="/data-beban/tambah" method="post" novalidate>
@@ -51,8 +51,8 @@
                                 <div class="col-lg-12 col-xl-12">
                                     <div class="form-group has-success">
                                         <label class="control-label">Kode</label>
-                                        <input type="text" name="kode" id="kodeakun" value="" class="form-control " placeholder="Kode"
-                                            autocomplete="off" readonly>
+                                        <input type="text" name="kode" id="kodeakun" value="" class="form-control "
+                                            placeholder="Kode" autocomplete="off" readonly>
 
                                     </div>
                                 </div>
@@ -60,8 +60,9 @@
                                 <div class="col-lg-12 col-xl-12">
                                     <div class="form-group has-success">
                                         <label class="control-label">Keterangan</label>
-                                        <input type="text" name="keterangan" id="keterangan" value="" class="form-control "
-                                            placeholder="Tambahkan Keterangan" autocomplete="off" readonly>
+                                        <input type="text" name="keterangan" id="keterangan" value=""
+                                            class="form-control " placeholder="Tambahkan Keterangan" autocomplete="off"
+                                            readonly>
 
                                     </div>
                                 </div>
@@ -112,9 +113,12 @@
         <div class="col-lg-8">
             <div class="card card-outline-info">
                 <div class="card-header ">
-                    <h4 class="m-b-0 text-black">Data Beban</h4>
+                    <h5 class="m-b-0 text-black">Data Beban</h5>
                 </div>
                 <div class="card-body">
+                    <div>
+                        Total Data : {{ $beban->total() }}
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -136,9 +140,11 @@
                                     <td>{{$b->jumlah}}</td>
                                     <td>{{$b->total}}</td>
                                     <td>
-                                        <a class="btn btn-danger" href="/data-beban/hapus/{{$b->idbeban}}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn btn-danger" href="/data-beban/hapus/{{$b->idbeban}}"><i
+                                                class="fa fa-trash"></i></a>
 
-                                        <a class="btn btn-success" href="/data-beban/edit/{{$b->idbeban}}"><i class="fa fa-pen-to-square"></i></a>
+                                        <a class="btn btn-success" href="/data-beban/edit/{{$b->idbeban}}"><i
+                                                class="fa fa-pen-to-square"></i></a>
                                     </td>
 
                                 </tr>
@@ -148,7 +154,11 @@
                 </div>
             </div>
         </div>
-
+        <div class="card-footer">
+                <div class="d-flex justify-content-center">
+                    {{$beban->links()}}
+                </div>
+            </div>
     </div>
 
 </div>

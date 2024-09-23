@@ -31,9 +31,6 @@ Route::get('/welcome', function () {
 Route::get('/1', [HomeController::class, 'index']);
 Auth::routes();
 
-
-
-
 //Login Register
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');

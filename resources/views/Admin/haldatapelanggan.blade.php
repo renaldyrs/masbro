@@ -105,7 +105,7 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        Total Data Pelanggan : {{ $pelanggan->total() }}
+                        Total Data : {{ $pelanggan->total() }}
                     </div>
 
                     <div class="table">

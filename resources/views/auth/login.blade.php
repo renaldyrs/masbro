@@ -1,4 +1,4 @@
-@extends('layouts.partial.script')
+@extends('layouts.master-mini')
 
 <section class="content" style="background-image: url({{ url('assets/images/auth/bg-login.jpg') }});">
     <div class="container py-5 h-100">
@@ -17,7 +17,7 @@
                                 <label class="label content" for="email">Email</label>
                                 <div class="input-group">
 
-                                    <input type="email" name="email" id="email" class="form-control "
+                                    <input type="email" name="email" id="email" class="form-control"
                                         placeholder="Email" @error('email') is-invalid @enderror />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
