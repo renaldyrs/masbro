@@ -44,11 +44,11 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active mb-0">
                 @if (Auth::user()->role == '0')
-                    <a class="nav-link" href="halaman-pemilik">
+                    <a class="nav-link" href="Dashboard">
                         <i class="fas fa-landmark"></i>
                         <span>Dashboard</span></a>
                 @elseif (Auth::user()->role == '1')
-                    <a class="nav-link" href="halaman-admin">
+                    <a class="nav-link" href="Dashboard">
                         <i class="fas fa-landmark"></i>
                         <span>Dashboard</span></a>
                 @endif

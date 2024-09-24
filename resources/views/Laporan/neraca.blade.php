@@ -19,6 +19,7 @@
 
                     <div class="tabel-responsive">
                         <h4>Total Data : <strong>{{ $total_neraca }}</strong> </h4>
+                        
                         <table class="table table-striped text-center">
                             <thead>
                                 <h3 class="text-center"><strong>DAFTAR NERACA SALDO</strong></h3>

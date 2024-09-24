@@ -24,14 +24,11 @@
 
             </div>
             
-
             <div class="card-body">
    
-
                 <div class="table-responsive m-t-0">
 
                     <h4>Total Data : <strong>{{ $total_jurnal }}</strong> </h4>
-
 
                     <table class="table table-striped text-center">
                         <thead>

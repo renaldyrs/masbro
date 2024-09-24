@@ -7,15 +7,14 @@ use App\Charts\PesananChart;
 use App\Charts\PendapatanChart;
 use DB;
 
-
-class PemilikController extends Controller
+class DashboardController extends Controller
 {
     //
-    public function halpemilik(PendapatanChart $pedapatannchart , PesananChart $pesananchart)
+
+    public function dashboard(PendapatanChart $pedapatannchart , PesananChart $pesananchart)
     {
         
         return view('Dashboard',['chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
     }
-
 
 }

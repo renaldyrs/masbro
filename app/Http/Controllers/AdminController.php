@@ -42,207 +42,39 @@ class AdminController extends Controller
 
         $pesanan = DB::table('pesanan')->where('tgltransaksi', $tgl)->get();
 
-        return view('Admin.halamanadmin',['pesanan' => $pesanan,'chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
+        return view('Dashboard',['pesanan' => $pesanan,'chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
     }
 
-    public function datapelanggan()
-    {
-        $pelanggan = DB::table('pelanggan')->Paginate(10);
-        return view('Admin.haldatapelanggan', ['pelanggan' => $pelanggan]);
-    }
+    
 
-    public function datajenis()
-    {
-        $jenis = DB::table('jenis')->paginate(10);
-        return View('Admin.haldatajenis', ['jenis' => $jenis]);
-    }
+    
 
-    public function databeban()
-    {
-        $beban = DB::table('beban')->paginate(10);
-        $akun = DB::table('akun')->whereBetween('kode_akun', ['400', '499'])->get();
-        return View('Admin.haldatabeban', ['beban' => $beban, 'akun' => $akun]);
-    }
+    
 
-    public function datametode()
-    {
-        $metode = DB::table('metodepembayaran')->paginate(10);
-        return View('Admin.haldatametode', ['metodepembayaran' => $metode]);
-    }
+    
 
     //------------------------------------------------PELANGGAN-----------------------------------------
-    public function tambahpelanggan(Request $request)
-    {
-        $nohp =$request->nohp;
-        DB::table('pelanggan')->insert([
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'nohp' => $nohp,
-            'kelamin' => $request->kelamin
-        ]);
-        return redirect('data-pelanggan');
-    }
-
-    public function hapuspel($id)
-    {
-        DB::table('pelanggan')->where('id', $id)->delete();
-        return redirect()->back();
-    }
-
-
-    public function editpel($id)
-    {
-        $pelanggan = DB::table('pelanggan')
-        ->where('id', $id)->get();
-        return view('Admin.haleditpelanggan', ['pelanggan' => $pelanggan]);
-    }
-
-    public function updatepel(Request $request)
-    {
-        DB::table('pelanggan')->where('id', $request->id)->update([
-            'nama' => $request->nama,
-            'alamat' => $request->alamat,
-            'nohp' => $request->nohp,
-            'kelamin' => $request->kelamin
-        ]);
-        return redirect()->back();
-    }
+    
 
 
     //----------------------------------------------------------------------------JENIS----------------------------------------------
-    public function tambahjenis(Request $request)
-    {
-        $id=DB::table('jenis')->max('id')+1;
-        $addjenis = new Jenis();
-        $addjenis->id = $id;
-        $addjenis->jenis = $request->jenis;
-        $addjenis->kg = $request->kg;
-        $addjenis->hari = $request->hari;
-        $addjenis->harga = $request->harga;
-        $addjenis->save();
-        return redirect('.data-jenis');
-    }
-
-    public function hapusjenis($id)
-    {
-        DB::table('jenis')->where('id', $id)->delete();
-        return redirect('.data-jenis');
-    }
-
-    public function editjenis($id)
-    {
-        $jenis = DB::table('jenis')->where('id', $id)->get();
-        return view('Admin.haleditjenis', ['jenis' => $jenis]);
-    }
-
-    public function updatejenis(Request $request)
-    {
-        DB::table('jenis')->where('id', $request->id)->update([
-            'jenis' => $request->jenis,
-            'kg' => $request->kg,
-            'hari' => $request->hari,
-            'harga' => $request->harga
-        ]);
-        return redirect('.data-jenis');
-    }
+   
 
     //---------------------------------------------------------------metode-------------------------------------------
-    public function tambahmetode(Request $request)
-    {
-        DB::table('metodepembayaran')->insert([
-            'namabank' => $request->namabank,
-            'kodebank' => $request->kodebank
-        ]);
-
-        return redirect('.data-metode');
-    }
-
-    public function hapusmetode($id)
-    {
-        DB::table('metodepembayaran')->where('id', $id)->delete();
-        return redirect('.data-metode');
-        
-    }
-
-    public function editmetode($id)
-    {
-        $metode = DB::table('metodepembayaran')->where('id', $id)->get();
-        return view('Admin.haleditmetode', ['metodepembayaran' => $metode]);
-    }
-
-    public function updatemetode(Request $request)
-    {
-        DB::table('metodepembayaran')->where('id', $request->id)->update([
-            'namabank' => $request->namabank,
-            'kodebank' => $request->kodebank
-        ]);
-        return redirect('.data-metode');
-    }
+    
 
     //------------------------------------------------------------------------------Beban--------------------------------------------------
 
-    public function tambahbeban(Request $request)
-    {
+    
 
-        DB::table('beban')->insert([
-            'kode' => $request->kode,
-            'keterangan' => $request->keterangan,
-            'biaya' => $request->biaya,
-            'jumlah' => $request->jumlah,
-            'total' => $request->total
-        ]);
-
-        $jurnal = new Jurnal();
-
-        $jurnal->id_akun = $request->id_akun;
-        $jurnal->keterangan = $request->keterangan;
-        $jurnal->debit = $request->biaya;
-        $jurnal->kredit = 0;
-        $jurnal->save();
-
-        return redirect('data-beban');
-    }
-
-    public function hapusbeban($id)
-    {
-
-        DB::table('beban')->where('idbeban', $id)->delete();
-
-        $beban = DB::table('beban')->get();
-
-        return redirect('data-beban');
-
-    }
+    
 
 
-    public function editbeban($id)
-    {
+    
 
-        $beban = DB::table('beban')->where('id', $id)->get();
+    
 
-        return view('Admin.haleditbeban', ['beban' => $beban]);
-
-    }
-
-    public function updatebeban(Request $request)
-    {
-        DB::table('beban')->where('id', $request->id)->update([
-            'kode'=> $request->kode,
-            'keterangan' => $request->keterangan,
-            'biaya' => $request->biaya,
-            'jumlah' => $request->jumlah,
-            'total' => $request->total
-        ]);
-
-        return redirect('data-beban');
-
-    }
-
-    public function getakunbeban(Request $request){
-
-        $akun = DB::table('akun')->where('id', $request->id)->first();
-        return response()->json($akun);
-    }
+    
 
     public function laporan(){
         $pesanan = DB::table('pesanan')->get();
