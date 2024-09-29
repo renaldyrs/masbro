@@ -44,6 +44,7 @@ Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.pos
 Route::get('registration', [AuthController::class, 'registration'])->name('register');
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post');
 Route::get('dashboard', [AuthController::class, 'dashboard']);
+
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 //halaman admin
@@ -51,7 +52,8 @@ Route::get('halaman-admin', 'App\HTTP\Controllers\AdminController@haladmin')
     ->name('haladmin')->middleware('checkRole');
 
 Route::get('halaman-pemilik', [PemilikController::class, 'halpemilik'])
-->name('halpemilik');
+->name('halpemilik')->middleware('checkRole');
+
 
 Route::get('halaman-kirim', [KirimController::class, 'halkirim'])
 ->name('halkirim');

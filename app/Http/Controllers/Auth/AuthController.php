@@ -53,10 +53,11 @@ class AuthController extends Controller
 
             if (auth()->user()->role == 1) {
                 return redirect()->intended('halaman-admin')->with('alert', "Selamat Datang Admin"); //redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
-            }else{
+            }else if (auth()->user()->role == 0) {
                 return redirect()->intended('halaman-pemilik')
                 ->with('alert', "Selamat Datang Pemilik"); //redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
             }
+            
         }else{
             return redirect()->route('login')
                 ->with('alert','Email & Password are incorrect.');
@@ -89,7 +90,8 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect("/halaman-admin")->withSuccess('Great! You have Successfully loggedin');
+
+        return redirect("/")->withSuccess('Akun berhasil dibuat!');
     }
 
     /**
@@ -97,13 +99,18 @@ class AuthController extends Controller
      *
      * @return response()
      */
-    public function dashboard()
+    public function dashboard1()
     {
         if (Auth::check()) {
-            return view('dashboard');
+            return view('.dashboard');
         }
 
         return redirect("login")->withSuccess('Opps! You do not have access');
+    }
+
+    public function Dashboard(){
+
+
     }
 
     /**

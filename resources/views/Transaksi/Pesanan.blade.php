@@ -188,7 +188,7 @@
 </div>
 </div>
 
-@include('Admin.Modal.pesanan')
+@include('Transaksi.Modal.pesanan')
 @endsection
 @push('plugin-scripts')
     <script src="{{asset('/assets/plugins/chartjs/chart.min.js')}}"></script>

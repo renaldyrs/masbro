@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.4",
+        "nesbot/carbon": "*",
         "realrashid/sweet-alert": "*",
         "riskihajar/terbilang": "^2.0",
         "spatie/laravel-permission": "^6.9",

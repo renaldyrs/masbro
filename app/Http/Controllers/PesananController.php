@@ -112,7 +112,7 @@ class PesananController extends Controller
                 ->paginate(10);
 
         }
-        return view('Admin.halpesanan', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
+        return view('Transaksi.Pesanan', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
 
     }
 
@@ -157,7 +157,7 @@ class PesananController extends Controller
                 ->paginate(10);
         }
 
-        return view('Admin.halselesai', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
+        return view('Transaksi.Pesanan-selesai', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
 
     }
 
