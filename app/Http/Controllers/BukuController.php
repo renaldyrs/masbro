@@ -20,7 +20,7 @@ class BukuController extends Controller
     public function halbukubesar()
     {
         $daftar_akun = Akun::all();
-        return view('Pemilik.bukubesar', compact('daftar_akun'));
+        return view('Laporan.Bukubesar', compact('daftar_akun'));
     }
 
     public function akunbukubesar($id)
@@ -30,7 +30,7 @@ class BukuController extends Controller
 
         $total_bukubesar = $daftar_akun->count();
         $akun = Akun::findOrFail($id);
-        return view('Pemilik.bukubesarakun', compact('daftar_akun', 'total_bukubesar', 'akun'));
+        return view('Laporan.Bukubesar-akun', compact('daftar_akun', 'total_bukubesar', 'akun'));
 
     }
 
@@ -52,6 +52,6 @@ class BukuController extends Controller
 
         $akun = Akun::findOrFail($id);
 
-        return view('Pemilik.bukubesardetail', compact('daftar_buku', 'total_buku', 'periode', 'total_debet', 'total_kredit', 'akun'));
+        return view('Laporan.Bukubesar-detail', compact('daftar_buku', 'total_buku', 'periode', 'total_debet', 'total_kredit', 'akun'));
     }
 }
