@@ -10,21 +10,17 @@
     <meta name="author" content="">
 
     <title>Laundry MASBRO</title>
-
-    <!-- Custom fonts for this template-->
+    
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
-    <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
 <body id="page-top">
 
-    <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
@@ -44,11 +40,11 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active mb-0">
                 @if (Auth::user()->role == '0')
-                    <a class="nav-link" href="Dashboard">
+                    <a class="nav-link" href="halaman-pemilik">
                         <i class="fas fa-landmark"></i>
                         <span>Dashboard</span></a>
                 @elseif (Auth::user()->role == '1')
-                    <a class="nav-link" href="Dashboard">
+                    <a class="nav-link" href="halaman-admin">
                         <i class="fas fa-landmark"></i>
                         <span>Dashboard</span></a>
                 @endif

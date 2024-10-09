@@ -14,7 +14,7 @@ class PemilikController extends Controller
     public function halpemilik(PendapatanChart $pedapatannchart , PesananChart $pesananchart)
     {
         
-        return view('Dashboard',['chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
+        return view('Master.Dashboard-pemilik',['chart' => $pesananchart->build(), 'chart2' => $pedapatannchart->build()]);
     }
 
 

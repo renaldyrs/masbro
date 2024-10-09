@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+
 @if(Session::has('alert'))
 
     <script>
@@ -12,8 +13,36 @@
     </script>
 
 @endif
+
 <div class="row">
 
+    <!-- Laundry Per-Hari -->
+    <div class="col-xl-3 col-md-4 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <?php
+$hari = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
+
+$count = 0;
+foreach ($hari as $h) {
+    $count++;
+}
+            ?>
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Laundry Per-Hari (<?php echo date('l')?>)</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count?></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Proses Laundry -->
     <div class="col-xl-3 col-md-4 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <?php
@@ -40,6 +69,7 @@ foreach ($hari as $h) {
         </div>
     </div>
 
+    <!-- Laundry Sudah Dikirim -->
     <div class="col-xl-3 col-md-4 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <?php
@@ -66,9 +96,7 @@ foreach ($hari as $h) {
         </div>
     </div>
 
-
-
-    <!-- Earnings (Monthly) Card Example -->
+    <!-- Laundry Per-Bulan  -->
     <div class="col-xl-3 col-md-4 mb-4">
         <?php
 $hari = DB::table('pesanan')->whereMonth('tgltransaksi', date("m"))->get();
@@ -93,7 +121,7 @@ foreach ($hari as $h) {
         </div>
     </div>
 
-    <!-- Earnings (Monthly) Card Example -->
+    <!-- Pendapatan Perhari -->
     <div class="col-xl-3 col-md-4 mb-4">
         <?php
 $pendapatan = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
@@ -129,6 +157,7 @@ foreach ($pendapatan as $p) {
         </div>
     </div>
 
+    <!-- laundry Sudah diambil -->
     <div class="col-xl-3 col-md-4 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <?php
@@ -155,33 +184,7 @@ foreach ($hari as $h) {
         </div>
     </div>
 
-
-    <div class="col-xl-3 col-md-4 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <?php
-$hari = DB::table('pesanan')->where('tgltransaksi', date("Y-m-d"))->get();
-
-$count = 0;
-foreach ($hari as $h) {
-    $count++;
-}
-            ?>
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            Laundry Per-Hari (<?php echo date('l')?>)</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $count?></div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pending Requests Card Example -->
+    <!-- Pendatapatan Perbulan -->
     <div class="col-xl-3 col-md-4 mb-4">
         <?php
 $pendapatan = DB::table('pesanan')->whereMonth('tgltransaksi', date("m"))->whereYear('tgltransaksi', date("Y"))->get();
@@ -207,15 +210,17 @@ foreach ($pendapatan as $p) {
             </div>
         </div>
     </div>
+
 </div>
 
 <div class="row">
 
+    <!-- Chart Laundry Setiap Bulan -->
     <div class="col-xl-6 col-lg-4">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Persanan Setiap Bulan</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Laundry Setiap Bulan</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -239,7 +244,8 @@ foreach ($pendapatan as $p) {
             </div>
         </div>
     </div>
-    <!-- Area Chart -->
+
+    <!-- Chart Pendatapatan setiap Bulan -->
     <div class="col-xl-6 col-lg-4">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
