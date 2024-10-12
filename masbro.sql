@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Sep 2024 pada 23.28
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Generation Time: Oct 12, 2024 at 02:48 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `akun`
+-- Table structure for table `akun`
 --
 
 CREATE TABLE `akun` (
@@ -34,7 +34,7 @@ CREATE TABLE `akun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `akun`
+-- Dumping data for table `akun`
 --
 
 INSERT INTO `akun` (`id`, `nama_akun`, `kode_akun`) VALUES
@@ -49,7 +49,7 @@ INSERT INTO `akun` (`id`, `nama_akun`, `kode_akun`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `beban`
+-- Table structure for table `beban`
 --
 
 CREATE TABLE `beban` (
@@ -66,7 +66,7 @@ CREATE TABLE `beban` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jenis`
+-- Table structure for table `jenis`
 --
 
 CREATE TABLE `jenis` (
@@ -80,7 +80,7 @@ CREATE TABLE `jenis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `jenis`
+-- Dumping data for table `jenis`
 --
 
 INSERT INTO `jenis` (`id`, `jenis`, `kg`, `harga`, `hari`, `created_at`, `updated_at`) VALUES
@@ -92,7 +92,7 @@ INSERT INTO `jenis` (`id`, `jenis`, `kg`, `harga`, `hari`, `created_at`, `update
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jurnal`
+-- Table structure for table `jurnal`
 --
 
 CREATE TABLE `jurnal` (
@@ -106,7 +106,7 @@ CREATE TABLE `jurnal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `jurnal`
+-- Dumping data for table `jurnal`
 --
 
 INSERT INTO `jurnal` (`id`, `id_akun`, `id_pesanan`, `keterangan`, `waktu_transaksi`, `nominal`, `tipe`) VALUES
@@ -131,12 +131,16 @@ INSERT INTO `jurnal` (`id`, `id_akun`, `id_pesanan`, `keterangan`, `waktu_transa
 (189, 3, 10, '', '2024-09-12', 0, 'k'),
 (190, 1, 10, '', '2024-09-12', 0, 'd'),
 (191, 3, 11, '', '2024-09-12', 0, 'k'),
-(192, 1, 11, '', '2024-09-12', 0, 'd');
+(192, 1, 11, '', '2024-09-12', 0, 'd'),
+(193, 3, 12, '', '2024-10-01', 0, 'k'),
+(194, 1, 12, '', '2024-10-01', 0, 'd'),
+(195, 3, 13, '', '2024-10-01', 0, 'k'),
+(196, 1, 13, '', '2024-10-01', 0, 'd');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `metodepembayaran`
+-- Table structure for table `metodepembayaran`
 --
 
 CREATE TABLE `metodepembayaran` (
@@ -149,7 +153,7 @@ CREATE TABLE `metodepembayaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `metodepembayaran`
+-- Dumping data for table `metodepembayaran`
 --
 
 INSERT INTO `metodepembayaran` (`id`, `pembayaran`, `namabank`, `kodebank`, `created_at`, `updated_at`) VALUES
@@ -162,7 +166,7 @@ INSERT INTO `metodepembayaran` (`id`, `pembayaran`, `namabank`, `kodebank`, `cre
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -172,7 +176,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -191,7 +195,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pelanggan`
+-- Table structure for table `pelanggan`
 --
 
 CREATE TABLE `pelanggan` (
@@ -205,7 +209,7 @@ CREATE TABLE `pelanggan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pelanggan`
+-- Dumping data for table `pelanggan`
 --
 
 INSERT INTO `pelanggan` (`id`, `nama`, `alamat`, `nohp`, `kelamin`, `created_at`, `updated_at`) VALUES
@@ -217,7 +221,7 @@ INSERT INTO `pelanggan` (`id`, `nama`, `alamat`, `nohp`, `kelamin`, `created_at`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengiriman`
+-- Table structure for table `pengiriman`
 --
 
 CREATE TABLE `pengiriman` (
@@ -232,7 +236,7 @@ CREATE TABLE `pengiriman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pengiriman`
+-- Dumping data for table `pengiriman`
 --
 
 INSERT INTO `pengiriman` (`id`, `id_pelanggan`, `id_pesanan`, `statuspengiriman`, `tglpengiriman`, `jampengiriman`, `created_at`, `updated_at`) VALUES
@@ -246,12 +250,14 @@ INSERT INTO `pengiriman` (`id`, `id_pelanggan`, `id_pesanan`, `statuspengiriman`
 (8, 1, 8, 'Siap Dikirim', NULL, NULL, NULL, NULL),
 (9, 1, 9, '-', NULL, NULL, NULL, NULL),
 (10, 2, 10, '-', NULL, NULL, NULL, NULL),
-(11, 2, 11, '-', NULL, NULL, NULL, NULL);
+(11, 2, 11, '-', NULL, NULL, NULL, NULL),
+(12, 3, 12, '-', NULL, NULL, NULL, NULL),
+(13, 1, 13, '-', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pesanan`
+-- Table structure for table `pesanan`
 --
 
 CREATE TABLE `pesanan` (
@@ -274,7 +280,7 @@ CREATE TABLE `pesanan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `pesanan`
+-- Dumping data for table `pesanan`
 --
 
 INSERT INTO `pesanan` (`id`, `id_jenis`, `id_pelanggan`, `id_metode`, `kode_pesanan`, `harga`, `jumlah`, `total`, `tgltransaksi`, `tglselesai`, `jenisbayar`, `statuspembayaran`, `statuslaundry`, `pengiriman`, `created_at`, `updated_at`) VALUES
@@ -288,12 +294,14 @@ INSERT INTO `pesanan` (`id`, `id_jenis`, `id_pelanggan`, `id_metode`, `kode_pesa
 (8, 3, 1, 3, 'MAS2409120008', '4500', 2, 9000, '2024-09-12', '2024-09-15', 'Transfer', 'Belum Bayar', 'Selesai Laundry', 'Kirim', '2024-09-12 09:31:56', '2024-09-12 09:31:56'),
 (9, 1, 1, 3, 'MAS2409120009', '3500', 2, 7000, '2024-09-12', '2024-09-14', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-09-12 09:32:24', '2024-09-12 09:32:24'),
 (10, 1, 2, 1, 'MAS2409120010', '3500', 1, 3500, '2024-09-12', '2024-09-14', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-09-12 09:32:44', '2024-09-12 09:32:44'),
-(11, 2, 2, 0, 'MAS2409120011', '4000', 5, 20000, '2024-09-12', '2024-09-14', 'Cash', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-09-12 09:32:57', '2024-09-12 09:32:57');
+(11, 2, 2, 0, 'MAS2409120011', '4000', 5, 20000, '2024-09-12', '2024-09-14', 'Cash', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-09-12 09:32:57', '2024-09-12 09:32:57'),
+(12, 1, 3, 3, 'MAS2410010012', '3500', 4, 14000, '2024-10-01', '2024-10-03', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Ambil', '2024-10-01 02:25:33', '2024-10-01 02:25:33'),
+(13, 2, 1, 2, 'MAS2410010013', '4000', 7, 28000, '2024-10-01', '2024-10-03', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-10-01 02:25:56', '2024-10-01 02:25:56');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -308,7 +316,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `role`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
@@ -320,19 +328,19 @@ INSERT INTO `users` (`id`, `role`, `name`, `email`, `password`, `remember_token`
 --
 
 --
--- Indeks untuk tabel `akun`
+-- Indexes for table `akun`
 --
 ALTER TABLE `akun`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jenis`
+-- Indexes for table `jenis`
 --
 ALTER TABLE `jenis`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jurnal`
+-- Indexes for table `jurnal`
 --
 ALTER TABLE `jurnal`
   ADD PRIMARY KEY (`id`),
@@ -340,25 +348,25 @@ ALTER TABLE `jurnal`
   ADD KEY `jurnal_id_pesanan_foreign` (`id_pesanan`) USING BTREE;
 
 --
--- Indeks untuk tabel `metodepembayaran`
+-- Indexes for table `metodepembayaran`
 --
 ALTER TABLE `metodepembayaran`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pelanggan`
+-- Indexes for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pengiriman`
+-- Indexes for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
   ADD PRIMARY KEY (`id`),
@@ -366,7 +374,7 @@ ALTER TABLE `pengiriman`
   ADD KEY `pengiriman_id_pesanan_foreign` (`id_pesanan`);
 
 --
--- Indeks untuk tabel `pesanan`
+-- Indexes for table `pesanan`
 --
 ALTER TABLE `pesanan`
   ADD PRIMARY KEY (`id`),
@@ -375,89 +383,89 @@ ALTER TABLE `pesanan`
   ADD KEY `pesanan_id_metode_foreign` (`id_metode`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `akun`
+-- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `jenis`
+-- AUTO_INCREMENT for table `jenis`
 --
 ALTER TABLE `jenis`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `jurnal`
+-- AUTO_INCREMENT for table `jurnal`
 --
 ALTER TABLE `jurnal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
 
 --
--- AUTO_INCREMENT untuk tabel `metodepembayaran`
+-- AUTO_INCREMENT for table `metodepembayaran`
 --
 ALTER TABLE `metodepembayaran`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `pelanggan`
+-- AUTO_INCREMENT for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `pengiriman`
+-- AUTO_INCREMENT for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
--- AUTO_INCREMENT untuk tabel `pesanan`
+-- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `jurnal`
+-- Constraints for table `jurnal`
 --
 ALTER TABLE `jurnal`
   ADD CONSTRAINT `jurnal_id_akun_foreign` FOREIGN KEY (`id_akun`) REFERENCES `akun` (`id`) ON DELETE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `pengiriman`
+-- Constraints for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
   ADD CONSTRAINT `pengiriman_id_pelanggan_foreign` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id`),
   ADD CONSTRAINT `pengiriman_id_pesanan_foreign` FOREIGN KEY (`id_pesanan`) REFERENCES `pesanan` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `pesanan`
+-- Constraints for table `pesanan`
 --
 ALTER TABLE `pesanan`
   ADD CONSTRAINT `pesanan_id_jenis_foreign` FOREIGN KEY (`id_jenis`) REFERENCES `jenis` (`id`) ON DELETE CASCADE,
