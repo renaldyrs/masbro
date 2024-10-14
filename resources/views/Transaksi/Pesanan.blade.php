@@ -35,7 +35,16 @@
                             Total Pesanan : {{ $pesanan->total() }}
                         </div>
 
-                        <div class="col-md-2" style="text-align: center">
+                        <div class="col-auto" style="text-align: center">
+
+                            <select name="statusbayar" class="form-control ">
+                                <option value="">Status Bayar</option>
+                                <option value="Sudah Bayar">Sudah Bayar</option>
+                                <option value="Balum Bayar">Belum Bayar</option>
+                            </select>
+                        </div>
+
+                        <div class="col-auto" style="text-align: center">
 
                             <select name="pembayaran" class="form-control ">
                                 <option value="">Pembayaran</option>
@@ -43,7 +52,7 @@
                                 <option value="Transfer">Transfer</option>
                             </select>
                         </div>
-                        <div class="col-md-2" style="text-align: center">
+                        <div class="col-auto" style="text-align: center">
 
                             <select name="laundry" class="form-control ">
                                 <option value="">Laundry</option>
@@ -54,7 +63,7 @@
 
                             </select>
                         </div>
-                        <div class="col-md-2" style="text-align: center">
+                        <div class="col-auto" style="text-align: center">
 
                             <select name="pengiriman" class="form-control ">
                                 <option value="">Pengiriman</option>
@@ -63,11 +72,11 @@
 
                             </select>
                         </div>
-                        <div class="col-sm-2" style="text-align: center">
+                        <div class="col-auto" style="text-align: center">
                             <input type="date" class="form-control" name="tgl" id="">
 
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-md-2">
                             <button type="submit" class=" btn btn-link"
                                 style="margin-top:0.4rem; width: 5%; color:black"><i class="fa fa-search"></i></button>
                         </div>

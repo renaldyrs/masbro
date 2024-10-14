@@ -21,14 +21,14 @@ class JurnalController extends Controller
 
         $total_jurnal = $daftar_jurnal->count();
 
-        return view('Pemilik.jurnal',  compact('daftar_jurnal', 'total_jurnal'));
+        return view('Laporan.Jurnal',  compact('daftar_jurnal', 'total_jurnal'));
     }
 
     public function tambahjurnal()
     {
         $daftar_akun = DB::table('akun')->orderBy('kode_akun', 'asc')->pluck('nama_akun', 'id');
 
-        return view('Pemilik.jurnaltambah', compact('daftar_akun'));
+        return view('Laporan.Jurnal-tambah', compact('daftar_akun'));
     }
 
     public function simpanjurnal(Request $request)
@@ -54,7 +54,7 @@ class JurnalController extends Controller
 
         $total_jurnal = $daftar_jurnal->count();
 
-        return view('Pemilik.jurnaldetail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
+        return view('Laporan.Jurnal-detail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
     }
 
     public function editJurnalUmum($id)
@@ -99,6 +99,6 @@ class JurnalController extends Controller
 
         if(!($total_jurnal)) return redirect('jurnal-umum')->with('pesan', "Jurnal Umum dengan Periode $bulan-$tahun tidak ditemukan");
 
-        return view('jurnal-umum-detail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
+        return view('Laporan.jurnal-detail',  compact('daftar_jurnal', 'total_jurnal', 'periode', 'total_debet', 'total_kredit'));
     }
 }

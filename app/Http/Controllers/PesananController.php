@@ -19,9 +19,6 @@ class PesananController extends Controller
     public function halpesanan(Request $request)
     {
 
-
-
-
         $pelanggan = DB::table('pelanggan')->get();
         $user = DB::table('users')->get();
         $jenis = DB::table('jenis')->get();
@@ -41,6 +38,22 @@ class PesananController extends Controller
 
 
         //filter bayar
+        if ($request->statusbayar != null) {
+            $pesanan = DB::table('pesanan')
+                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
+                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+                ->where('statuspembayaran', $request->statusbayar)
+                ->where('statuslaundry', '!=', 'Sudah Diambil')
+                ->where('statuslaundry', '!=', 'Sudah Dikirim')
+                ->orderBy('kode_pesanan', 'asc')
+                
+                ->paginate(10);
+
+        }
+
         if ($request->pembayaran != null) {
             $pesanan = DB::table('pesanan')
                 ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
@@ -48,11 +61,9 @@ class PesananController extends Controller
                 ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
                 ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where([
-                    ['jenisbayar', $request->pembayaran],
-                    ['statuslaundry', '!=', 'Sudah Diambil'],
-                    ['statuslaundry', '!=', 'Sudah Dikirim']
-                ])
+                ->where('jenisbayar', $request->pembayaran)
+                ->where('statuslaundry', '!=', 'Sudah Diambil')
+                ->where('statuslaundry', '!=', 'Sudah Dikirim')
                 ->orderBy('kode_pesanan', 'asc')
 
 

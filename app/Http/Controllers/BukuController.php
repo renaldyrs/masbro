@@ -19,8 +19,10 @@ class BukuController extends Controller
     //------------------------------------------------------------Buku Besar---------------------------------------------
     public function halbukubesar()
     {
+        $daftar_jurnal = Jurnal::selectRaw("CONCAT(MONTH(waktu_transaksi), '-', YEAR(waktu_transaksi)) as waktu")->distinct()->get();
+
         $daftar_akun = Akun::all();
-        return view('Laporan.Bukubesar', compact('daftar_akun'));
+        return view('Laporan.Bukubesar', compact('daftar_akun','daftar_jurnal'));
     }
 
     public function akunbukubesar($id)
@@ -30,6 +32,17 @@ class BukuController extends Controller
 
         $total_bukubesar = $daftar_akun->count();
         $akun = Akun::findOrFail($id);
+        return view('Laporan.Bukubesar-akun', compact('daftar_akun', 'total_bukubesar', 'akun'));
+
+    }
+
+    public function periodebukubesar($waktu)
+    {
+    
+        $daftar_akun = Jurnal::selectRaw("CONCAT(MONTH(waktu_transaksi), '-', YEAR(waktu_transaksi)) as waktu")->where('waktu_transaksi', $waktu)->distinct()->get();
+
+        $total_bukubesar = $daftar_akun->count();
+        $akun = Akun::findOrFail($waktu);
         return view('Laporan.Bukubesar-akun', compact('daftar_akun', 'total_bukubesar', 'akun'));
 
     }

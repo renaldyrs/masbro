@@ -35,7 +35,38 @@
                         </div>
                     </div>
                 </div>
-                
+
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body">
+                        <h4>Daftar Akun Setiap Periode: <strong></strong> </h4>
+                        <div class="row">
+
+                            @foreach($daftar_jurnal as $data)
+                                <div class="col-xl-3 col-md-6 mb-4">
+                                    <div class="col mr-2">
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><a
+                                                href="{{ url('buku-besar/' . $data->waktu) }}"
+                                                class="btn card border-left-primary"
+                                                style="color: black; border-color: black; ">{{ date('F Y', strtotime('1-' . $data->waktu)) }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
