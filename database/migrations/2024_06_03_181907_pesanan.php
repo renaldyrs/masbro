@@ -47,6 +47,7 @@ class Pesanan extends Migration
             $table->dropForeign('id_jenis');
             $table->dropForeign('id_pelanggan');
             $table->dropForeign('id_metode');
+            
         });
         Schema::dropIfExists('pesanan');
     }

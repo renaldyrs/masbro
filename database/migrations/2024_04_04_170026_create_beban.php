@@ -14,7 +14,7 @@ class CreateBeban extends Migration
     public function up()
     {
         Schema::create('beban', function (Blueprint $table) {
-            $table->bigInteger('idbeban');
+            $table->bigInteger('id');
             $table->string('kode');
             $table->string('keterangan');
             $table->integer('biaya');

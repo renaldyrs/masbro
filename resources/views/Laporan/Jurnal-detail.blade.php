@@ -33,14 +33,16 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading d-flex justify-content-between">
-
-                                Detail Jurnal Umum
-                                <a href="{{ url("tambah-jurnal") }}" class="btn btn-primary ">Tambah</a>
-                            </div>
+                        
                             <div class="panel-body">
+                                <div class="text-center">
+                                <H4>Jurnal Umum</H4>
+                                <h4>Laundry Masbro</h4>
+                                <h6 class="pull-right">Periode : <strong>{{ $periode }}</strong> </h6>
+                                </div>
+                                
                                 <h4 class="pull-left">Total Data : <strong>{{ $total_jurnal }}</strong> </h4>
-                                <h4 class="pull-right">Periode : <strong>{{ $periode }}</strong> </h4>
+                                
                                 <table class="table table-light text-center">
                                     <thead class="table-dark">
                                         <tr>
@@ -76,7 +78,7 @@
                                                 <td>
                                                     <!-- <a href="{{ url('jurnal-umum/' . $data->id . '/edit') }}"
                                                             class="btn btn-info">EDIT</a> -->
-                                                    <a href="hapus/{{ $data->id }}" class="btn btn-danger">HAPUS</a>
+                                                    <a href="hapus/{{ $data->id }}" class="btn btn-danger"><li class="fa fa-trash"></li></a>
 
                                                 </td>
                                             </tr>

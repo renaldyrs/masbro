@@ -58,7 +58,6 @@ Route::get('halaman-pemilik', 'App\HTTP\Controllers\AdminController@haladmin')
 Route::get('halaman-pemilik', [PemilikController::class, 'halpemilik'])
     ->name('halpemilik')->middleware('checkRole');
 
-
 Route::get('halaman-kirim', [KirimController::class, 'halkirim'])
     ->name('halkirim');
 
@@ -131,8 +130,11 @@ Route::get('jurnal-detail/{waktu}', [JurnalController::class, 'detailjurnal']);
 
 //bukuBesar
 Route::get('buku-besar', [BukuController::class, 'halbukubesar']);
-Route::get('buku-besar/{id}', [BukuController::class, 'akunbukubesar']);
-Route::get('buku-besar/{id}/{waktu}', [BukuController::class, 'detailbukubesar']);
+Route::get('buku-besar/periode/{bulan}', [BukuController::class, 'periodebukubesar']);
+Route::get('buku-besar/periode/{bulan}/{id}', [BukuController::class, 'periodedetail']);
+
+Route::get('buku-besar/akun/{id}', 'App\HTTP\Controllers\BukuController@akunbukubesar');
+Route::get('buku-besar/akun/{id}/{waktu}', [BukuController::class, 'detailbukubesar']);
 
 //neracasaldo
 Route::get('neraca-saldo', [NeracaController::class, 'halneracasaldo']);
@@ -141,6 +143,8 @@ Route::get('neraca-saldo/cetak/{waktu}', [NeracaController::class, 'cetakneraca'
 
 
 Route::get('laporan-laba-rugi', [LaporanController::class, 'showLaporan']);
+Route::get('laporan/laba-rugi/{waktu}', [LaporanController::class, 'detaillaporan']);
+Route::get('laporan/laba-rugi/cetak/{waktu}', [LaporanController::class, 'cetaklabarugi']);
 Route::get('laporan/cetak/{waktu}', [LaporanController::class, 'cetakLaporan']);
 
 Route::get('/halaman-utama', 'App\HTTP\Controllers\utamacontroller@halutama');

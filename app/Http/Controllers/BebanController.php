@@ -17,27 +17,50 @@ class BebanController extends Controller
     public function beban()
     {
         $beban = DB::table('beban')->paginate(10);
-        $akun = DB::table('akun')->whereBetween('kode_akun', ['400', '499'])->get();
+        $akun = DB::table('akun')
+       
+        ->whereBetween('kode_akun', ['300', '499'])->get();
         return View('Master.Beban-data', ['beban' => $beban, 'akun' => $akun]);
     }
 
     public function tambahbeban(Request $request)
     {
 
+        $beban = DB::table('beban');
+
+        if ($beban == null) {
+            $id = 1;
+        } else {
+            $id = count($beban->get()) + 1;
+        }
+
+        $total = $request->biaya * $request->jumlah;
+
         DB::table('beban')->insert([
+            'id' => $id,
             'kode' => $request->kode,
             'keterangan' => $request->keterangan,
             'biaya' => $request->biaya,
             'jumlah' => $request->jumlah,
-            'total' => $request->total
+            'total' => $total
         ]);
 
         $jurnal = new Jurnal();
+        $jurnal->id_beban = $id;
+        $jurnal->id_akun = $request->idakun;
+        $jurnal->id_pesanan = '0';
+        $jurnal->nominal = $total;
+        $jurnal->waktu_transaksi = date('Y-m-d');
+        $jurnal->tipe = 'd';
+        $jurnal->save();
 
-        $jurnal->id_akun = $request->id_akun;
-        $jurnal->keterangan = $request->keterangan;
-        $jurnal->debit = $request->biaya;
-        $jurnal->kredit = 0;
+        $jurnal = new Jurnal();
+        $jurnal->id_beban = $id;
+        $jurnal->id_akun = '1';
+        $jurnal->id_pesanan = '0';
+        $jurnal->nominal = $total;
+        $jurnal->waktu_transaksi = date('Y-m-d');
+        $jurnal->tipe = 'k';
         $jurnal->save();
 
         return redirect('data-beban');
@@ -46,7 +69,7 @@ class BebanController extends Controller
     public function hapusbeban($id)
     {
 
-        DB::table('beban')->where('idbeban', $id)->delete();
+        DB::table('beban')->where('id', $id)->delete();
 
         $beban = DB::table('beban')->get();
 

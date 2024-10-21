@@ -40,7 +40,7 @@
                             <select name="statusbayar" class="form-control ">
                                 <option value="">Status Bayar</option>
                                 <option value="Sudah Bayar">Sudah Bayar</option>
-                                <option value="Balum Bayar">Belum Bayar</option>
+                                <option value="Belum Bayar">Belum Bayar</option>
                             </select>
                         </div>
 

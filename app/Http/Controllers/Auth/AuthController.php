@@ -52,7 +52,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (auth()->user()->role == 1) {
-                return redirect()->intended('halaman-admin')->with('alert', "Selamat Datang Admin"); //redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
+                return redirect()->intended('halaman-pemilik')->with('alert', "Selamat Datang Admin"); //redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
             }else if (auth()->user()->role == 0) {
                 return redirect()->intended('halaman-pemilik')
                 ->with('alert', "Selamat Datang Pemilik"); //redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");

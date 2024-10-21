@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h5>Buku Besar {{ $akun->nama_akun }}</h5>
+                        <h5>Buku {{ $akun->nama_akun }}</h5>
                         <div style="margin-top: -0.3rem">
                             <button onclick="history_back()" class="btn-secondary"
                                 style="border-radius: 0.5rem">Kembali</button>
@@ -19,7 +19,7 @@
                 <div class="card-body">
 
                     <div class="d-flex justify-content-start">
-                        <h4>Total Data : <strong>{{ $total_bukubesar }}</strong> </h4>
+                        <h4>Total: <strong>{{ $total_bukubesar }}</strong> </h4>
                     </div>
 
                     <table class="table table-striped text-center">
@@ -38,7 +38,7 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ date('F Y', strtotime('1-' . $data->waktu)) }}</td>
                                 <td>
-                                    <a href="{{ url('buku-besar/' . $akun->id . '/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
+                                    <a href="{{ url('buku-besar/akun/' . $akun->id . '/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
                                         class="btn btn-info">
                                         Detail
                                     </a>

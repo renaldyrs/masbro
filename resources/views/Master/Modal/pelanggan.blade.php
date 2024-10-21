@@ -64,7 +64,7 @@
 
                     <div class="form-actions">
                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i>
-                            Tambah Data</button>
+                            Update Data</button>
                         <button type="reset" class="btn btn-danger">Reset</button>
                     </div>
 

@@ -8,11 +8,20 @@
       <div class="card">
         <div class="card-header">
           <div class="d-flex justify-content-between">
-            Neraca Saldo {{ $periode }}
+            
             <button onclick="history_back()" class="btn-secondary btn-sm">Kembali</button>
+            <a href="{{ url('neraca-saldo/cetak/' . date('Y-m-d', strtotime('1-' . $periode))) }}"
+              class="btn btn-warning"><i class="fa fa-print">Print</i>
+              
+            </a>
           </div>
         </div>
         <div class="card-body">
+          <div class="text-center">
+            <h4>Laundry Masbro</h4>
+            <h4>Neraca Saldo</h4>
+            <h5>Periode : {{ $periode }}</h5>
+          </div>
           <table class="table table-striped text-center">
 
             <tr>
@@ -24,16 +33,16 @@
 
             <?php $i = 1 ?>
             @foreach($data as $item)
-    
-            <tr>
-              <td class="text-center">{{ $i++ }}</td>
-              <td class="text-center">{{ $item['nama_akun'] }}</td>
-              <td>Rp. {{ number_format($item['debet'], 0, ',', '.') }},-</td>
-              <td>Rp. {{ number_format($item['kredit'], 0, ',', '.') }},-</td>
-            </tr>
 
-            @endforeach
-            
+        <tr>
+          <td class="text-center">{{ $i++ }}</td>
+          <td class="text-center">{{ $item['nama_akun'] }}</td>
+          <td>Rp. {{ number_format($item['debet'], 0, ',', '.') }},-</td>
+          <td>Rp. {{ number_format($item['kredit'], 0, ',', '.') }},-</td>
+        </tr>
+
+      @endforeach
+
             <tr>
               <th colspan="2" class="text-center">Total</th>
               <th class="text-center">Rp. {{ number_format($total_saldo_debet, 0, ',', '.') }},-</th>

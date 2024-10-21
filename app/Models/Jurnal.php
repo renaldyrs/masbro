@@ -13,7 +13,7 @@ class Jurnal extends Model
     public $timestamps = false;
 
     // kolom tabel untuk Mass Assingment
-    protected $fillable = ['id','id_akun','id_pesanan','keterangan', 'waktu_transaksi', 'nominal', 'tipe'];
+    protected $fillable = ['id','id_akun','id_pesanan','id_beban','keterangan', 'waktu_transaksi', 'nominal', 'tipe'];
 
     // kolom akan disembunyikan dalam array
     protected $hidden = [''];

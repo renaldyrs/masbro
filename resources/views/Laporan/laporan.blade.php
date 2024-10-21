@@ -40,10 +40,9 @@
           <td>{{ $i++ }}</td>
           <td>{{ date('F Y', strtotime('1-' . $data->waktu)) }}</td>
           <td>
-            <a href="{{ url('laporan/cetak/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
-            class="btn btn-info">
-            Cetak
-            </a>
+            <a href="{{ url('laporan/laba-rugi/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}" class="btn btn-info" ><i class="fa fa-eye"></i></a>
+            <a href="{{url('laporan/laba-rugi/cetak/'. date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
+            class="btn btn-success"><i class="fa fa-print"></i></a>
           </td>
           </tr>
         @endforeach

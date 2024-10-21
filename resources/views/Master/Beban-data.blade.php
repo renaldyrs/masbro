@@ -22,7 +22,7 @@
         <div class="col-lg-4">
             <div class="card card-outline-info">
                 <div class="card-header">
-                    <h5 class="m-b-0 text-black">Form Tambah Data Beban</h5>
+                    <h5 class=" text-black">Form Tambah Data Beban</h5>
                 </div>
                 <div class="card-body">
                     <form class="row g-4 needs-validation" action="/data-beban/tambah" method="post" novalidate>
@@ -85,14 +85,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12 col-xl-12">
-                                    <div class="form-group has-success">
-                                        <label class="control-label">Total</label>
-                                        <input type="text" class="form-control form-control-danger" name="total"
-                                            id="total" value="" placeholder="Total" autocomplete="off">
-                                    </div>
-                                </div>
-
                             </div>
 
                         </div>
@@ -133,21 +125,42 @@
                         </thead>
                         <tbody>
                             @foreach ($beban as $b)
-                                <tr>
-                                    <td>{{$b->kode}}</td>
-                                    <td>{{$b->keterangan}}</td>
-                                    <td>{{$b->biaya}}</td>
-                                    <td>{{$b->jumlah}}</td>
-                                    <td>{{$b->total}}</td>
-                                    <td>
-                                        <a class="btn btn-danger" href="/data-beban/hapus/{{$b->idbeban}}"><i
-                                                class="fa fa-trash"></i></a>
+                            <tr>
+                                <td>{{$b->kode}}</td>
+                                <td>{{$b->keterangan}}</td>
+                                <td>{{$b->biaya}}</td>
+                                <td>{{$b->jumlah}}</td>
+                                <td>{{$b->total}}</td>
+                                <td>
+                                    <a class="btn btn-danger" href="/data-beban/hapus/{{$b->id}}"><i
+                                            class="fa fa-trash"></i></a>
 
-                                        <a class="btn btn-success" href="/data-beban/edit/{{$b->idbeban}}"><i
-                                                class="fa fa-pen-to-square"></i></a>
-                                    </td>
+                                    <a class="btn btn-success" href="/data-beban/edit/{{$b->id}}"><i
+                                            class="fa fa-pen-to-square"></i></a>
+                                </td>
 
-                                </tr>
+                            </tr>
+
+                            <form action="{{url('update-beban')}}" method="POST">
+                                <div class="modal fade text-left" id="ModalEdit<?= $b->id ?>" tabindex="-1"
+                                    role="dialog" aria-hidden="true" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="myModalLabel">Pesanan</h3>
+                                                <button type="button" class="close"
+                                                    onclick="javascript:window.location.reload()" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -155,10 +168,10 @@
             </div>
         </div>
         <div class="card-footer">
-                <div class="d-flex justify-content-center">
-                    {{$beban->links()}}
-                </div>
+            <div class="d-flex justify-content-center">
+                {{$beban->links()}}
             </div>
+        </div>
     </div>
 
 </div>

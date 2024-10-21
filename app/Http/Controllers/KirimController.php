@@ -28,7 +28,7 @@ class KirimController extends Controller
         ->select(['pelanggan.*', 'pesanan.*', 'pengiriman.*'])
         ->paginate(10);
         
-        return view('Admin.halkirim',['pengiriman'=>$pengiriman,]);
+        return view('Transaksi.Pengiriman',['pengiriman'=>$pengiriman,]);
     }
 
     public function kirim(Request $request){

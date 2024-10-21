@@ -23,7 +23,7 @@ class NeracaController extends Controller
         $total_neraca = $daftar_neraca->count();
         
 
-        return view('Pemilik.neraca',  compact('daftar_neraca', 'total_neraca'));
+        return view('Laporan.neraca',  compact('daftar_neraca', 'total_neraca'));
     }
     public function neracadetail(Request $request, $waktu)
     {
@@ -66,7 +66,7 @@ class NeracaController extends Controller
             $total_saldo_kredit += $data[$i]['kredit'];
         }
 
-        return view('pemilik.neracadet', compact('data', 'total_saldo_debet', 'total_saldo_kredit', 'periode'));
+        return view('Laporan.neraca-detail', compact('data', 'total_saldo_debet', 'total_saldo_kredit', 'periode'));
     }
 
     public function cetakneraca(request $request, $waktu)
@@ -110,7 +110,7 @@ class NeracaController extends Controller
             $total_saldo_kredit += $data[$i]['kredit'];
         }
 
-        $pdf= PDF::loadView('Pemilik.neracacetak', compact('data', 'total_saldo_debet', 'total_saldo_kredit', 'periode'))->setOptions(['defaultFont' => 'sans-serif']);
+        $pdf= PDF::loadView('Laporan.neraca-cetak', compact('data', 'total_saldo_debet', 'total_saldo_kredit', 'periode'))->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->download('Neraca Saldo'.$periode.'.pdf');
 
     }

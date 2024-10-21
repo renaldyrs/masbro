@@ -17,6 +17,7 @@ class CreateJurnalTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_akun');
             $table->unsignedBigInteger('id_pesanan');
+            $table->unsignedBigInteger('id_beban');
             $table->string('keterangan', 255);
             $table->date('waktu_transaksi');
             $table->integer('nominal')->unsigned();
@@ -34,6 +35,11 @@ class CreateJurnalTable extends Migration
             $table->foreign('id_pesanan')
             ->references('id')
             ->on('pesanan')
+            ->onDelete('cascade');
+
+            $table->foreign('id_beban')
+            ->references('id')
+            ->on('beban')
             ->onDelete('cascade');
 
             
