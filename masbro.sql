@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2024 at 02:48 AM
+-- Generation Time: Oct 21, 2024 at 06:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,7 +44,8 @@ INSERT INTO `akun` (`id`, `nama_akun`, `kode_akun`) VALUES
 (4, 'Gaji Pegawai', '300'),
 (5, 'Beban', '400'),
 (6, 'Beban Listrik', '401'),
-(7, 'Beban Air', '402');
+(7, 'Beban Air', '402'),
+(8, 'BIaya Lain Lain', '403');
 
 -- --------------------------------------------------------
 
@@ -53,7 +54,7 @@ INSERT INTO `akun` (`id`, `nama_akun`, `kode_akun`) VALUES
 --
 
 CREATE TABLE `beban` (
-  `idbeban` bigint(20) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `kode` varchar(191) NOT NULL,
   `keterangan` varchar(191) NOT NULL,
   `biaya` int(11) NOT NULL,
@@ -62,6 +63,16 @@ CREATE TABLE `beban` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `beban`
+--
+
+INSERT INTO `beban` (`id`, `kode`, `keterangan`, `biaya`, `jumlah`, `total`, `created_at`, `updated_at`) VALUES
+(1, '300', 'Gaji Pegawai', 500000, 2, 1000000, NULL, NULL),
+(2, '401', 'Beban Listrik', 50000, 1, 50000, NULL, NULL),
+(3, '402', 'Beban Air', 45000, 1, 45000, NULL, NULL),
+(4, '403', 'BIaya Lain Lain', 40000, 1, 40000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -99,6 +110,7 @@ CREATE TABLE `jurnal` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_akun` bigint(20) UNSIGNED NOT NULL,
   `id_pesanan` bigint(20) UNSIGNED NOT NULL,
+  `id_beban` bigint(20) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   `waktu_transaksi` date NOT NULL,
   `nominal` int(10) UNSIGNED NOT NULL,
@@ -109,33 +121,45 @@ CREATE TABLE `jurnal` (
 -- Dumping data for table `jurnal`
 --
 
-INSERT INTO `jurnal` (`id`, `id_akun`, `id_pesanan`, `keterangan`, `waktu_transaksi`, `nominal`, `tipe`) VALUES
-(171, 3, 1, '', '2024-09-09', 0, 'k'),
-(172, 1, 1, '', '2024-09-09', 0, 'd'),
-(173, 3, 2, '', '2024-09-10', 0, 'k'),
-(174, 1, 2, '', '2024-09-10', 0, 'd'),
-(175, 3, 3, '', '2024-09-12', 17500, 'k'),
-(176, 1, 3, '', '2024-09-12', 17500, 'd'),
-(177, 3, 4, '', '2024-09-12', 0, 'k'),
-(178, 1, 4, '', '2024-09-12', 0, 'd'),
-(179, 3, 5, '', '2024-09-12', 0, 'k'),
-(180, 1, 5, '', '2024-09-12', 0, 'd'),
-(181, 3, 6, '', '2024-09-12', 12000, 'k'),
-(182, 1, 6, '', '2024-09-12', 12000, 'd'),
-(183, 3, 7, '', '2024-09-12', 0, 'k'),
-(184, 1, 7, '', '2024-09-12', 0, 'd'),
-(185, 3, 8, '', '2024-09-12', 0, 'k'),
-(186, 1, 8, '', '2024-09-12', 0, 'd'),
-(187, 3, 9, '', '2024-09-12', 0, 'k'),
-(188, 1, 9, '', '2024-09-12', 0, 'd'),
-(189, 3, 10, '', '2024-09-12', 0, 'k'),
-(190, 1, 10, '', '2024-09-12', 0, 'd'),
-(191, 3, 11, '', '2024-09-12', 0, 'k'),
-(192, 1, 11, '', '2024-09-12', 0, 'd'),
-(193, 3, 12, '', '2024-10-01', 0, 'k'),
-(194, 1, 12, '', '2024-10-01', 0, 'd'),
-(195, 3, 13, '', '2024-10-01', 0, 'k'),
-(196, 1, 13, '', '2024-10-01', 0, 'd');
+INSERT INTO `jurnal` (`id`, `id_akun`, `id_pesanan`, `id_beban`, `keterangan`, `waktu_transaksi`, `nominal`, `tipe`) VALUES
+(171, 3, 1, 0, '', '2024-09-09', 0, 'k'),
+(172, 1, 1, 0, '', '2024-09-09', 0, 'd'),
+(173, 3, 2, 0, '', '2024-09-10', 0, 'k'),
+(174, 1, 2, 0, '', '2024-09-10', 0, 'd'),
+(175, 3, 3, 0, '', '2024-09-12', 17500, 'k'),
+(176, 1, 3, 0, '', '2024-09-12', 17500, 'd'),
+(177, 3, 4, 0, '', '2024-09-12', 0, 'k'),
+(178, 1, 4, 0, '', '2024-09-12', 0, 'd'),
+(179, 3, 5, 0, '', '2024-09-12', 0, 'k'),
+(180, 1, 5, 0, '', '2024-09-12', 0, 'd'),
+(181, 3, 6, 0, '', '2024-09-12', 12000, 'k'),
+(182, 1, 6, 0, '', '2024-09-12', 12000, 'd'),
+(183, 3, 7, 0, '', '2024-09-12', 0, 'k'),
+(184, 1, 7, 0, '', '2024-09-12', 0, 'd'),
+(185, 3, 8, 0, '', '2024-09-12', 0, 'k'),
+(186, 1, 8, 0, '', '2024-09-12', 0, 'd'),
+(187, 3, 9, 0, '', '2024-09-12', 0, 'k'),
+(188, 1, 9, 0, '', '2024-09-12', 0, 'd'),
+(189, 3, 10, 0, '', '2024-09-12', 0, 'k'),
+(190, 1, 10, 0, '', '2024-09-12', 0, 'd'),
+(191, 3, 11, 0, '', '2024-09-12', 0, 'k'),
+(192, 1, 11, 0, '', '2024-09-12', 0, 'd'),
+(193, 3, 12, 0, '', '2024-10-01', 0, 'k'),
+(194, 1, 12, 0, '', '2024-10-01', 0, 'd'),
+(195, 3, 13, 0, '', '2024-10-01', 0, 'k'),
+(196, 1, 13, 0, '', '2024-10-01', 0, 'd'),
+(197, 3, 14, 0, '', '2024-10-18', 14000, 'k'),
+(198, 1, 14, 0, '', '2024-10-18', 14000, 'd'),
+(199, 3, 15, 0, '', '2024-10-18', 17500, 'k'),
+(200, 1, 15, 0, '', '2024-10-18', 17500, 'd'),
+(201, 4, 0, 1, '', '2024-10-18', 1000000, 'd'),
+(202, 1, 0, 1, '', '2024-10-18', 1000000, 'k'),
+(203, 6, 0, 2, '', '2024-10-18', 50000, 'd'),
+(204, 1, 0, 2, '', '2024-10-18', 50000, 'k'),
+(205, 7, 0, 3, '', '2024-10-18', 45000, 'd'),
+(206, 1, 0, 3, '', '2024-10-18', 45000, 'k'),
+(207, 8, 0, 4, '', '2024-10-18', 40000, 'd'),
+(208, 1, 0, 4, '', '2024-10-18', 40000, 'k');
 
 -- --------------------------------------------------------
 
@@ -252,7 +276,9 @@ INSERT INTO `pengiriman` (`id`, `id_pelanggan`, `id_pesanan`, `statuspengiriman`
 (10, 2, 10, '-', NULL, NULL, NULL, NULL),
 (11, 2, 11, '-', NULL, NULL, NULL, NULL),
 (12, 3, 12, '-', NULL, NULL, NULL, NULL),
-(13, 1, 13, '-', NULL, NULL, NULL, NULL);
+(13, 1, 13, '-', NULL, NULL, NULL, NULL),
+(14, 2, 14, '-', NULL, NULL, NULL, NULL),
+(15, 2, 15, '-', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -296,7 +322,9 @@ INSERT INTO `pesanan` (`id`, `id_jenis`, `id_pelanggan`, `id_metode`, `kode_pesa
 (10, 1, 2, 1, 'MAS2409120010', '3500', 1, 3500, '2024-09-12', '2024-09-14', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-09-12 09:32:44', '2024-09-12 09:32:44'),
 (11, 2, 2, 0, 'MAS2409120011', '4000', 5, 20000, '2024-09-12', '2024-09-14', 'Cash', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-09-12 09:32:57', '2024-09-12 09:32:57'),
 (12, 1, 3, 3, 'MAS2410010012', '3500', 4, 14000, '2024-10-01', '2024-10-03', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Ambil', '2024-10-01 02:25:33', '2024-10-01 02:25:33'),
-(13, 2, 1, 2, 'MAS2410010013', '4000', 7, 28000, '2024-10-01', '2024-10-03', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-10-01 02:25:56', '2024-10-01 02:25:56');
+(13, 2, 1, 2, 'MAS2410010013', '4000', 7, 28000, '2024-10-01', '2024-10-03', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-10-01 02:25:56', '2024-10-01 02:25:56'),
+(14, 1, 2, 3, 'MAS2410180014', '3500', 4, 14000, '2024-10-18', '2024-10-20', 'Transfer', 'Sudah Bayar', 'Proses Laundry', 'Kirim', '2024-10-18 08:18:25', '2024-10-18 08:18:25'),
+(15, 1, 2, 3, 'MAS2410180015', '3500', 5, 17500, '2024-10-18', '2024-10-20', 'Transfer', 'Sudah Bayar', 'Proses Laundry', 'Kirim', '2024-10-18 08:18:40', '2024-10-18 08:18:40');
 
 -- --------------------------------------------------------
 
@@ -334,6 +362,12 @@ ALTER TABLE `akun`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `beban`
+--
+ALTER TABLE `beban`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jenis`
 --
 ALTER TABLE `jenis`
@@ -345,7 +379,8 @@ ALTER TABLE `jenis`
 ALTER TABLE `jurnal`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jurnal_id_akun_foreign` (`id_akun`),
-  ADD KEY `jurnal_id_pesanan_foreign` (`id_pesanan`) USING BTREE;
+  ADD KEY `jurnal_id_pesanan_foreign` (`id_pesanan`) USING BTREE,
+  ADD KEY `jurnal_id_beban_foreign` (`id_beban`) USING BTREE;
 
 --
 -- Indexes for table `metodepembayaran`
@@ -397,7 +432,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `beban`
+--
+ALTER TABLE `beban`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jenis`
@@ -409,7 +450,7 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT for table `jurnal`
 --
 ALTER TABLE `jurnal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
 
 --
 -- AUTO_INCREMENT for table `metodepembayaran`
