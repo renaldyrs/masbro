@@ -24,100 +24,32 @@ class PesananController extends Controller
         $jenis = DB::table('jenis')->get();
 
         $pesanan = DB::table('pesanan')
-            ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
+            ->select([
+                'pelanggan.*',
+                'pesanan.*',
+                'metodepembayaran.*',
+                'jenis.*',
+                'pesanan.id as idpesanan',
+                'pesanan.kode_pesanan as kodepesanan'
+            ])
             ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
             ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-            ->where('statuslaundry', '!=', 'Sudah Diambil')
-            ->Where('statuslaundry', '!=', 'Sudah Dikirim')
+
+            ->where([
+                ['statuspembayaran', 'like', '%' . $request->statusbayar . '%'],
+                ['jenisbayar', 'like', '%' . $request->pembayaran . '%'],
+                ['statuslaundry', 'like', '%' . $request->laundry . '%'],
+                ['pengiriman', 'like', '%' . $request->pengiriman . '%'],
+                ['tgltransaksi', 'like', '%' . $request->date . '%'],
+                ['statuslaundry', '!=', 'Sudah Diambil'],
+                ['statuslaundry', '!=', 'Sudah Dikirim']
+            ])
+
             ->orderBy('kode_pesanan', 'asc')
             ->paginate(10);
 
-
-        //filter bayar
-        if ($request->statusbayar != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->Join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where('statuspembayaran', $request->statusbayar)
-                ->where('statuslaundry', '!=', 'Sudah Diambil')
-                ->where('statuslaundry', '!=', 'Sudah Dikirim')
-                ->orderBy('kode_pesanan', 'asc')
-                ->paginate(10);
-
-        }
-
-        if ($request->pembayaran != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where('jenisbayar', 'like', '%' . $request->pembayaran . '%')
-                ->where('statuslaundry', '!=', 'Sudah Diambil')
-                ->where('statuslaundry', '!=', 'Sudah Dikirim')
-                ->orderBy('kode_pesanan', 'asc')
-                ->paginate(10);
-
-        }
-
-        //filter status
-        if ($request->laundry != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where('statuslaundry', 'like', '%' . $request->laundry . '%')
-                ->where('statuslaundry', '!=', 'Sudah Diambil')
-                ->Where('statuslaundry', '!=', 'Sudah Dikirim')
-                ->orderBy('kode_pesanan', 'asc')
-
-
-                ->paginate(10);
-
-        }
-
-        //filter pengiriman
-        if ($request->pengiriman != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where([
-                    ['pengiriman', 'like', '%' . $request->pengiriman . '%'],
-                    ['statuslaundry', '!=', 'Sudah Diambil'],
-                    ['statuslaundry', '!=', 'Sudah Dikirim']
-                ])
-                ->orderBy('kode_pesanan', 'asc')
-
-
-                ->paginate(10);
-
-        }
-        if ($request->tgl != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where('tgltransaksi', 'like', '%' . $request->tgl . '%')
-                ->where('statuslaundry', '!=', 'Sudah Diambil')
-                ->Where('statuslaundry', '!=', 'Sudah Dikirim')
-                ->orderBy('kode_pesanan', 'asc')
-
-                ->paginate(10);
-
-        }
         return view('Transaksi.Pesanan', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
 
     }
@@ -134,51 +66,21 @@ class PesananController extends Controller
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
             ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-            ->where('statuslaundry', 'Sudah Diambil')
-            ->orwhere('statuslaundry', 'Sudah Dikirim')
+
+            ->where([
+                ['statuspembayaran', 'like', '%' . $request->statusbayar . '%'],
+                ['jenisbayar', 'like', '%' . $request->pembayaran . '%'],
+                ['statuslaundry', 'like', '%' . $request->laundry . '%'],
+                ['pengiriman', 'like', '%' . $request->pengiriman . '%'],
+                ['tgltransaksi', 'like', '%' . $request->date . '%'],
+                
+                
+            ])
+            ->whereIn('statuslaundry', ['Sudah Diambil', 'Sudah Dikirim'])
+            
 
             ->orderBy('kode_pesanan', 'asc')
             ->paginate(10);
-
-        if ($request->pembayaran != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-        ->where([['statuslaundry', 'like', '%' . $request->pembayaran . '%'],['statuslaundry', 'Sudah Diambil']])
-        ->orwhere([['statuslaundry', 'like', '%' . $request->pembayaran . '%'],['statuslaundry', 'Sudah Dikirim']])
-                
-                ->paginate(10);
-        }
-
-        if ($request->status != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where([
-                    ['statuslaundry', 'like', '%' . $request->status . '%'], 
-                    ])
-                
-                ->paginate(10);
-        }
-
-        if ($request->tgl != null) {
-            $pesanan = DB::table('pesanan')
-                ->select(['pelanggan.*', 'pesanan.*', 'metodepembayaran.*', 'jenis.*', 'pesanan.id as idpesanan', 'pesanan.kode_pesanan as kodepesanan'])
-                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
-                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
-                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
-                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
-                ->where([['tgltransaksi', $request->tgl], ['statuslaundry', 'Sudah Diambil']])
-                ->orwhere([['tgltransaksi', $request->tgl], ['statuslaundry', 'Sudah Dikirim']])
-                ->orderBy('kode_pesanan', 'asc')
-                ->paginate(10);
-        }
 
         return view('Transaksi.Pesanan-selesai', ['pesanan' => $pesanan, 'pelanggan' => $pelanggan, 'jenis' => $jenis, 'users' => $user,]);
 

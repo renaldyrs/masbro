@@ -14,12 +14,11 @@
         <div class="card card-outline-info">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-9">
-                        <h5 class="m-b-0 text-black">Transaksi Pesanan Laundry </h5>
+                    <div class="col-md-3">
+                        <h5 class="m-b-0 text-black">Proses Laundry </h5>
                     </div>
-                    <div class="col-md-3" style="text-align: right">
-                        <a href="{{url('tambah-pesanan')}}" class="fa fa-shopping-basket" data-toggle="modal"
-                            data-target="#ModalPesanan" style="width: 5%"></a>
+                    <div class="col-md-9" style="text-align: right">
+                       
                     </div>
 
                 </div>
@@ -44,14 +43,7 @@
                             </select>
                         </div>
 
-                        <div class="col-auto" style="text-align: center">
-
-                            <select name="pembayaran" class="form-control ">
-                                <option value="">Pembayaran</option>
-                                <option value="Cash">Cash</option>
-                                <option value="Transfer">Transfer</option>
-                            </select>
-                        </div>
+                       
                         <div class="col-auto" style="text-align: center">
 
                             <select name="laundry" class="form-control ">
@@ -63,19 +55,8 @@
 
                             </select>
                         </div>
-                        <div class="col-auto" style="text-align: center">
-
-                            <select name="pengiriman" class="form-control ">
-                                <option value="">Pengiriman</option>
-                                <option value="Ambil">Ambil</option>
-                                <option value="Kirim">Kirim</option>
-
-                            </select>
-                        </div>
-                        <div class="col-auto" style="text-align: center">
-                            <input type="date" class="form-control" name="tgl" id="">
-
-                        </div>
+                        
+                        
                         <div class="col-md-2">
                             <button type="submit" class=" btn btn-link"
                                 style="margin-top:0.4rem; width: 5%; color:black"><i class="fa fa-search"></i></button>
@@ -86,7 +67,7 @@
 
             </div>
 
-            <div class="table-responsive " style="margin-left: 15px; margin-right: 15px">
+            <div class="table-responsive-sm " style="margin-left: 15px; margin-right: 15px">
                 <table id="myTable" class="table">
                     <thead>
                         <tr>

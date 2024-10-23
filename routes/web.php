@@ -96,6 +96,8 @@ Route::post('update-metode', [MetodeController::class, 'updatemetode']);
 
 //pesanan
 Route::get('pesanan', [PesananController::class, 'halpesanan']);
+Route::get('pesanan-proses', [PesananController::class, 'halpesananproses']);
+
 Route::get('pesanan-selesai', [PesananController::class, 'halpesananselesai']);
 Route::post('tambah-pesanan', [PesananController::class, 'tambahpesanan']);
 Route::get('hapus-pesanan/{kode_pesanan}', [PesananController::class, 'hapuspesanan']);
@@ -130,8 +132,8 @@ Route::get('jurnal-detail/{waktu}', [JurnalController::class, 'detailjurnal']);
 
 //bukuBesar
 Route::get('buku-besar', [BukuController::class, 'halbukubesar']);
-Route::get('buku-besar/periode/{bulan}', [BukuController::class, 'periodebukubesar']);
-Route::get('buku-besar/periode/{bulan}/{id}', [BukuController::class, 'periodedetail']);
+Route::get('buku-besar/periode/{waktu}', [BukuController::class, 'periodebukubesar']);
+Route::get('buku-besar/periode/{waktu}/{id}', [BukuController::class, 'periodedetail']);
 
 Route::get('buku-besar/akun/{id}', 'App\HTTP\Controllers\BukuController@akunbukubesar');
 Route::get('buku-besar/akun/{id}/{waktu}', [BukuController::class, 'detailbukubesar']);

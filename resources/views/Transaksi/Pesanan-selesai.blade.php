@@ -14,7 +14,7 @@
         <div class="card card-outline-info">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-auto">
                         <h5 class="m-b-0 text-black">Pesanan Laundry Selesai </h5>
                     </div>
                     <div class="col-md-9" style="text-align: right">
@@ -34,43 +34,56 @@
                             Total Pesanan Selesai : {{ $pesanan->total() }}
                         </div>
 
+                        <div class="col-auto" style="text-align: center">
 
-                        <div class="col-md-2" style="text-align: center">
-
+                            <select name="statusbayar" class="form-control ">
+                                <option value="">Status Bayar</option>
+                                <option value="Sudah Bayar">Sudah Bayar</option>
+                                <option value="Belum Bayar">Belum Bayar</option>
+                            </select>
                         </div>
 
-                        <div class="col-md-2" style="text-align: center">
+                        <div class="col-auto" style="text-align: center">
 
                             <select name="pembayaran" class="form-control ">
                                 <option value="">Pembayaran</option>
                                 <option value="Cash">Cash</option>
                                 <option value="Transfer">Transfer</option>
+                            </select>
+                        </div>
+                        <div class="col-auto" style="text-align: center">
+
+                            <select name="laundry" class="form-control ">
+                                <option value="">Laundry</option>
+                                <option value="Proses Laundry">Proses Laundry</option>
+                                <option value="Selesai Laundry">Selesai Laundry</option>
+                                <option value="Siap Ambil">Siap Ambil</option>
+                                <option value="Siap Dikirim">Siap Dikirim</option>
 
                             </select>
                         </div>
+                        <div class="col-auto" style="text-align: center">
 
-                        <div class="col-md-2" style="text-align: center">
-
-                            <select name="status" class="form-control ">
-                                <option value="">Status Laundry</option>
-                                <option value="Sudah Dikirim">Sudah Dikirim</option>
-                                <option value="Sudah Diambil">Sudah Diambil</option>
+                            <select name="pengiriman" class="form-control ">
+                                <option value="">Pengiriman</option>
+                                <option value="Ambil">Ambil</option>
+                                <option value="Kirim">Kirim</option>
 
                             </select>
                         </div>
+                        <div class="col-auto" style="text-align: center">
+                            <input type="date" class="form-control" name="tgl" id="">
 
-                        <div class="col-sm-2" style="text-align: center">
-
-                            <input type="date" name="tgl" class="form-control">
-                            </select>
                         </div>
-                        <div class="col-sm-2">
-                        <button type="submit" class=" btn btn-link" style="margin-top:0.4rem; width: 5%; color:black"><i class="fa fa-search"></i></button>
+
+                        <div class="col-md-2">
+                            <button type="submit" class=" btn btn-link"
+                                style="margin-top:0.4rem; width: 5%; color:black"><i class="fa fa-search"></i></button>
                         </div>
 
                     </div>
 
-                    <div class="table-responsive-sm " style="margin-left: 15px; margin-right: 15px">
+                    <div class="table-responsive" style="margin-left: 15px; margin-right: 15px">
                         <table id="myTable" class="table">
                             <thead>
                                 <tr>

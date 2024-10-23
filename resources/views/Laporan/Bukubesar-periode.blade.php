@@ -25,7 +25,7 @@
                                 <div class="col-xl-3 col-md-6 mb-4">
                                     <div class="col mr-2">
                                         <div class="h5 mb-0 font-weight-bold text-gray-800 text-center"><a
-                                                href="{{ url('buku-besar/periodec        /' .$data->id) }}"
+                                                href="{{ url('buku-besar/periode/' .date('Y-m-d', strtotime('1-' . $periode)).'/'.$data->id) }}"
                                                 class="btn card border-left-primary"
                                                 style="color: black; border-color: black; ">{{ $data->nama_akun }}</a>
                                         </div>

@@ -50,6 +50,7 @@ class BebanController extends Controller
         $jurnal->id_akun = $request->idakun;
         $jurnal->id_pesanan = '0';
         $jurnal->nominal = $total;
+        $jurnal->keterangan = $request->keterangan;
         $jurnal->waktu_transaksi = date('Y-m-d');
         $jurnal->tipe = 'd';
         $jurnal->save();
@@ -59,6 +60,7 @@ class BebanController extends Controller
         $jurnal->id_akun = '1';
         $jurnal->id_pesanan = '0';
         $jurnal->nominal = $total;
+        $jurnal->keterangan = $request->keterangan;
         $jurnal->waktu_transaksi = date('Y-m-d');
         $jurnal->tipe = 'k';
         $jurnal->save();

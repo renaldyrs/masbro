@@ -62,7 +62,7 @@
                                         <label class="control-label">Keterangan</label>
                                         <input type="text" name="keterangan" id="keterangan" value=""
                                             class="form-control " placeholder="Tambahkan Keterangan" autocomplete="off"
-                                            readonly>
+                                            >
 
                                     </div>
                                 </div>

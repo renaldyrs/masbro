@@ -42,6 +42,40 @@ class BukuController extends Controller
 
     }
 
+    public function detailbukubesar($id, $waktu)
+    {
+        if(empty($waktu) || empty($id)) return redirect('buku-besar');
+
+        $bulan = date('m', strtotime($waktu));
+        $tahun = date('Y', strtotime($waktu));
+        $periode = date('F Y', strtotime($waktu));
+
+        $daftar_buku = Jurnal::whereMonth('waktu_transaksi', $bulan)
+        ->whereYear('waktu_transaksi', $tahun)
+        ->orderBy('waktu_transaksi', 'asc')
+        ->where('id_akun', $id)->get();
+
+        $total_debet = Jurnal::where('tipe', 'd')
+        ->whereMonth('waktu_transaksi', $bulan)
+        ->whereYear('waktu_transaksi', $tahun)
+        ->orderBy('waktu_transaksi', 'asc')
+        ->where('id_akun', $id)
+        ->sum('nominal');
+
+        $total_kredit = Jurnal::where('tipe', 'k')
+        ->whereMonth('waktu_transaksi', $bulan)
+        ->whereYear('waktu_transaksi', $tahun)
+        ->orderBy('waktu_transaksi', 'asc')
+        ->where('id_akun', $id)
+        ->sum('nominal');
+
+        $total_buku = $daftar_buku->count();
+
+        $akun = Akun::findOrFail($id);
+
+        return view('Laporan.Bukubesar-detail-akun', compact('daftar_buku', 'total_buku', 'periode', 'total_debet', 'total_kredit', 'akun'));
+    }
+
 
     public function periodebukubesar($waktu)
     {
@@ -52,6 +86,7 @@ class BukuController extends Controller
 
         $daftar_akun = DB::table('jurnal')
         ->selectraw('id_akun')
+        ->selectRaw("CONCAT(MONTH(waktu_transaksi), '-', YEAR(waktu_transaksi)) as waktu")
         ->select('akun.*')
         ->join('akun', 'jurnal.id_akun', '=', 'akun.id')
        
@@ -61,48 +96,41 @@ class BukuController extends Controller
 
         $total_bukubesar = $daftar_akun->count();
         
-        return view('Laporan.Bukubesar-periode', compact('daftar_akun', 'total_bukubesar'));
+        return view('Laporan.Bukubesar-periode', compact('daftar_akun', 'total_bukubesar','periode'));
 
     }
 
-    public function periodedetail($id, $waktu){
+    public function periodedetail($waktu, $id){
         if(empty($waktu) || empty($id)) return redirect('buku-besar');
 
         $bulan = date('m', strtotime($waktu));
         $tahun = date('Y', strtotime($waktu));
         $periode = date('F Y', strtotime($waktu));
 
-        $daftar_buku = Jurnal::whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->where('id_akun', $id)->get();
+        $daftar_buku = Jurnal::whereMonth('waktu_transaksi', $bulan)
+        ->whereYear('waktu_transaksi', $tahun)
+        ->orderBy('waktu_transaksi', 'asc')
+        ->where('id_akun', $id)
+        ->get();
 
-        $total_debet = Jurnal::where('tipe', 'd')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->where('id_akun', $id)->sum('nominal');
+        $total_debet = Jurnal::where('tipe', 'd')
+        ->whereMonth('waktu_transaksi', $bulan)
+        ->whereYear('waktu_transaksi', $tahun)
+        ->orderBy('waktu_transaksi', 'asc')
+        ->where('id_akun', $id)
+        ->sum('nominal');
 
-        $total_kredit = Jurnal::where('tipe', 'k')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->where('id_akun', $id)->sum('nominal');
-
-        $total_buku = $daftar_buku->count();
-
-        $akun = Akun::findOrFail($id);
-
-        return view('Laporan.Bukubesar-detail-akun', compact('daftar_buku', 'total_buku', 'periode', 'total_debet', 'total_kredit', 'akun'));
-    }
-
-    public function detailbukubesar($id, $waktu)
-    {
-        if(empty($waktu) || empty($id)) return redirect('buku-besar');
-
-        $bulan = date('m', strtotime($waktu));
-        $tahun = date('Y', strtotime($waktu));
-        $periode = date('F Y', strtotime($waktu));
-
-        $daftar_buku = Jurnal::whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->where('id_akun', $id)->get();
-
-        $total_debet = Jurnal::where('tipe', 'd')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->where('id_akun', $id)->sum('nominal');
-
-        $total_kredit = Jurnal::where('tipe', 'k')->whereMonth('waktu_transaksi', $bulan)->whereYear('waktu_transaksi', $tahun)->orderBy('waktu_transaksi', 'asc')->where('id_akun', $id)->sum('nominal');
-
-        $total_buku = $daftar_buku->count();
+        $total_kredit = Jurnal::where('tipe', 'k')
+        ->whereMonth('waktu_transaksi', $bulan)
+        ->whereYear('waktu_transaksi', $tahun)
+        ->orderBy('waktu_transaksi', 'asc')
+        ->where('id_akun', $id)
+        ->sum('nominal');
 
         $akun = Akun::findOrFail($id);
 
-        return view('Laporan.Bukubesar-detail-akun', compact('daftar_buku', 'total_buku', 'periode', 'total_debet', 'total_kredit', 'akun'));
+        return view('Laporan.Bukubesar-detail-periode', compact('daftar_buku', 'periode', 'total_debet', 'total_kredit', 'akun'));
     }
+
+    
 }
