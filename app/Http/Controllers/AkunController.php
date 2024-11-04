@@ -32,6 +32,17 @@ class AkunController extends Controller
         return redirect('data-akun');
     }
 
+    public function updateakun(Request $request)
+    {
+        DB::table('akun')->where('id', $request->id)->update([
+            'nama_akun' => $request->namaakun,
+            'kode_akun' => $request->kodeakun,
+        ]);
+
+        return redirect('data-akun');
+
+    }
+
     public function hapusakun($id)
     {
         DB::table('akun')->where('id', $id)->delete();

@@ -138,13 +138,15 @@
                                     </td>
 
                                 </tr>
+
                                 <form action="{{url('update-pelanggan')}}" method="POST">
+                                @csrf
                                     <div class="modal fade text-left" id="ModalEdit<?= $p->id ?>" tabindex="-1"
                                         role="dialog" aria-hidden="true" aria-labelledby="myModalLabel">
                                         <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h3 class="modal-title" id="myModalLabel">Pesanan</h3>
+                                                    <h3 class="modal-title" id="myModalLabel">Pelanggan : {{$p->nama}}</h3>
                                                     <button type="button" class="close"
                                                         onclick="javascript:window.location.reload()"
                                                         data-dismiss="modal" aria-label="Close">
@@ -219,6 +221,7 @@
                                         </div>
                                     </div>
                                 </form>
+
                                 @endforeach
                             </tbody>
                         </table>

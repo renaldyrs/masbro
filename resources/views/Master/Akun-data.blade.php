@@ -78,7 +78,7 @@
                     <h5 class="m-b-0 text-black">Daftar Akun</h5>
                 </div>
                 <div class="card-body">
-                <div>
+                    <div>
                         Total Data : {{ $akun->total() }}
                     </div>
                     <div class="table">
@@ -104,11 +104,71 @@
                                             <a class="btn btn-danger" href="hapus-akun/{{$a->id }}"><i
                                                     class="fa fa-trash"></i></a>
 
-                                            <a class="btn btn-success" href="edit-akun/{{$a->id}}"><i
-                                                    class="fa fa-pen"></i></a>
+                                            <a class="btn btn-success" type="button" data-toggle="modal"
+                                                data-target="#ModalEdit<?= $a->id?>"><i class="fas fa-pen"></i></a>
                                         </td>
 
                                     </tr>
+
+                                    <form action="{{url('update-akun')}}" method="POST">
+                                        @csrf
+                                        <div class="modal fade text-left" id="ModalEdit<?= $a->id ?>" tabindex="-1"
+                                            role="dialog" aria-hidden="true" aria-labelledby="myModalLabel">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title" id="myModalLabel">Jenis : {{$a->nama_akun}}
+                                                        </h3>
+                                                        <button type="button" class="close"
+                                                            onclick="javascript:window.location.reload()"
+                                                            data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <input type="hidden" name="id" value="{{$a->id}}">
+                                                                <div class="col-md-4">
+
+                                                                    <div class="form-group has-success">
+                                                                        <label class="control-label">Kode Akun</label>
+                                                                        <input type="text" name="kodeakun" value="{{$a->kode_akun}}"
+                                                                            class="form-control @error('nama') is-invalid @enderror"
+                                                                            placeholder="Kode Akun" autocomplete="off">
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group has-success">
+                                                                        <div class="form-group has-success">
+                                                                            <label class="control-label">Nama Akun</label>
+                                                                            <input type="text"
+                                                                                class="form-control form-control-danger"
+                                                                                name="namaakun" value="{{$a->nama_akun}}"
+                                                                                placeholder="Nama Akun" autocomplete="off">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-success"> <i
+                                                                    class="fa fa-check"></i>
+                                                                Update Data</button>
+                                                            <button type="reset" class="btn btn-danger">Reset</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                 @endforeach
                             </tbody>
                         </table>
@@ -116,10 +176,10 @@
                 </div>
             </div>
             <div class="card-footer">
-			<div class="d-flex justify-content-center">
-				{{$akun->links()}}
-			</div>
-		</div>
+                <div class="d-flex justify-content-center">
+                    {{$akun->links()}}
+                </div>
+            </div>
         </div>
     </div>
 

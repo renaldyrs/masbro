@@ -72,8 +72,8 @@ class BebanController extends Controller
     {
 
         DB::table('beban')->where('id', $id)->delete();
-
-        $beban = DB::table('beban')->get();
+        DB::table('jurnal')->where('id_beban', $id)->delete();
+        
 
         return redirect('data-beban');
 

@@ -19,7 +19,7 @@ class PelangganController extends Controller
         return view('Master.Pelanggan-data', ['pelanggan' => $pelanggan]);
     }
 
-    public function tambahpelanggan(Request $request)
+    public function tambahpel(Request $request)
     {
         $nohp =$request->nohp;
         DB::table('pelanggan')->insert([
@@ -53,7 +53,7 @@ class PelangganController extends Controller
             'nohp' => $request->nohp,
             'kelamin' => $request->kelamin
         ]);
-        return redirect('data-pelanggan');
+        return redirect()->back();
     }
 
 }

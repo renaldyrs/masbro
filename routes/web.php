@@ -79,12 +79,13 @@ Route::get('hapus-jenis/{id}', [JenisController::class, 'hapusjenis']);
 Route::get('edit-jenis/{id}', [JenisController::class, 'editjenis']);
 Route::post('update-jenis', [JenisController::class, 'updatejenis']);
 
+
 //beban
 Route::get('data-beban', [BebanController::class, 'beban']);
 Route::post('/data-beban/tambah', [BebanController::class, 'tambahbeban']);
 Route::get('/data-beban/hapus/{id}', [BebanController::class, 'hapusbeban']);
 Route::get('/data-beban/edit/{id}', [BebanController::class, 'editbeban']);
-Route::post('/data-beban/update', [BebanController::class, 'updatebeban']);
+Route::post('update-beban', [BebanController::class, 'updatebeban']);
 Route::get('getakunbeban', [BebanController::class, 'getakunbeban']);
 
 //metode
