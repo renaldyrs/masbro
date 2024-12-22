@@ -21,6 +21,7 @@
 
                             <div class="row p-t-18">
 
+                            <input type="hidden" value="{{Auth::user()->id}}" name="iduser">
 
                                 <div class="col-md-3">
                                     <div class="form-group has-success">

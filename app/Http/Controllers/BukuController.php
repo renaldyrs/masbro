@@ -76,6 +76,8 @@ class BukuController extends Controller
         return view('Laporan.Bukubesar-detail-akun', compact('daftar_buku', 'total_buku', 'periode', 'total_debet', 'total_kredit', 'akun'));
     }
 
+    
+
 
     public function periodebukubesar($waktu)
     {

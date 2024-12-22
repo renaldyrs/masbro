@@ -49,6 +49,8 @@
                                         class="btn btn-info">
                                         Detail
                                     </a>
+                                    <a href="{{url('jurnal/cetak/'. date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
+            class="btn btn-success"><i class="fa fa-print"></i></a>
                                 </td>
                             </tr>
                         @endforeach

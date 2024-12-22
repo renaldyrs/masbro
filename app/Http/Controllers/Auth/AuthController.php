@@ -52,10 +52,12 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (auth()->user()->role == 1) {
-                return redirect()->intended('halaman-pemilik')->with('alert', "Selamat Datang Admin"); //redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
+                $nama=Auth::user()->name;
+                return redirect()->intended('halaman-pemilik')->with('alert', "Selamat Datang $nama"); //redirect()->route('haladmin')->with('alert', "Selamat Datang Admin");
             }else if (auth()->user()->role == 0) {
+                $nama=Auth::user()->name;
                 return redirect()->intended('halaman-pemilik')
-                ->with('alert', "Selamat Datang Pemilik"); //redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
+                ->with('alert', "Selamat Datang $nama"); //redirect()->route('halpemilik')->with('alert', "Selamat Datang Pemilik");
             }
             
         }else{

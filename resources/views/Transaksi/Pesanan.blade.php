@@ -34,6 +34,7 @@
                         <div class="col-md-2">
                             Total Pesanan : {{ $pesanan->total() }}
                         </div>
+                        
 
                         <div class="col-auto" style="text-align: center">
 
@@ -92,7 +93,7 @@
                         <tr>
                             <th>#</th>
                             <th>Kode Pesanan</th>
-
+                            <th>User</th>
                             <th>Pelanggan</th>
                             <th>Jenis Pembayaran</th>
                             <th>Nama Bank</th>
@@ -121,6 +122,9 @@
 
                                 <td style="font-weight:bold; font-color:black">
                                     {{$p->kode_pesanan}}
+                                </td>
+                                <td>
+                                   {{$p->namauser}} 
                                 </td>
 
                                 <td>

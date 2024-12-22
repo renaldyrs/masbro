@@ -110,10 +110,10 @@ class LaporanController extends Controller
 
         return $pdf->download('Laporan Laba Rugi '.$periode.'.pdf');
     }
-    public function cetakLaporan($waktu)
+    public function cetakjurnal($waktu)
     {
         if (empty($waktu))
-            return redirect('laporan');
+            return redirect('jurnal');
 
         $pdf = new FPDF;
 
@@ -179,8 +179,25 @@ class LaporanController extends Controller
         $pdf->Cell(121, 10, strtoupper(Terbilang::make($total_kredit)) . ' RUPIAH', 1, 0, 'C');
         $pdf->Ln();
 
-        // Footer
+
+        // Save
+        Session::flash('pesan', 'Laporan Berhasil Diunduh');
+        return $pdf->Output('D', "LAPORAN JURNAL UMUM $periode.pdf");
+    }
+
+    public function cetakbukubesar($waktu)
+    {
+        if (empty($waktu))
+            return redirect('laporan');
+
+        $pdf = new FPDF;
+
         $pdf->AddPage('L', 'A4');
+
+        $bulan = date('m', strtotime($waktu));
+        $tahun = date('Y', strtotime($waktu));
+        $periode = date('F Y', strtotime($waktu));
+        $periode = strtoupper($periode);
 
         // Buku Besar
         $pdf->SetFont('Arial', 'B', 14);
@@ -252,8 +269,7 @@ class LaporanController extends Controller
             $pdf->Cell(226, 10, strtoupper(Terbilang::make((substr($data[$i]['akun']->kode_akun, 0, 1) === '1' || substr($data[$i]['akun']->kode_akun, 0, 1) === '4') ? $data[$i]['jumlah_debet'] - $data[$i]['jumlah_kredit'] : (((substr($data[$i]['akun']->kode_akun, 0, 1) === '2' || substr($data[$i]['akun']->kode_akun, 0, 1) === '3') || substr($data[$i]['akun']->kode_akun, 0, 1) === '5') ? $data[$i]['jumlah_kredit'] - $data[$i]['jumlah_debet'] : "0"))) . "RUPIAH", 1, 0, 'C');
             $pdf->Ln();
 
-            // Footer
-            $pdf->AddPage('L', 'A4');
+            
         }
 
         // Save

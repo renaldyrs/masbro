@@ -18,12 +18,43 @@
 
             <div class="card-body">
 
-                <div class="col-md-2">
-                    Total Pesanan : {{ $pengiriman->total() }}
-                </div>
+            <form action="" method="get">
+
+                    <div class="row" style="margin-top: 0.7rem; margin-bottom: 15px">
+
+                        <div class="col-md-2">
+                            Total Pesanan : {{ $pengiriman->total() }}
+                        </div>
+
+                        <div class="col-auto" style="text-align: center">
+
+                            <select name="statuspengiriman" class="form-control ">
+                                <option value="">Status pengiriman</option>
+                                
+                                <option value="Siap Ambil">Siap Ambil</option>
+                                <option value="Siap Dikirim">Siap Dikirim</option>
+                                <option value="Sudah Dikirim">Sudah Dikirim</option>
+                                <option value="Sudah Diambil">Sudah Diambil</option>
+
+                            </select>
+                        </div>
+                        
+                        <div class="col-auto" style="text-align: center">
+                            <input type="date" class="form-control" name="tgl" id="">
+
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class=" btn btn-link"
+                                style="margin-top:0.4rem; width: 5%; color:black"><i class="fa fa-search"></i></button>
+                        </div>
+</div>
+
+                </form>
+                
+
 
                 <div  class="table-responsive-sm " style="margin-left: 15px; margin-right: 15px">
-                  <br>  
+               
                 <table id="myTable" class="table">
                         <thead>
                             <tr>

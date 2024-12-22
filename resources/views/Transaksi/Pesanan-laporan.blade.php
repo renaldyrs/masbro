@@ -21,27 +21,26 @@
         <div class="card-body">
 
           <div class="tabel-responsive">
-            <h4>Total Data : <strong>{{ $total_jurnal }}</strong> </h4>
+            <h4>Total Data : <strong>{{ $total_pesanan }}</strong> </h4>
             <thead>
-              <h3 class="text-center"> <strong>DAFTAR LAPORAN</strong></h3>
+              <h3 class="text-center"> <strong>DAFTAR LAPORAN PESANAN</strong></h3>
             </thead>
 
             <table class="table table-striped text-center">
 
               <tr>
-
                 <th class="text-center">No</th>
                 <th class="text-center">Waktu</th>
                 <th class="text-center">Action</th>
               </tr>
               <?php $i = 1 ?>
-              @foreach($daftar_jurnal as $data)
+              @foreach($daftar_pesanan as $data)
           <tr>
           <td>{{ $i++ }}</td>
           <td>{{ date('F Y', strtotime('1-' . $data->waktu)) }}</td>
           <td>
-            <a href="{{ url('laporan/laba-rugi/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}" class="btn btn-info" ><i class="fa fa-eye"></i></a>
-            <a href="{{url('laporan/laba-rugi/cetak/'. date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
+            <a href="{{ url('pesanan-laporan/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}" class="btn btn-info" ><i class="fa fa-eye"></i></a>
+            <a href="{{url('pesanan/cetak/'. date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
             class="btn btn-success"><i class="fa fa-print"></i></a>
             
           </td>

@@ -111,7 +111,7 @@
 											<div class="modal-dialog modal-lg" role="document">
 												<div class="modal-content">
 													<div class="modal-header">
-														<h3 class="modal-title" id="myModalLabel">metode : {{$m->nama}}</h3>
+														<h3 class="modal-title" id="myModalLabel">metode : {{$m->namabank}}</h3>
 														<button type="button" class="close"
 															onclick="javascript:window.location.reload()"
 															data-dismiss="modal" aria-label="Close">
@@ -122,7 +122,7 @@
 													<div class="modal-body">
 														<div class="form-body">
 															<div class="row">
-																<input type="hidden" name="id" value="{{$p->id}}">
+																<input type="hidden" name="id" value="{{$m->id}}">
 																<div class="col-md-4">
 
 																	<div class="form-group has-success">

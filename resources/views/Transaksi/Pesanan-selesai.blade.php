@@ -17,8 +17,9 @@
                     <div class="col-md-auto">
                         <h5 class="m-b-0 text-black">Pesanan Laundry Selesai </h5>
                     </div>
-                    <div class="col-md-9" style="text-align: right">
-
+                    <div class="col-md" style="text-align: right">
+                    <a href="{{url('jurnal/cetak/'. now()) }}"
+                    class="btn btn-success"><i class="fa fa-print"></i></a>
                     </div>
 
                 </div>

@@ -13,7 +13,7 @@ use App\Models\pelanggan;
 use App\Models\Jenis;
 use App\Models\Metode;
 use App\Models\Jurnal;
-
+use Crabbly\Fpdf\Fpdf as FPDF;
 class PesananController extends Controller
 {
     public function halpesanan(Request $request)
@@ -23,6 +23,7 @@ class PesananController extends Controller
         $user = DB::table('users')->get();
         $jenis = DB::table('jenis')->get();
 
+
         $pesanan = DB::table('pesanan')
             ->select([
                 'pelanggan.*',
@@ -30,21 +31,25 @@ class PesananController extends Controller
                 'metodepembayaran.*',
                 'jenis.*',
                 'pesanan.id as idpesanan',
-                'pesanan.kode_pesanan as kodepesanan'
+                'pesanan.kode_pesanan as kodepesanan',
+                'users.name as namauser'
             ])
             ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
             ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+            ->join('users', 'users.id', '=', 'pesanan.id_users')
 
             ->where([
+
                 ['statuspembayaran', 'like', '%' . $request->statusbayar . '%'],
                 ['jenisbayar', 'like', '%' . $request->pembayaran . '%'],
                 ['statuslaundry', 'like', '%' . $request->laundry . '%'],
                 ['pengiriman', 'like', '%' . $request->pengiriman . '%'],
-                ['tgltransaksi', 'like', '%' . $request->date . '%'],
+                ['tgltransaksi', 'like', '%' . $request->tgl . '%'],
                 ['statuslaundry', '!=', 'Sudah Diambil'],
-                ['statuslaundry', '!=', 'Sudah Dikirim']
+                ['statuslaundry', '!=', 'Sudah Dikirim'],
+                ['statuslaundry', '!=', 'Selesai Laundry']
             ])
 
             ->orderBy('kode_pesanan', 'asc')
@@ -72,12 +77,13 @@ class PesananController extends Controller
                 ['jenisbayar', 'like', '%' . $request->pembayaran . '%'],
                 ['statuslaundry', 'like', '%' . $request->laundry . '%'],
                 ['pengiriman', 'like', '%' . $request->pengiriman . '%'],
-                ['tgltransaksi', 'like', '%' . $request->date . '%'],
-                
-                
+                ['tgltransaksi', 'like', '%' . $request->tgl . '%'],
+
+
+
             ])
             ->whereIn('statuslaundry', ['Sudah Diambil', 'Sudah Dikirim'])
-            
+
 
             ->orderBy('kode_pesanan', 'asc')
             ->paginate(10);
@@ -151,6 +157,7 @@ class PesananController extends Controller
         $pesanan->id_pelanggan = $request->id_pelanggan;
         $pesanan->id_jenis = $request->id_jenis;
         $pesanan->id_metode = $request->id_metode;
+        $pesanan->id_users = $request->iduser;
         $pesanan->harga = $request->harga;
         $pesanan->jumlah = $request->jumlah;
         $pesanan->total = $total;
@@ -351,5 +358,218 @@ class PesananController extends Controller
         echo json_encode($harga);
     }
 
+
+    function laporanpesanan(Request $request)
+    {
+        $daftar_pesanan = DB::table('pesanan')
+            ->selectRaw("CONCAT(MONTH(tgltransaksi), '-', YEAR(tgltransaksi)) as waktu")
+            ->distinct()
+            ->get();
+
+        $total_pesanan = $daftar_pesanan->count();
+
+        return view('Transaksi.Pesanan-laporan', compact('daftar_pesanan', 'total_pesanan'));
+
+    }
+    function periodepesanan($waktu)
+    {
+
+        $bulan = date('m', strtotime($waktu));
+        $tahun = date('Y', strtotime($waktu));
+        $periode = date('F Y', strtotime($waktu));
+
+        $daftar_pesanan = DB::table('pesanan')
+            ->selectRaw("CONCAT(MONTH(tgltransaksi), '-', YEAR(tgltransaksi)) as waktu")
+            ->distinct()
+            ->get();
+
+        $kirim = DB::table('pesanan')
+            ->where('pengiriman', '=', 'Kirim')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun);
+        $countkirim = $kirim->count();
+
+        $ambil = DB::table('pesanan')
+            ->where('pengiriman', '=', 'ambil')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun);
+        $countambil = $ambil->count();
+
+        $pendapatan = DB::table('pesanan')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $total_pesanan = $daftar_pesanan->count();
+
+        $cucibasah = DB::table('pesanan')
+            ->where('id_jenis', '1')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $cucikering = DB::table('pesanan')
+            ->where('id_jenis', '2')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $cucisetrika = DB::table('pesanan')
+            ->where('id_jenis', '3')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $setrika = DB::table('pesanan')
+            ->where('id_jenis', '4')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $karpet = DB::table('pesanan')
+            ->where('id_jenis', '5')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+
+        $countcucibasah = DB::table('pesanan')
+            ->where('id_jenis', '1')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countcucikering = DB::table('pesanan')
+            ->where('id_jenis', '2')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countcucisetrika = DB::table('pesanan')
+            ->where('id_jenis', '3')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countsetrika = DB::table('pesanan')
+            ->where('id_jenis', '4')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countkarpet = DB::table('pesanan')
+            ->where('id_jenis', '5')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countpesanan = $countcucibasah + $countcucisetrika + $countcucikering + $countsetrika + $countkarpet;
+
+        return view(
+            'Transaksi.Pesanan-cetak',
+            compact(
+                'daftar_pesanan',
+                'total_pesanan',
+                'periode',
+                'countkirim',
+                'countambil',
+                'pendapatan',
+                'cucikering',
+                'cucibasah',
+                'cucisetrika',
+                'setrika',
+                'karpet',
+                'countcucikering',
+                'countcucibasah',
+                'countcucisetrika',
+                'countsetrika',
+                'countkarpet',
+                'countpesanan'
+            )
+        );
+
+    }
+
+    function laporancetak($waktu)
+    {
+        $bulan = date('m', strtotime($waktu));
+        $tahun = date('Y', strtotime($waktu));
+        $periode = date('F Y', strtotime($waktu));
+
+        $daftar_pesanan = DB::table('pesanan')
+            ->selectRaw("CONCAT(MONTH(tgltransaksi), '-', YEAR(tgltransaksi)) as waktu")
+            ->distinct()
+            ->get();
+
+
+        $kirim = DB::table('pesanan')
+            ->where('pengiriman', '=', 'Kirim')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun);
+        $countkirim = $kirim->count();
+
+        $ambil = DB::table('pesanan')
+            ->where('pengiriman', '=', 'ambil')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun);
+        $countambil = $ambil->count();
+
+        $pendapatan = DB::table('pesanan')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $total_pesanan = $daftar_pesanan->count();
+
+        $cucibasah = DB::table('pesanan')
+            ->where('id_jenis', '1')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $cucikering = DB::table('pesanan')
+            ->where('id_jenis', '2')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $cucisetrika = DB::table('pesanan')
+            ->where('id_jenis', '3')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $setrika = DB::table('pesanan')
+            ->where('id_jenis', '4')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+        $karpet = DB::table('pesanan')
+            ->where('id_jenis', '5')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->sum('total');
+
+        $countcucibasah = DB::table('pesanan')
+            ->where('id_jenis', '1')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countcucikering = DB::table('pesanan')
+            ->where('id_jenis', '2')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countcucisetrika = DB::table('pesanan')
+            ->where('id_jenis', '3')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countsetrika = DB::table('pesanan')
+            ->where('id_jenis', '4')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countkarpet = DB::table('pesanan')
+            ->where('id_jenis', '5')
+            ->whereMonth('tgltransaksi', $bulan)
+            ->whereYear('tgltransaksi', $tahun)
+            ->count();
+        $countpesanan = $countcucibasah + $countcucisetrika + $countcucikering + $countsetrika + $countkarpet;
+
+        $pdf= \Barryvdh\DomPDF\Facade\Pdf::loadView('Transaksi.cetak', compact('daftar_pesanan',
+                'total_pesanan','periode','countkirim','countambil','pendapatan','cucikering','cucibasah','cucisetrika','setrika','karpet','countcucikering','countcucibasah','countcucisetrika','countsetrika','countkarpet','countpesanan'));
+
+        return $pdf->download('Laporan pesanan'.$periode.'.pdf');
+
+        
+
+
+    }
 
 }

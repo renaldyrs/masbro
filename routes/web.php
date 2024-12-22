@@ -110,6 +110,9 @@ Route::get('getharga', [PesananController::class, 'getharga']);
 Route::get('getmetode/{jenis}', [PesananController::class, 'getmetode']);
 Route::get('getkodebank', [PesananController::class, 'getkodebank']);
 Route::get('ambillaundry/{kode_pesanan}', [PesananController::class, 'ambillaundry']);
+Route::get('pesanan-laporan',[PesananController::class,'laporanpesanan']);
+Route::get('pesanan-laporan/{waktu}',[PesananController::class,'periodepesanan']);
+Route::get('pesanan/cetak/{waktu}',[PesananController::class,'laporancetak']);
 
 //kirim
 Route::post('kirim', [KirimController::class, 'kirim']);
@@ -130,6 +133,7 @@ Route::get('tambah-jurnal', [JurnalController::class, 'tambahjurnal']);
 Route::get('jurnal-detail/hapus/{id}', [JurnalController::class, 'hapusjurnal']);
 Route::post('simpan-jurnal', [JurnalController::class, 'simpanjurnal']);
 Route::get('jurnal-detail/{waktu}', [JurnalController::class, 'detailjurnal']);
+Route::get('jurnal/cetak/{waktu}', [LaporanController::class, 'cetakjurnal']);
 
 //bukuBesar
 Route::get('buku-besar', [BukuController::class, 'halbukubesar']);

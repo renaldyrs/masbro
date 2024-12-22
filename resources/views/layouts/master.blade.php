@@ -64,8 +64,8 @@
                         <a class="collapse-item" href="data-jenis">Jenis</a>
                         <a class="collapse-item" href="data-metode">Metode Pembayaran</a>
                         @if (Auth::user()->role == '0')
-                            <a class="collapse-item" href="data-akun">Akun</a>
-                            <a class="collapse-item" href="data-beban">Beban</a>
+                        <a class="collapse-item" href="data-akun">Akun</a>
+                        <a class="collapse-item" href="data-beban">Beban</a>
 
                         @endif
                     </div>
@@ -81,10 +81,12 @@
                 <div id="collapsePesanan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Pesanan :</h6>
+                        
                         <a class="collapse-item" href="pesanan">Pesanan</a>
                         
 
                         <a class="collapse-item" href="pesanan-selesai">Pesanan Selesai</a>
+                        <a class="collapse-item" href="pesanan-laporan">Laporan Pesanan</a>
                     </div>
                 </div>
             </li>

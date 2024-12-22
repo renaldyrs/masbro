@@ -20,15 +20,25 @@ use Carbon\Carbon;
 class KirimController extends Controller
 {
     //
-    public function halkirim(){
+    public function halkirim(Request $request){
+        $pelanggan = DB::table('pelanggan')->distinct();
         $pengiriman = DB::table('pengiriman')
         ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
         ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
         ->orderBy('pesanan.kode_pesanan')
-        ->select(['pelanggan.*', 'pesanan.*', 'pengiriman.*'])
+        ->select(['pelanggan.*', 'pesanan.*', 'pengiriman.*','pelanggan.nama as namapelanggan'])
+        ->where([
+            
+           
+            ['tglpengiriman', 'like', '%' . $request->tgl . '%'],
+            ['statuspengiriman', 'like', '%' . $request->statuspengiriman . '%'],
+
+            ['statuspengiriman', '!=', '-']
+            
+        ])
         ->paginate(10);
         
-        return view('Transaksi.Pengiriman',['pengiriman'=>$pengiriman,]);
+        return view('Transaksi.Pengiriman',['pengiriman'=>$pengiriman, 'pelanggan'=>$pelanggan]);
     }
 
     public function kirim(Request $request){
@@ -54,7 +64,7 @@ class KirimController extends Controller
 
         $tglpengiriman = date("Y-m-d");
         $jampengiriman = Carbon::now();
-        $status = "Selesai Kirim";
+        $status = "Sudah Dikirim";
         DB::table('pengiriman')
         ->join('pesanan', 'pesanan.id', '=', 'pengiriman.id_pesanan')
         ->where('kode_pesanan', $kode_pesanan)
