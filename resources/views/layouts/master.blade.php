@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Laundry MASBRO</title>
-    
+
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -64,8 +64,8 @@
                         <a class="collapse-item" href="data-jenis">Jenis</a>
                         <a class="collapse-item" href="data-metode">Metode Pembayaran</a>
                         @if (Auth::user()->role == '0')
-                        <a class="collapse-item" href="data-akun">Akun</a>
-                        <a class="collapse-item" href="data-beban">Beban</a>
+                            <a class="collapse-item" href="data-akun">Akun</a>
+                            <a class="collapse-item" href="data-beban">Beban</a>
 
                         @endif
                     </div>
@@ -81,9 +81,10 @@
                 <div id="collapsePesanan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Pesanan :</h6>
-                        
+                        <a class="collapse-item" href="pesanan-dashboard">Dashboard Pesanan</a>
+
                         <a class="collapse-item" href="pesanan">Pesanan</a>
-                        
+
 
                         <a class="collapse-item" href="pesanan-selesai">Pesanan Selesai</a>
                         <a class="collapse-item" href="pesanan-laporan">Laporan Pesanan</a>
@@ -153,7 +154,7 @@
                                 ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
                                 ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
                                 ->where('statuslaundry', 'Proses Laundry')
-                                ->get();
+                                ->paginate(5);
                             $notifproses = count($proses);
 
                             $kirim = DB::table('pesanan')
@@ -177,10 +178,78 @@
                                 ->orderBy('pesanan.kode_pesanan', 'ASC')
                                 ->get();
 
-                            $notifbelum = count($pesanan);   
+                            $notifbelum = count($pesanan);
+
+
+                            $tgl = date('Y-m-d', strtotime('-1 days'));
+                            $reminder = DB::table('pesanan')
+                                ->select('pesanan.*', 'pelanggan.*', 'pengiriman.*', 'pelanggan.nama as namapelanggan')
+                                ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+                                ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+                                ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+                                ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+                                ->where('tglselesai', '=', date('Y-m-d', strtotime('+1 days')))
+                                ->where('statuslaundry', '=', 'Proses Laundry')
+                                ->orderBy('pesanan.kode_pesanan', 'ASC')
+                                ->paginate(10);
+
+                            $notifreminder = count($reminder);
 
                         @endphp
+
+
+
                         <ul class="navbar-nav ml-auto">
+
+
+                            
+
+                            <!-- Alert Belum Bayar -->
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bell fa-fw"></i>
+
+                                    <span class="badge badge-danger badge-counter">{{ $notifreminder }}</span>
+                                </a>
+
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Segera Selesaikan Laundry
+                                    </h6>
+
+                                    @foreach ($reminder as $r)
+
+                                        <a class="dropdown-item d-flex align-items-center"
+                                            href="{{url('update-pesanan/' . $r->kode_pesanan)}}"
+                                            onclick="return confirm('Apakah anda yakin sudah dibayar ?');">
+
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas fa-money-bill-wave text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div class="mr-3">
+
+                                                <div class=" font-weight-bold">{{$r->kode_pesanan}}</div>
+                                                <div class=" font-weight-bold">{{$r->namapelanggan}}</div>
+                                                <div class=" font-weight-bold">{{$r->tglselesai}}</div>
+                                                <div class=" font-weight-bold">Total yang harus dibayar: {{$r->total}}
+                                                </div>
+
+                                            </div>
+
+                                        </a>
+
+                                    @endforeach
+
+
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All
+                                        Alerts</a>
+                                </div>
+                            </li>
+
                             <!-- Alert Belum Bayar -->
                             <li class="nav-item dropdown no-arrow mx-1">
                                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -221,6 +290,8 @@
                                         Alerts</a>
                                 </div>
                             </li>
+
+
 
                             <!-- Alert Proses Laundry -->
                             <li class="nav-item dropdown no-arrow mx-1">
@@ -430,6 +501,8 @@
         border-top: none;
         margin-bottom: -0.5rem;
     }
+
+   
 </style>
 
 </html>

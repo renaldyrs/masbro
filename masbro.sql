@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2024 at 07:52 PM
+-- Generation Time: Jan 09, 2025 at 02:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,7 +45,9 @@ INSERT INTO `akun` (`id`, `nama_akun`, `kode_akun`) VALUES
 (5, 'Beban', '400'),
 (6, 'Beban Listrik', '401'),
 (7, 'Beban Air', '402'),
-(8, 'Biaya Lain Lain', '403');
+(8, 'Biaya Lain Lain', '403'),
+(9, 'Peralatan', '111'),
+(10, 'Penyursutan peralatan', '112');
 
 -- --------------------------------------------------------
 
@@ -196,7 +198,15 @@ INSERT INTO `jurnal` (`id`, `id_akun`, `id_pesanan`, `id_beban`, `keterangan`, `
 (241, 3, 26, 0, '', '2024-12-18', 12000, 'k'),
 (242, 1, 26, 0, '', '2024-12-18', 12000, 'd'),
 (243, 3, 27, 0, '', '2024-12-19', 12000, 'k'),
-(244, 1, 27, 0, '', '2024-12-19', 12000, 'd');
+(244, 1, 27, 0, '', '2024-12-19', 12000, 'd'),
+(245, 3, 28, 0, '', '2024-12-23', 8000, 'k'),
+(246, 1, 28, 0, '', '2024-12-23', 8000, 'd'),
+(247, 3, 29, 0, '', '2024-12-26', 7000, 'k'),
+(248, 1, 29, 0, '', '2024-12-26', 7000, 'd'),
+(249, 3, 30, 0, '', '2024-12-26', 0, 'k'),
+(250, 1, 30, 0, '', '2024-12-26', 0, 'd'),
+(251, 3, 31, 0, '', '2025-01-01', 0, 'k'),
+(252, 1, 31, 0, '', '2025-01-01', 0, 'd');
 
 -- --------------------------------------------------------
 
@@ -330,7 +340,11 @@ INSERT INTO `pengiriman` (`id`, `id_pelanggan`, `id_pesanan`, `statuspengiriman`
 (24, 2, 24, '-', NULL, NULL, NULL, NULL),
 (25, 2, 25, '-', NULL, NULL, NULL, NULL),
 (26, 3, 26, '-', NULL, NULL, NULL, NULL),
-(27, 3, 27, '-', NULL, NULL, NULL, NULL);
+(27, 3, 27, '-', NULL, NULL, NULL, NULL),
+(28, 2, 28, '-', NULL, NULL, NULL, NULL),
+(29, 10, 29, '-', NULL, NULL, NULL, NULL),
+(30, 10, 30, '-', NULL, NULL, NULL, NULL),
+(31, 7, 31, '-', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -389,7 +403,11 @@ INSERT INTO `pesanan` (`id`, `id_jenis`, `id_pelanggan`, `id_metode`, `id_users`
 (24, 4, 2, 0, 2, 'MAS2412050024', 5000, 10, 50000, '2024-12-05', '2024-12-07', 'Cash', 'Sudah Bayar', 'Proses Laundry', 'Ambil', '2024-12-05 03:47:08', '2024-12-05 03:47:08'),
 (25, 5, 2, 3, 2, 'MAS2412050025', 15000, 5, 75000, '2024-12-05', '2024-12-11', 'Transfer', 'Sudah Bayar', 'Proses Laundry', 'Kirim', '2024-12-05 03:49:03', '2024-12-05 03:49:03'),
 (26, 2, 3, 2, 1, 'MAS2412180026', 4000, 3, 12000, '2024-12-18', '2024-12-20', 'Transfer', 'Sudah Bayar', 'Proses Laundry', 'Kirim', '2024-12-18 07:42:51', '2024-12-18 07:42:51'),
-(27, 2, 3, 2, 1, 'MAS2412190027', 4000, 3, 12000, '2024-12-19', '2024-12-21', 'Transfer', 'Sudah Bayar', 'Proses Laundry', 'Kirim', '2024-12-19 03:28:17', '2024-12-19 03:28:17');
+(27, 2, 3, 2, 1, 'MAS2412190027', 4000, 3, 12000, '2024-12-19', '2024-12-21', 'Transfer', 'Sudah Bayar', 'Proses Laundry', 'Kirim', '2024-12-19 03:28:17', '2024-12-19 03:28:17'),
+(28, 2, 2, 0, 1, 'MAS2412230028', 4000, 2, 8000, '2024-12-23', '2024-12-24', 'Cash', 'Sudah Bayar', 'Proses Laundry', 'Ambil', '2024-12-23 04:38:44', '2024-12-23 04:38:44'),
+(29, 1, 10, 2, 1, 'MAS2412260029', 3500, 2, 7000, '2024-12-26', '2024-12-28', 'Transfer', 'Sudah Bayar', 'Proses Laundry', 'Ambil', '2024-12-25 18:06:20', '2024-12-25 18:06:20'),
+(30, 2, 10, 0, 1, 'MAS2412260030', 4000, 10, 40000, '2024-12-26', '2024-12-28', 'Cash', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2024-12-25 18:06:34', '2024-12-25 18:06:34'),
+(31, 1, 7, 3, 1, 'MAS2501010031', 3500, 10, 35000, '2025-01-01', '2025-01-03', 'Transfer', 'Belum Bayar', 'Proses Laundry', 'Kirim', '2025-01-01 07:36:42', '2025-01-01 07:36:42');
 
 -- --------------------------------------------------------
 
@@ -499,7 +517,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `beban`
@@ -517,7 +535,7 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT for table `jurnal`
 --
 ALTER TABLE `jurnal`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
 
 --
 -- AUTO_INCREMENT for table `metodepembayaran`

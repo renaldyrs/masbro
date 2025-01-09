@@ -14,8 +14,33 @@ use App\Models\Jenis;
 use App\Models\Metode;
 use App\Models\Jurnal;
 use Crabbly\Fpdf\Fpdf as FPDF;
+use Carbon\Carbon;
 class PesananController extends Controller
 {
+    public function dashboardpesanan()
+    {
+        
+        $pesanan = DB::table('pesanan')
+            ->select([
+                'pelanggan.*',
+                'pesanan.*',
+                'metodepembayaran.*',
+                'jenis.*',
+                'pesanan.id as idpesanan',
+                'pesanan.kode_pesanan as kodepesanan',
+                'users.name as namauser',
+            ])
+            ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
+            ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
+            ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
+            ->join('pengiriman', 'pengiriman.id_pesanan', '=', 'pesanan.id')
+            ->join('users', 'users.id', '=', 'pesanan.id_users')
+            ->groupBy('tgltransaksi')
+            ->orderBy('kode_pesanan', 'asc')
+            ->get();
+
+        return view('Transaksi.pesanan-dashboard', ['pesanan' => $pesanan]);
+    }
     public function halpesanan(Request $request)
     {
 
@@ -32,8 +57,10 @@ class PesananController extends Controller
                 'jenis.*',
                 'pesanan.id as idpesanan',
                 'pesanan.kode_pesanan as kodepesanan',
-                'users.name as namauser'
+                'users.name as namauser',
+                
             ])
+            
             ->join('pelanggan', 'pelanggan.id', '=', 'pesanan.id_pelanggan')
             ->join('jenis', 'jenis.id', '=', 'pesanan.id_jenis')
             ->join('metodepembayaran', 'metodepembayaran.id', '=', 'pesanan.id_metode')
@@ -51,7 +78,6 @@ class PesananController extends Controller
                 ['statuslaundry', '!=', 'Sudah Dikirim'],
                 ['statuslaundry', '!=', 'Selesai Laundry']
             ])
-
             ->orderBy('kode_pesanan', 'asc')
             ->paginate(10);
 

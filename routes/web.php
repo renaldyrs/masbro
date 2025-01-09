@@ -97,6 +97,7 @@ Route::post('update-metode', [MetodeController::class, 'updatemetode']);
 
 //pesanan
 Route::get('pesanan', [PesananController::class, 'halpesanan']);
+Route::get('pesanan-dashboard', [PesananController::class, 'dashboardpesanan']);
 Route::get('pesanan-proses', [PesananController::class, 'halpesananproses']);
 
 Route::get('pesanan-selesai', [PesananController::class, 'halpesananselesai']);

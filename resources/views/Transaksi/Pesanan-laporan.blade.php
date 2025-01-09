@@ -6,28 +6,23 @@
     <div class="col-lg-12   ">
       <div class="card">
         <div class="card-header">
-          <div class="d-flex justify-content-between" >
+          <div class="d-flex justify-content-between">
             <div>
-            Data Laporan
+              Data Laporan
             </div>
-            
             <div style="margin-top: -0.3rem">
               <button onclick="history_back()" class="btn-secondary" style="border-radius: 0.5rem">Kembali</button>
             </div>
-
           </div>
-
         </div>
         <div class="card-body">
-
           <div class="tabel-responsive">
             <h4>Total Data : <strong>{{ $total_pesanan }}</strong> </h4>
             <thead>
-              <h3 class="text-center"> <strong>DAFTAR LAPORAN PESANAN</strong></h3>
+              <h3 class="text-center"> <strong>LAPORAN PESANAN PERPERIODE</strong></h3>
             </thead>
 
             <table class="table table-striped text-center">
-
               <tr>
                 <th class="text-center">No</th>
                 <th class="text-center">Waktu</th>
@@ -39,17 +34,15 @@
           <td>{{ $i++ }}</td>
           <td>{{ date('F Y', strtotime('1-' . $data->waktu)) }}</td>
           <td>
-            <a href="{{ url('pesanan-laporan/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}" class="btn btn-info" ><i class="fa fa-eye"></i></a>
-            <a href="{{url('pesanan/cetak/'. date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
+            <a href="{{ url('pesanan-laporan/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
+            class="btn btn-info"><i class="fa fa-eye"></i></a>
+            <a href="{{url('pesanan/cetak/' . date('Y-m-d', strtotime('1-' . $data->waktu))) }}"
             class="btn btn-success"><i class="fa fa-print"></i></a>
-            
           </td>
           </tr>
         @endforeach
             </table>
-
           </div>
-
         </div>
       </div>
     </div>
