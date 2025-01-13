@@ -34,13 +34,8 @@
 
 <body class="A4 ">
     <div class="card-body">
-        <div class="text-center">
-            <h4><strong>Laundry MASBRO</strong></h4>
-            <h4><strong>Laporan Laba Rugi</strong></h4>
-            <h6><strong>Periode : {{ $periode }}</strong></h6>
-            <hr>
-
-        </div>
+        
+        
         <div class="table-responsive">
 
             <table class="table table-borderless" id="dataTable" width="100%" cellspacing="0">

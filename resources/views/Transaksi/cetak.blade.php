@@ -33,130 +33,99 @@
 <!-- Set also "landscape" if you need -->
 
 <body class="A4 ">
+
     <div class="card-body">
-        <div class="text-center">
-            <h4><strong>Laundry MASBRO</strong></h4>
-            <h4><strong>Laporan Pesanan</strong></h4>
-            <table class="table table-borderless" id="dataTable" width="100%" cellspacing="0">
-                <tr>
-                    <td>
-                        <h6><strong>Periode : {{ $periode }}</strong></h6>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <h5>{{ Auth::user()->name }}</h5>
-                    </td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col-2" style="">
+                <img src="{{asset('/assets/images/MABRO.png')}}" alt="" style="width: 6rem">
 
+            </div>
 
-            <hr>
-
+            <div class="col-8" style="text-align: center">
+                <H4><strong>Laporan Pesanan MASBRO</strong> </H4>
+                <h6><strong>Periode : {{ $periode }}</strong></h6>
+            </div>
+            <div class="col-2">
+                <br>
+                <h6><strong>{{ date('d F Y')}}</strong></h6>
+            </div>
         </div>
-        <div class="table-responsive">
+        <hr>
 
-            <table class="table table-borderless" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+        <div class="row">
+            <div class="col-md-3">
+                <h5>Pendapatan</h5>
+            </div>
+            <div class="col-md-1.5">
+                <h5>Cuci Basah</h5>
+                <h5>Cuci Kering</h5>
+                <h5>Cuci Setrika</h5>
+                <h5>Setrika</h5>
+                <h5>Karpet</h5>
+            </div>
+            <div class="col-md-1.5">
+                <h5>: {{$cucibasah}}</h5>
+                <h5>: {{$cucikering}}</h5>
+                <h5>: {{$cucisetrika}}</h5>
+                <h5>: {{$setrika}}</h5>
+                <h5>: {{$karpet}}</h5>
+            </div>
+            <div class="col-md-1">
 
-
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>Pendapatan Laundry</th>
-                        <td>Cuci Basah
-                            <br>
-                            Cuci Kering
-                            <br>
-                            Cuci Setrika
-                            <br>
-                            Setrika
-                            <br>
-                            Karpet
-                        </td>
-                        <td>
-                            : {{$cucibasah}}
-                            <br>
-                            : {{$cucikering}}
-                            <br>
-                            : {{$cucisetrika}}
-                            <br>
-                            : {{$setrika}}
-                            <br>
-                            : {{$karpet}}
-
-                        </td>
-                        <th>Jumlah</th>
-                        <td>Cuci Basah
-                            <br>
-                            Cuci Kering
-                            <br>
-                            Cuci Setrika
-                            <br>
-                            Setrika
-                            <br>
-                            Karpet
-                        </td>
-                        <td>
-                            : {{$countcucibasah}}
-                            <br>
-                            : {{$countcucikering}}
-                            <br>
-
-                            : {{$countcucisetrika}}
-                            <br>
-                            : {{$countsetrika}}
-                            <br>
-                            : {{$countkarpet}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td>
-                            <hr>
-                        </td>
-                        <td>
-                            <hr>
-                        </td>
-                        <td></td>
-                        <td>
-                            <hr>
-                        </td>
-                        <td>
-                            <hr>
-                        </td>
-                        <th></th>
-                    </tr>
-
-                    <tr>
-                        <th>Total Pendapatan</th>
-                        <td></td>
-                        <th class="text-center">: {{$pendapatan}}</th>
-                        <th>Total Pesanan</th>
-                        <td></td>
-                        <th>: {{$countpesanan}}</th>
-                    </tr>
-
-                    <tr>
-                        <th>Pesanan Kirim : {{$countkirim}}
-                            <br>
-                            Pesanan Ambil : {{$countambil}}
-                        </th>
-                    </tr>
-                </tbody>
-
-
+            </div>
+            <div class="col-md-2">
+                <h5>Jumlah</h5>
+            </div>
+            <div class="col-md-1.5">
+                <h5>Cuci Basah</h5>
+                <h5>Cuci Kering</h5>
+                <h5>Cuci Setrika</h5>
+                <h5>Setrika</h5>
+                <h5>Karpet</h5>
+            </div>
+            <div class="col-md-1">
+                <h5>: {{$countcucibasah}}</h5>
+                <h5>: {{$countcucikering}}</h5>
+                <h5>: {{$countcucisetrika}}</h5>
+                <h5>: {{$countsetrika}}</h5>
+                <h5>: {{$countkarpet}}</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Total Pendapatan </h5>
+            </div>
+            <div class="col-md-3">
+                <h5>: {{$pendapatan}}</h5>
+            </div>
+            <div class="col-md-4">
+                <h5>Total Pesanan </h5>
+            </div>
+            <div class="col-md-1">
+                <h5>: {{$countpesanan}}</h5>
+            </div>
+        </div>
+        <h5>Pesanan Kirim : {{$countkirim}}</h5>
+        <h5>Pesanan Ambil : {{$countambil}}</h5>
+        <hr>
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-7">
+            </div>
+            <div class="col-3" style="text-align: center">
+                <br>
+                Mengetahui
+                <br>
+                <br>
+                <br>
+                <strong>{{Auth::user()->name}}</strong>
+                <strong>
+                    <hr>
+                </strong>
+            </div>
         </div>
     </div>
-
-
-    </table>
-    </div>
-
-
-
 </body>
 
 </html>

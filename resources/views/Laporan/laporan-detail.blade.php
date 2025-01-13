@@ -21,7 +21,7 @@
 
               <button onclick="history_back()" class="btn-secondary"
                 style="border-radius: 0.5rem; margin-top: -5.5rem">Kembali</button>
-              
+
               <a href="{{url('laporan/laba-rugi/cetak/' . date('Y-m-d', strtotime('1-' . $periode))) }}"
                 class="btn btn-success" style="border-radius: 0.5rem; margin-top: -0.5rem"><i
                   class="fa fa-print">Print</i></a>
@@ -32,13 +32,25 @@
         </div>
 
         <div class="card-body">
-          <div class="text-center">
-            <h4><strong>Laundry MASBRO</strong></h4>
-            <h4><strong>Laporan Laba Rugi</strong></h4>
-            <h6><strong>Periode : {{ $periode }}</strong></h6>
-            <hr>
+          <div class="row">
+            <div class="col-2" style="">
+              <img src="{{asset('/assets/images/MABRO.png')}}" alt="" style="width: 65%">
 
+            </div>
+
+            <div class="col-8" style="text-align: center">
+              <h4><strong>Laundry MASBRO</strong></h4>
+              <h4><strong>Laporan Laba Rugi</strong></h4>
+              <h6><strong>Periode : {{ $periode }}</strong></h6>
+            </div>
+            <div class="col-2">
+              <br>
+              <br>
+              <br>
+              <h6><strong>{{ date('d F Y', strtotime('1-' . $periode)) }}</strong></h6>
+            </div>
           </div>
+          <hr>
           <div class="table-responsive">
 
             <table class="table table-borderless" id="dataTable" width="100%" cellspacing="0">
@@ -128,6 +140,28 @@
 
 
         </table>
+        <hr>
+
+      </div>
+      <div class="row">
+        <div class="col-2">
+
+        </div>
+        <div class="col-7">
+
+        </div>
+        <div class="col-3" style="text-align: center">
+          
+          <br>
+          Mengetahui
+          <br>
+          <br>
+          <br>
+          <strong>{{Auth::user()->name}}</strong>
+          <strong><hr></strong>
+
+        </div>
+
       </div>
 
     </div>

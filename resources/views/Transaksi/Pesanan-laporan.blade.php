@@ -16,6 +16,7 @@
           </div>
         </div>
         <div class="card-body">
+          
           <div class="tabel-responsive">
             <h4>Total Data : <strong>{{ $total_pesanan }}</strong> </h4>
             <thead>
